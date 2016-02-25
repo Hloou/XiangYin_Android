@@ -42,6 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onTitleChanged(title, color);
         if (toolbarTitle != null) {
             toolbarTitle.setText(title);
+            //abcde
         }
     }
 }
