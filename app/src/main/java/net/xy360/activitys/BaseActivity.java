@@ -43,6 +43,7 @@ public class BaseActivity extends AppCompatActivity {
         if (toolbarTitle != null) {
             toolbarTitle.setText(title);
             //abcde
+            //zxcvb
         }
     }
 }
