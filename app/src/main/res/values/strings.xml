@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">XiangYin</string>
+
+    <!-- tab widget text -->
+    <string name="tab_index">首页</string>
+    <string name="tab_yinpan">印盘</string>
+    <string name="tab_wenku">文库</string>
+    <string name="tab_user">我</string>
+</resources>
