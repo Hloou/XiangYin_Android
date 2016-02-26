@@ -9,16 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".activitys.NavigationActivity">
+
+        </activity>
+        <activity android:name=".activitys.IndexActivity" />
+        <activity android:name=".activitys.UserActivity" />
+        <activity android:name=".activitys.YinPanActivity" />
+        <activity android:name=".activitys.WenKuActivity" />
+        <activity android:name=".activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.IndexActivity" />
-        <activity android:name=".activitys.UserActivity" />
-        <activity android:name=".activitys.YinPanActivity" />
-        <activity android:name=".activitys.WenKuActivity"></activity>
     </application>
 
 </manifest>

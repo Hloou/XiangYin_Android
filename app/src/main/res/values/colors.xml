@@ -5,6 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorTitle">#FFFFFF</color>
 
+    <color name="sky_blue">#09BED1</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#AAAAAA</color>
+
+
     <!-- tab color -->
     <color name="tab_press">#09BED1</color>
     <color name="tab_release">#DDE1E0</color>

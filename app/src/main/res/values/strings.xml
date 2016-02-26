@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">XiangYin</string>
 
+    <!-- login page -->
+    <string name="login_forget_password">忘记密码?</string>
+    <string name="login_new_user_regist">新用户注册</string>
+    <string name="login_login">马上登录</string>
+    <string name="login_third">使用第三方登录</string>
+    <string name="login_phone">手机号:</string>
+    <string name="login_password">密码:</string>
+
+
     <!-- tab widget text -->
     <string name="tab_index">首页</string>
     <string name="tab_yinpan">印盘</string>

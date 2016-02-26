@@ -3,6 +3,13 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- login page -->
+    <dimen name="login_logo_width">200dp</dimen>
+    <dimen name="login_logo_height">100dp</dimen>
+    <dimen name="login_padding">16dp</dimen>
+    <dimen name="login_small_logo_length">20dp</dimen>
+    <dimen name="login_text_padding">5dp</dimen>
+
     <!-- border tab widget dimen -->
     <dimen name="widget_height">46dp</dimen>
     <dimen name="widget_icon_length">25dp</dimen>
