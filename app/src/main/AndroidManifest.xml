@@ -12,9 +12,11 @@
 
         </activity>
         <activity android:name=".activitys.IndexActivity" />
-        <activity android:name=".activitys.UserActivity" />
+        <activity android:name=".activitys.UserActivity"
+            android:label="@string/my"/>
         <activity android:name=".activitys.YinPanActivity" />
-        <activity android:name=".activitys.WenKuActivity" />
+        <activity android:name=".activitys.WenKuActivity"
+            android:label="@string/wenku"/>
         <activity android:name=".activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

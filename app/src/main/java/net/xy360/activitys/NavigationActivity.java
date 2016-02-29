@@ -4,10 +4,12 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 
 import net.xy360.R;
+import net.xy360.commonutils.userdata.UserData;
 import net.xy360.views.CustomTabViewExt;
 
 public class NavigationActivity extends TabActivity {
@@ -43,5 +45,6 @@ public class NavigationActivity extends TabActivity {
         mHost.addTab(yinPanSpec);
         mHost.addTab(wenKuSpec);
         mHost.addTab(userSpec);
+
     }
 }

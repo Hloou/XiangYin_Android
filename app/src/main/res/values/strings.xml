@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">XiangYin</string>
+    <string name="wenku">文库</string>
+    <string name="my">我的</string>
 
     <!-- login page -->
     <string name="login_forget_password">忘记密码?</string>
@@ -15,4 +17,14 @@
     <string name="tab_yinpan">印盘</string>
     <string name="tab_wenku">文库</string>
     <string name="tab_user">我</string>
+
+    <!-- user page -->
+    <string name="my_dingdan">我的订单</string>
+    <string name="my_jifen">我的积分</string>
+    <string name="my_ziliao">个人资料</string>
+    <string name="my_xiaoxi">我的消息</string>
+    <string name="my_dizhi">收资地址</string>
+    <string name="my_fankui">服务与反馈</string>
+    <string name="my_shezhi">设置</string>
+    <string name="my_default_description">这个人很懒什么都没留下</string>
 </resources>

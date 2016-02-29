@@ -6,4 +6,8 @@ package net.xy360.commonutils.models;
 public class UserId {
     public int userId;
     public String token;
+
+    public UserId() {
+
+    };
 }
