@@ -10,7 +10,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.xy360.commonutils.internetrequest.BaseRequest;
+import net.xy360.commonutils.internetrequest.interfaces.CopiesService;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
+import net.xy360.commonutils.models.Copy;
 import net.xy360.commonutils.models.University;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserInfo;
@@ -81,7 +83,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
                     public void onError(Throwable e) {
                         Log.d("sha256 error", e.getMessage());
                         //et_phone.setText(e.getMessage());
-                        /*if (e instanceof HttpException) {
+                        if (e instanceof HttpException) {
                             HttpException response = (HttpException) e;
                             if (response.response().errorBody() != null)
                                 try {
@@ -94,7 +96,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
                                 Log.e("test2",gson.toJson(response.response().errorBody()));
                             }
 
-                        }*/
+                        }
                     }
 
                     @Override
@@ -107,57 +109,27 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     @LargeTest
     public void test3() {
-        ManagementService managementService = BaseRequest.retrofit.create(ManagementService.class);
-        Map<String, String> map = new HashMap<>();
-        map.put("token", "eyJhbGciOiJIUzI1NiIsInJhbmRGbG9hdCI6LTIuMjcyNjkyMjE3MDA0MjUzLCJ0eXAiOiJKV1QifQ");
-        UserInfo userInfo = new UserInfo();
-        Log.e("test3", userInfo.getClass().getName());
-        Object o = userInfo;
-        Log.e("test3", o.getClass().getName());
-        /*managementService.getUserInfo(5, map)
+        CopiesService copiesService = BaseRequest.retrofit.create(CopiesService.class);
+        copiesService.getCopies("", 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserInfo>() {
+                .subscribe(new Subscriber<List<Copy>>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.e("test3", "done");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof HttpException) {
-                            HttpException response = (HttpException) e;
-                            if (response.response().errorBody() != null)
-                                try {
-                                    Log.e("test3", response.response().errorBody().string());
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                            else {
-                                Gson gson = new Gson();
-                                Log.e("test3",gson.toJson(response.response().errorBody()));
-                            }
-
-                        }
+                        Log.e("test3", "fail");
                     }
 
                     @Override
-                    public void onNext(UserInfo userInfo) {
+                    public void onNext(List<Copy> copies) {
                         Gson gson = new Gson();
-                        Log.e("test3", gson.toJson(userInfo));
+                        Log.e("test3", gson.toJson(copies));
                     }
-                });*/
-        /*managementService.login1(userLogin)
-                .enqueue(new Callback<UserId>() {
-                    @Override
-                    public void onResponse(Call<UserId> call, Response<UserId> response) {
-                        Log.d("test3", response.code() + "");
-                    }
+                });
 
-                    @Override
-                    public void onFailure(Call<UserId> call, Throwable t) {
-
-                    }
-                });*/
     }
 }

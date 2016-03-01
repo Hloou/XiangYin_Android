@@ -8,15 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activitys.NavigationActivity">
-
-        </activity>
+        <activity android:name=".activitys.NavigationActivity"></activity>
         <activity android:name=".activitys.IndexActivity" />
-        <activity android:name=".activitys.UserActivity"
-            android:label="@string/my"/>
-        <activity android:name=".activitys.YinPanActivity" />
-        <activity android:name=".activitys.WenKuActivity"
-            android:label="@string/wenku"/>
+        <activity
+            android:name=".activitys.UserActivity"
+            android:label="@string/my" />
+        <activity
+            android:name=".activitys.YinPanActivity"
+            android:label="@string/yinpan" />
+        <activity
+            android:name=".activitys.WenKuActivity"
+            android:label="@string/wenku" />
         <activity android:name=".activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitys.WenKuSearchActivity"></activity>
     </application>
 
 </manifest>

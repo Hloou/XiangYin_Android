@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">XiangYin</string>
     <string name="wenku">文库</string>
+    <string name="yinpan">印盘</string>
     <string name="my">我的</string>
 
     <!-- login page -->
@@ -27,4 +28,19 @@
     <string name="my_fankui">服务与反馈</string>
     <string name="my_shezhi">设置</string>
     <string name="my_default_description">这个人很懒什么都没留下</string>
+
+    <!-- wenku -->
+    <string name="wenku_writer">作者:</string>
+    <string name="wenku_page">页数:</string>
+    <string name="wenku_package">裝订:</string>
+    <string name="wenku_size">尺寸:</string>
+    <string name="wenku_flash">閃一份</string>
+    <string name="wenku_input_key_word">请输入关键字</string>
+
+    <!-- yinpan -->
+    <string name="yinpan_share">分享</string>
+    <string name="yinpan_download">下载</string>
+    <string name="yinpan_move">移动</string>
+    <string name="yinpan_rename">重命名</string>
+    <string name="yinpan_delete">刪除</string>
 </resources>

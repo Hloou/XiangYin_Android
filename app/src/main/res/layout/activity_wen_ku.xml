@@ -8,6 +8,37 @@
 
     <include layout="@layout/toolbar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/wenku_search_padding"
+            android:background="@drawable/btn_gray_corner">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wenku_input_key_word"/>
+            <ImageView
+                android:layout_width="@dimen/wenku_search_image_length"
+                android:layout_height="@dimen/wenku_search_image_length"
+                android:src="@mipmap/search"/>
+        </LinearLayout>
 
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

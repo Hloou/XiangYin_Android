@@ -24,6 +24,7 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/widget_height"
+                android:background="@color/white"
                 android:divider="@color/tab_divider"/>
 
         </LinearLayout>
