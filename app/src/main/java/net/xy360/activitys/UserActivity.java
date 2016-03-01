@@ -1,11 +1,15 @@
 package net.xy360.activitys;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.activitys.user.SettingsActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.UserId;
@@ -20,17 +24,21 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class UserActivity extends BaseActivity {
+public class UserActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_name, tv_description;
+    private ImageView settings;
     private ManagementService managementService = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        tv_name = (TextView)findViewById(R.id.tv_name);
-        tv_description = (TextView)findViewById(R.id.tv_description);
+
+        initView();
+
+        setClick();
+
         UserInfo userInfo = UserData.load(this, UserInfo.class);
         if (userInfo == null) {
             final UserId userId = UserData.load(this, UserId.class);
@@ -72,9 +80,29 @@ public class UserActivity extends BaseActivity {
             setUI(userInfo);
     }
 
+    private void initView() {
+        tv_name = (TextView)findViewById(R.id.tv_name);
+        tv_description = (TextView)findViewById(R.id.tv_description);
+        settings = (ImageView)findViewById(R.id.user_setting);
+    }
+
+    private void setClick() {
+        settings.setOnClickListener(this);
+    }
+
     private void setUI(UserInfo userInfo) {
         tv_name.setText(userInfo.nickname);
         tv_description.setText(userInfo.description == null ? getString(R.string.my_default_description) : userInfo.description);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.user_setting) {
+            Intent intent = new Intent(UserActivity.this, SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
     }
 
 }
