@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 
 import net.xy360.R;
@@ -19,9 +20,22 @@ public class WenKuSearchActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wen_ku_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        wenKuAdapter = new WenKuAdapter(this);
-        
+        toolbar.setNavigationOnClickListener(this);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //wenKuAdapter = new WenKuAdapter(this);
+        //hhaahahaha
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
