@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/XiangYin.iml" filepath="$PROJECT_DIR$/XiangYin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/build/build.iml" filepath="$PROJECT_DIR$/build/build.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonutils/commonutils.iml" filepath="$PROJECT_DIR$/commonutils/commonutils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/xiangyin_android.iml" filepath="$PROJECT_DIR$/.idea/xiangyin_android.iml" />
     </modules>
   </component>
 </project>

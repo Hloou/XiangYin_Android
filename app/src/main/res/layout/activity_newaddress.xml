@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".activitys.user.SettingsActivity"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/setting_padding">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_name" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_tel" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_zipcode" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_location" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_street" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_address" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_school" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_school_location" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp">
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/newaddr_save"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_sky_blue_round"/>
+
+    </LinearLayout>
+
+</LinearLayout>
