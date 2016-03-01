@@ -15,6 +15,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
@@ -25,6 +26,9 @@ public interface ManagementService {
 
     @POST("users/sessions")
     Observable<UserId> login(@QueryMap Map<String, String> map);
+
+    @POST("users/sessions/wechat")
+    Observable<UserId> loginWeChat(@Query("code") String code);
 
     @GET("users/{id}/private")
     Observable<UserInfo> getUserInfo(@Path("id") int id, @QueryMap Map<String, String> map);
