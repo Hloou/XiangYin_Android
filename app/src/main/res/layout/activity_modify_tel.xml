@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".activitys.user.ModifyTelActivity"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_gray_corner"
+            android:padding="@dimen/signup_text_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="@dimen/signup_text_padding">
+                <ImageView
+                    android:layout_width="@dimen/login_small_logo_length"
+                    android:layout_height="@dimen/login_small_logo_length"
+                    android:layout_margin="5dp"
+                    android:src="@mipmap/mima2"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+                <TextView
+                    android:layout_width="@dimen/password_text_width"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/signup_textview_padding"
+                    android:gravity="center"
+                    android:text="@string/mdf_tel_old" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_gray_corner"
+            android:padding="@dimen/signup_text_padding">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="@dimen/signup_text_padding">
+                <ImageView
+                    android:layout_width="@dimen/login_small_logo_length"
+                    android:layout_height="@dimen/login_small_logo_length"
+                    android:layout_margin="5dp"
+                    android:src="@mipmap/mima" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray"/>
+                <TextView
+                    android:layout_width="@dimen/password_text_width"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/signup_textview_padding"
+                    android:gravity="center"
+                    android:text="@string/mdf_tel_new"/>
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_gray_corner"
+            android:padding="@dimen/signup_text_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/signup_enter_codes"
+                android:padding="@dimen/signup_code_enter"/>
+            <EditText
+                android:layout_width="@dimen/signup_code_width"
+                android:layout_height="match_parent"
+                android:layout_weight="0.33"
+                android:layout_gravity="center"/>
+            <Button
+                android:layout_width="@dimen/signup_getcode_width"
+                android:layout_height="@dimen/signup_getcode_height"
+                android:layout_gravity="right"
+                android:padding="@dimen/signup_code_enter"
+                android:textColor="@color/white"
+                android:text="@string/signup_get_codes"
+                android:background="@mipmap/btn_code_sky_blue"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mdf_tel_cfm"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_sky_blue_round"/>
+
+    </LinearLayout>
+
+</LinearLayout>

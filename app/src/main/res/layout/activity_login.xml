@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:background="@null"
                 android:layout_weight="1"/>
         </LinearLayout>
         <View
@@ -71,7 +72,8 @@
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:background="@null"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -102,6 +104,7 @@
         android:orientation="horizontal"
         android:gravity="center">
         <ImageView
+            android:id="@+id/wechat_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/weixin"/>

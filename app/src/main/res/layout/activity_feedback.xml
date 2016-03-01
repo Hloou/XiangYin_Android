@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".activitys.user.FeedbackActivity"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/signup_padding"
+        android:background="@color/light_gray">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/feedback_padding">
+            <View
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:background="@color/green" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:background="@color/light_gray"
+                android:text="@string/feedback_title"/>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp">
+            </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@color/white"
+            android:hint="@string/feedback_title_hint"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp">
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/feedback_padding">
+            <View
+                android:layout_width="4dp"
+                android:layout_height="30dp"
+                android:background="@color/green" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:gravity="center"
+                android:textSize="16dp"
+                android:background="@color/light_gray"
+                android:text="@string/feedback_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp">
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:padding="5dp"
+            android:gravity="left"
+            android:background="@color/white"
+            android:hint="@string/feedback_content_hint"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_sky_blue_round"
+            android:text="@string/feedback_commit"/>
+    </LinearLayout>
+
+</LinearLayout>
