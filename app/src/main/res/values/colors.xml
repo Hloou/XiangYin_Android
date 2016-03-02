@@ -12,7 +12,7 @@
 
     <color name="lucency">#00000000</color>
     <color name="green">#388E3C</color>
-    <color name="light_gray">#F5F5F5</color>
+    <color name="black">#000000</color>
 
     <!-- tab color -->
     <color name="tab_press">#09BED1</color>

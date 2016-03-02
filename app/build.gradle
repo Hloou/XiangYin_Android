@@ -3,7 +3,8 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('D:/intern/2_24/XiaoYuan360/mykey.jks')
+            storeFile file('D:/mykey.jks')
+            storePassword 'android'
         }
     }
     compileSdkVersion 23
@@ -24,7 +25,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':commonutils')

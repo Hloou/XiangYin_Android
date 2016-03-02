@@ -88,4 +88,10 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
         mDatas.addAll(datas);
         notifyItemRangeInserted(i, datas.size());
     }
+
+    public void setDatas(List<Copy> datas) {
+        mDatas.clear();
+        mDatas.addAll(datas);
+        notifyDataSetChanged();
+    }
 }
