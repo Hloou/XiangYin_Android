@@ -9,7 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.activitys.user.FeedbackActivity;
+import net.xy360.activitys.user.MyAddressActivity;
+import net.xy360.activitys.user.MyMessageActivity;
 import net.xy360.activitys.user.SettingsActivity;
+import net.xy360.activitys.user.UserInfoActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.UserId;
@@ -27,7 +31,7 @@ import rx.schedulers.Schedulers;
 public class UserActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_name, tv_description;
-    private ImageView settings;
+    private ImageView settings, feedback, message, address, info;
     private ManagementService managementService = null;
 
     @Override
@@ -36,8 +40,6 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_user);
 
         initView();
-
-        setClick();
 
         UserInfo userInfo = UserData.load(this, UserInfo.class);
         if (userInfo == null) {
@@ -80,15 +82,22 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
             setUI(userInfo);
     }
 
-    private void initView() {
+    public void initView() {
         tv_name = (TextView)findViewById(R.id.tv_name);
         tv_description = (TextView)findViewById(R.id.tv_description);
         settings = (ImageView)findViewById(R.id.user_setting);
+        feedback = (ImageView)findViewById(R.id.user_feedback);
+        message = (ImageView)findViewById(R.id.user_mymsg);
+        address = (ImageView)findViewById(R.id.user_address);
+        info = (ImageView)findViewById(R.id.user_info);
+
+        settings.setOnClickListener(this);
+        feedback.setOnClickListener(this);
+        message.setOnClickListener(this);
+        address.setOnClickListener(this);
+        info.setOnClickListener(this);
     }
 
-    private void setClick() {
-        settings.setOnClickListener(this);
-    }
 
     private void setUI(UserInfo userInfo) {
         tv_name.setText(userInfo.nickname);
@@ -100,6 +109,26 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         int id = v.getId();
         if (id == R.id.user_setting) {
             Intent intent = new Intent(UserActivity.this, SettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        if (id == R.id.user_feedback) {
+            Intent intent = new Intent(UserActivity.this, FeedbackActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        if (id == R.id.user_mymsg) {
+            Intent intent = new Intent(UserActivity.this, MyMessageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        if (id == R.id.user_address) {
+            Intent intent = new Intent(UserActivity.this, MyAddressActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        if (id == R.id.user_info) {
+            Intent intent = new Intent(UserActivity.this, UserInfoActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }

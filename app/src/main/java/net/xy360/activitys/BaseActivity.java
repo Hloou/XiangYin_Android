@@ -12,7 +12,7 @@ import net.xy360.R;
 /**
  * Created by jolin on 2016/2/24.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
     protected TextView toolbarTitle;
@@ -36,6 +36,8 @@ public class BaseActivity extends AppCompatActivity {
             }
         }
     }
+
+    public abstract void initView();
 
     @Override
     protected void onTitleChanged(CharSequence title, int color) {

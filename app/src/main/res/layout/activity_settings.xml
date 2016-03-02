@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context=".activitys.user.NewAddressActivity"
+              tools:context=".activitys.user.SettingsActivity"
               android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -28,11 +28,11 @@
             <TextView
                 android:layout_width="@dimen/password_text_width"
                 android:layout_height="@dimen/login_small_logo_length"
-                android:padding="@dimen/signup_textview_padding"
                 android:layout_weight="0.7"
                 android:gravity="center_vertical"
                 android:text="@string/settings_mdf_pw" />
             <ImageView
+                android:id="@+id/settings_mdf_pw"
                 android:layout_width="@dimen/login_small_logo_length"
                 android:layout_height="@dimen/login_small_logo_length"
                 android:gravity="center_vertical"
@@ -61,11 +61,11 @@
             <TextView
                 android:layout_width="@dimen/password_text_width"
                 android:layout_height="@dimen/login_small_logo_length"
-                android:padding="@dimen/signup_textview_padding"
                 android:layout_weight="0.7"
                 android:gravity="center_vertical"
                 android:text="@string/settings_about_xy" />
             <ImageView
+                android:id="@+id/settings_about"
                 android:layout_width="@dimen/login_small_logo_length"
                 android:layout_height="@dimen/login_small_logo_length"
                 android:gravity="center_vertical"

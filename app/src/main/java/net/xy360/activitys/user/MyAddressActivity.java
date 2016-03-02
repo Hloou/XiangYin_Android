@@ -1,20 +1,15 @@
-package net.xy360.activitys;
+package net.xy360.activitys.user;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
 
 import net.xy360.R;
 
-public class IndexActivity extends BaseActivity {
+public class MyAddressActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_index);
-    }
-
-    public void initView() {
-
+        setContentView(R.layout.activity_my_address);
     }
 }

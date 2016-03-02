@@ -47,4 +47,8 @@ public class NavigationActivity extends TabActivity {
         mHost.addTab(userSpec);
 
     }
+
+    public void initView() {
+
+    }
 }

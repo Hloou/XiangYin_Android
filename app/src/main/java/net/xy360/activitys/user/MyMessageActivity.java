@@ -8,11 +8,16 @@ import net.xy360.activitys.BaseActivity;
 /**
  * Created by jiangbin on 2016/3/1.
  */
-public class MyMessageActivity extends BaseActivity{
+public class MyMessageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_feedback);
+        setContentView(R.layout.activity_my_message);
+    }
+
+
+    public void initView() {
+
     }
 }

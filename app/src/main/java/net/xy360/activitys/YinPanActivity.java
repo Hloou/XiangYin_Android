@@ -22,4 +22,8 @@ public class YinPanActivity extends BaseActivity {
         yinPanAdapter = new YinPanAdapter(this);
         recyclerView.setAdapter(yinPanAdapter);
     }
+
+    public void initView() {
+
+    }
 }

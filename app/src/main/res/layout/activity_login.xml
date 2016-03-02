@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg_login"
-    tools:context="net.xy360.activitys.LoginActivity"
+    tools:context="net.xy360.wxapi.WXEntryActivity"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/login_padding">
@@ -12,14 +12,19 @@
     <ImageView
         android:layout_width="@dimen/login_logo_width"
         android:layout_height="@dimen/login_logo_height"
-        android:src="@mipmap/logo"/>
+        android:src="@mipmap/logo"
+        android:layout_marginBottom="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/bg_white_corner"
-        android:padding="@dimen/login_text_padding">
+        android:padding="@dimen/login_text_padding"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,15 +34,26 @@
             <ImageView
                 android:layout_width="@dimen/login_small_logo_length"
                 android:layout_height="@dimen/login_small_logo_length"
-                android:src="@mipmap/yonghu"/>
+                android:src="@mipmap/yonghu"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"/>
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/gray"/>
+                android:background="@color/gray"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="@string/login_phone"/>
+                android:text="@string/login_phone"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"/>
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
@@ -59,15 +75,25 @@
             <ImageView
                 android:layout_width="@dimen/login_small_logo_length"
                 android:layout_height="@dimen/login_small_logo_length"
-                android:src="@mipmap/mima" />
+                android:src="@mipmap/mima"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"/>
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/gray"/>
+                android:background="@color/gray"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="@string/login_password"/>
+                android:text="@string/login_password"
+                android:textSize="16dp"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"/>
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
@@ -76,33 +102,55 @@
                 android:background="@null"/>
         </LinearLayout>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="10dp">
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
         <TextView
+            android:id="@+id/login_forget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_forget_password"
             android:layout_weight="1"/>
         <TextView
+            android:id="@+id/login_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_new_user_regist"
             android:textColor="@color/sky_blue"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="10dp">
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_login"
         android:textColor="@color/white"
-        android:background="@drawable/btn_sky_blue_round"/>
+        android:background="@drawable/btn_sky_blue_round"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
         <ImageView
             android:id="@+id/wechat_login"
             android:layout_width="wrap_content"

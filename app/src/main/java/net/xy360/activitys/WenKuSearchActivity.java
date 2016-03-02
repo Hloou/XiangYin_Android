@@ -24,6 +24,10 @@ public class WenKuSearchActivity extends BaseActivity implements View.OnClickLis
         
     }
 
+    public void initView() {
+
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();

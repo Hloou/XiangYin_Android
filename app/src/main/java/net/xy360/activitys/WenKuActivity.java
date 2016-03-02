@@ -64,6 +64,10 @@ public class WenKuActivity extends BaseActivity implements View.OnClickListener{
 
     }
 
+    public void initView() {
+
+    }
+
     private void requestData() {
         if (nowpage != 0)
             copiesService.getCopies("", nowpage++)

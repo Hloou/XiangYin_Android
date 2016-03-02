@@ -13,6 +13,9 @@ public class ModifyPasswordActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_forgetpassword);
+        setContentView(R.layout.activity_forget_password);
+    }
+    public void initView() {
+
     }
 }

@@ -69,7 +69,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/user_ziliao"/>
+                android:src="@mipmap/user_ziliao"
+                android:id="@+id/user_info"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,7 +84,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/user_xiaoxi"/>
+                android:src="@mipmap/user_xiaoxi"
+                android:id="@+id/user_mymsg"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +99,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/user_dizhi"/>
+                android:src="@mipmap/user_dizhi"
+                android:id="@+id/user_address"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,7 +114,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/user_fankui"/>
+                android:src="@mipmap/user_fankui"
+                android:id="@+id/user_feedback"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,6 +127,7 @@
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
             <ImageView
+                android:id="@+id/user_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/user_shezhi"/>

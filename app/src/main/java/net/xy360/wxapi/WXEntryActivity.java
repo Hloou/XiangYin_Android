@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -21,7 +22,10 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
+import net.xy360.activitys.ForgetPasswordActivity;
 import net.xy360.activitys.NavigationActivity;
+import net.xy360.activitys.SignUpActivity;
+import net.xy360.activitys.user.MyAddressActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.UserId;
@@ -44,6 +48,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
     private EditText et_phone, et_password;
     private Button btn_login;
+    private TextView forget, register;
     private ManagementService managementService = null;
 
     private IWXAPI api;
@@ -53,12 +58,9 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        et_phone = (EditText)findViewById(R.id.et_phone);
-        et_password = (EditText)findViewById(R.id.et_password);
-        btn_login = (Button)findViewById(R.id.btn_login);
-        wechatLogin = (ImageView) findViewById(R.id.wechat_login);
-        wechatLogin.setOnClickListener(this);
-        btn_login.setOnClickListener(this);
+
+        initView();
+
         et_phone.setText("18818200005");
         et_password.setText("18818200005");
 
@@ -79,6 +81,21 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         }*/
     }
 
+    public void initView() {
+        et_phone = (EditText)findViewById(R.id.et_phone);
+        et_password = (EditText)findViewById(R.id.et_password);
+        btn_login = (Button)findViewById(R.id.btn_login);
+        wechatLogin = (ImageView) findViewById(R.id.wechat_login);
+        forget = (TextView) findViewById(R.id.login_forget);
+        register = (TextView) findViewById(R.id.login_register);
+
+        wechatLogin.setOnClickListener(this);
+        btn_login.setOnClickListener(this);
+        forget.setOnClickListener(this);
+        register.setOnClickListener(this);
+
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -90,6 +107,16 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
             req.scope = "snsapi_userinfo";
             req.state = "wechat_sdk_demo_test";
             api.sendReq(req);
+        }
+        if (id == R.id.login_forget) {
+            Intent intent = new Intent(WXEntryActivity.this, ForgetPasswordActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        if (id == R.id.login_register) {
+            Intent intent = new Intent(WXEntryActivity.this, SignUpActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
     }
 
@@ -155,7 +182,6 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                     }
                 });
     }
-
 
     /**
      * wechat method begin
@@ -233,12 +259,10 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                                 startActivity(intent);
                             }
                         });
-
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 result = R.string.errcode_cancel;
                 Log.d("Tag", "errcode_cancel");
-
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
                 result = R.string.errcode_deny;

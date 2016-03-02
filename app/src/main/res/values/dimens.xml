@@ -56,7 +56,13 @@
 
     <!-- my message page -->
     <dimen name="mymsg_textwidth">40dp</dimen>
+    <dimen name="address_text_padding">10dp</dimen>
+    <dimen name="addr_view">15dp</dimen>
 
-
+    <!-- user info -->
+    <dimen name="user_info_layout">25dp</dimen>
+    <dimen name="user_info_image">20dp</dimen>
+    <dimen name="user_info_line">8dp</dimen>
+    <dimen name="user_info_text_leftmarg">30dp</dimen>
 
 </resources>

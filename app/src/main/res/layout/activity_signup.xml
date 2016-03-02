@@ -145,6 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/signup_padding">
         <CheckBox
             android:layout_width="wrap_content"
@@ -154,22 +155,29 @@
             android:layout_height="match_parent"
             android:text="@string/signup_agreement"
             android:gravity="center"/>
-        <Button
+        <TextView
+            android:id="@+id/signup_user_agreement"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/signup_user_agreement"
             android:gravity="center"
-            android:textColor="@color/sky_blue"
-            android:background="@color/lucency"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:textColor="@color/white"
+            android:background="@color/lucency"
+            />
+        <TextView
+            android:id="@+id/signup_account"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/signup_user"
-            android:textColor="@color/sky_blue"
-            android:background="@color/lucency"/>
+            android:gravity="center"
+            android:layout_weight="0.7"
+            android:textColor="@color/white"
+            android:background="@color/lucency"
+            />
+
     </LinearLayout>
     <Button
+        android:id="@+id/signup_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/signup_signup"

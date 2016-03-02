@@ -15,4 +15,9 @@ public class NewAddressActivity extends BaseActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_feedback);
     }
+
+    public void initView() {
+
+    }
+
 }
