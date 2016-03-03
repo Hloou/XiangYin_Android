@@ -1,5 +1,6 @@
 package net.xy360.activitys.yinpan;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
@@ -36,7 +37,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class YinPanActivity extends BaseActivity implements YinPanListener{
+public class YinPanActivity extends BaseActivity implements YinPanListener, View.OnClickListener{
 
     private RecyclerView recyclerView;
     private YinPanAdapter yinPanAdapter;
@@ -71,9 +72,11 @@ public class YinPanActivity extends BaseActivity implements YinPanListener{
 
         userId = UserData.load(this, UserId.class);
 
+        //right top popup window
         View viewMore = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_more, null);
         popupMore = new PopupWindow(viewMore, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupMore.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        viewMore.findViewById(R.id.ll_trash).setOnClickListener(this);
 
         //bottom widget
         mWindowManager = getWindowManager();
@@ -183,5 +186,15 @@ public class YinPanActivity extends BaseActivity implements YinPanListener{
     public void showWidget(int show) {
         //Log.d("show", "" + show);
         mWidget.setVisibility(show == 0 ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.ll_trash) {
+            popupMore.dismiss();
+            Intent intent = new Intent(this, TrashActivity.class);
+            startActivity(intent);
+        }
     }
 }

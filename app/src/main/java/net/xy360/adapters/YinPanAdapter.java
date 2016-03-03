@@ -147,7 +147,7 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             File file = fileList.get(position);
             myViewHolder.position = position;
             myViewHolder.tv_name.setText(file.fileName);
-            //myViewHolder.tv_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.ownedTime));
+            myViewHolder.tv_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.ownedTime));
             myViewHolder.tv_size.setText("" + file.size / 1024);
             if (file.fileType.equals("pdf"))
                 myViewHolder.iv_icon.setImageResource(R.mipmap.pdf);
