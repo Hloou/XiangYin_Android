@@ -34,6 +34,7 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<File> fileList = null;
     private List<Label> labelList = null;
     private List<Boolean> selectedList = null;
+    private int selectedCount = 0;
 
     private YinPanListener yinPanListener = null;
 
@@ -96,6 +97,13 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     selectedList.set(position, isChecked);
+                    if (isChecked)
+                        selectedCount++;
+                    else
+                        selectedCount = selectedCount == 0 ? 0 : --selectedCount;
+                    if (yinPanListener != null)
+                        yinPanListener.showWidget(selectedCount);
+
                 }
             });
         }
@@ -159,6 +167,9 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setFileList(List<File> list) {
+        selectedCount = 0;
+        if (yinPanListener != null)
+            yinPanListener.showWidget(selectedCount);
         fileList.clear();
         fileList.addAll(list);
         selectedList.clear();

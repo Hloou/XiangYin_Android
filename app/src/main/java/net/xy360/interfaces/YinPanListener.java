@@ -5,4 +5,7 @@ package net.xy360.interfaces;
  */
 public interface YinPanListener {
     void getFilesViaLabels(int labelId);
+
+    //0 for hide, else for show
+    void showWidget(int show);
 }

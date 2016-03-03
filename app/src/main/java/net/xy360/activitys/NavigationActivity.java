@@ -2,14 +2,13 @@ package net.xy360.activitys;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 
 import net.xy360.R;
-import net.xy360.commonutils.userdata.UserData;
+import net.xy360.activitys.wenku.WenKuActivity;
+import net.xy360.activitys.yinpan.YinPanActivity;
 import net.xy360.views.CustomTabViewExt;
 
 public class NavigationActivity extends TabActivity {

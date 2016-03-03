@@ -1,12 +1,25 @@
-package net.xy360.activitys;
+package net.xy360.activitys.yinpan;
 
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import net.xy360.R;
+import net.xy360.activitys.BaseActivity;
 import net.xy360.adapters.YinPanAdapter;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.FileService;
@@ -33,6 +46,11 @@ public class YinPanActivity extends BaseActivity implements YinPanListener{
 
     private UserId userId;
 
+    private PopupWindow popupMore;
+
+    private WindowManager mWindowManager;
+    private View mWidget;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +71,46 @@ public class YinPanActivity extends BaseActivity implements YinPanListener{
 
         userId = UserData.load(this, UserId.class);
 
+        View viewMore = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_more, null);
+        popupMore = new PopupWindow(viewMore, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        popupMore.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        //bottom widget
+        mWindowManager = getWindowManager();
+        Display display = mWindowManager.getDefaultDisplay();
+        WindowManager.LayoutParams wp = new WindowManager.LayoutParams();
+        wp.width = display.getWidth();
+        wp.height = (int)getResources().getDimension(R.dimen.widget_height);
+        wp.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        wp.x = 0;
+        wp.y = 0;
+        wp.gravity = Gravity.LEFT | Gravity.BOTTOM;
+        mWidget = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_selected, null);
+        mWindowManager.addView(mWidget, wp);
+        mWidget.setVisibility(View.INVISIBLE);
+
         if (labelService == null)
             labelService = BaseRequest.retrofit.create(LabelService.class);
         if (fileService == null)
             fileService = BaseRequest.retrofit.create(FileService.class);
 
         requestData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_yin_pan, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.menu_more) {
+            popupMore.showAsDropDown(findViewById(R.id.menu_more));
+            return true;
+        } else
+            return super.onOptionsItemSelected(item);
     }
 
     private void requestData() {
@@ -125,5 +177,11 @@ public class YinPanActivity extends BaseActivity implements YinPanListener{
                         yinPanAdapter.setFileList(files);
                     }
                 });
+    }
+
+    @Override
+    public void showWidget(int show) {
+        //Log.d("show", "" + show);
+        mWidget.setVisibility(show == 0 ? View.INVISIBLE : View.VISIBLE);
     }
 }
