@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="net.xy360"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.xy360">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -16,20 +16,45 @@
         <activity android:name=".activitys.IndexActivity"/>
         <activity
             android:name=".activitys.UserActivity"
-            android:label="@string/my"/>
+            android:label="@string/my" />
         <activity
             android:name=".activitys.YinPanActivity"
-            android:label="@string/yinpan"/>
+            android:label="@string/yinpan" />
         <activity
             android:name=".activitys.WenKuActivity"
             android:label="@string/wenku"/>
         <activity android:name=".wxapi.WXEntryActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitys.SignUpActivity" />
+        <activity
+            android:name=".activitys.ForgetPasswordActivity"
+            android:label="@string/password_forget" />
+        <activity
+            android:name=".activitys.user.FeedbackActivity"
+            android:label="@string/feedback_toolbar" />
+        <activity
+            android:name=".activitys.user.ModifyPasswordActivity"
+            android:label="@string/pw_mdf_toolbar" />
+        <activity
+            android:name=".activitys.user.ModifyTelActivity"
+            android:label="@string/mdf_tel_toolbar" />
+        <activity
+            android:name=".activitys.user.SettingsActivity"
+            android:label="@string/settinngs_toolbar" />
+        <activity
+            android:name=".activitys.user.NewAddressActivity"
+            android:label="@string/newaddr_toolbar" />
+        <activity
+            android:name=".activitys.user.MyMessageActivity"
+            android:label="@string/mymsg_toolbar" />
+        <activity android:name=".activitys.wenku.WenKuSearchActivity" />
+        <activity android:name=".activitys.yinpan.TrashActivity"
+            android:label="@string/trash"></activity>
         <activity android:name=".activitys.SignUpActivity"/>
         <activity
             android:name=".activitys.ForgetPasswordActivity"

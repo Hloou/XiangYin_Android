@@ -3,6 +3,7 @@
     <string name="wenku">文库</string>
     <string name="yinpan">印盘</string>
     <string name="my">我的</string>
+    <string name="trash">废纸篓</string>
 
     <!-- login page -->
     <string name="login_forget_password">忘记密码?</string>
@@ -34,7 +35,7 @@
     <string name="tab_yinpan">印盘</string>
     <string name="tab_wenku">文库</string>
     <string name="tab_user">我</string>
-
+    
     <!-- feedback page -->
     <string name="feedback_toolbar">意见反馈</string>
     <string name="feedback_title">反馈标题</string>
@@ -61,8 +62,7 @@
     <string name="errcode_cancel">发送取消</string>
     <string name="errcode_deny">发送被拒绝</string>
     <string name="errcode_unknown">发送返回</string>
-
-
+    
     <!-- user page -->
     <string name="my_dingdan">我的订单</string>
     <string name="my_jifen">我的积分</string>
@@ -110,6 +110,13 @@
     <string name="yinpan_move">移动</string>
     <string name="yinpan_rename">重命名</string>
     <string name="yinpan_delete">刪除</string>
+    <string name="yinpan_new_tab">新建标签</string>
+    <string name="yinpan_trash">废纸篓</string>
+    <string name="yinpan_offline">离线文件</string>
+    <string name="yinpan_print">打印</string>
+
+    <!-- yinpan trash -->
+    <string name="trash_all_selected">全选</string>
 
     <!-- user info -->
     <string name="user_info_toolbar">个人资料</string>

@@ -48,8 +48,13 @@
     <dimen name="wenku_search_padding">10dp</dimen>
 
     <!-- yinpan dimen -->
-    <dimen name="yinpan_list_height">50dp</dimen>
+    <dimen name="yinpan_list_height">70dp</dimen>
     <dimen name="yinpan_list_swipe_logo">20dp</dimen>
+    <dimen name="yinpan_list_icon_length">50dp</dimen>
+    <dimen name="yinpan_list_icon_padding">10dp</dimen>
+    <dimen name="yinpan_list_title_size">17sp</dimen>
+    <dimen name="yinpan_popup_window_width">100dp</dimen>
+    <dimen name="yinpan_popup_window_height">150dp</dimen>
 
     <!-- new address page -->
     <dimen name="addr_layout_margin">2sp</dimen>

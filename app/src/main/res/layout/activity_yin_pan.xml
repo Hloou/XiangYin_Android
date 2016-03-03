@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="net.xy360.activitys.YinPanActivity">
+    tools:context=".activitys.yinpan.YinPanActivity">
 
     <include layout="@layout/toolbar" />
     <android.support.v7.widget.RecyclerView

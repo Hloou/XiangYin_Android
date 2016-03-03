@@ -10,10 +10,10 @@
     <color name="gray">#DCDDDD</color>
     <color name="light_gray">#DCDDDD</color>
     <color name="bg_gray">#F4F5F6</color>
-
-
+    
     <color name="lucency">#00000000</color>
     <color name="green">#388E3C</color>
+    <color name="black">#000000</color>
 
     <!-- tab color -->
     <color name="tab_press">#09BED1</color>
