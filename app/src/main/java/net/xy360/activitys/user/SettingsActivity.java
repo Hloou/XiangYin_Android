@@ -41,12 +41,10 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
         int id = v.getId();
         if (id == R.id.settings_mdf_pw) {
             Intent intent = new Intent(SettingsActivity.this, ModifyPasswordActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         if (id == R.id.settings_about) {
             Intent intent = new Intent(SettingsActivity.this, ModifyPasswordActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

@@ -21,4 +21,9 @@ public class TrashActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_yin_pan_trash, menu);
         return true;
     }
+
+    @Override
+    public void initView() {
+
+    }
 }

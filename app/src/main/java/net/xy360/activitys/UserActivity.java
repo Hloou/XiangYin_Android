@@ -109,27 +109,22 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         int id = v.getId();
         if (id == R.id.user_setting) {
             Intent intent = new Intent(UserActivity.this, SettingsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         if (id == R.id.user_feedback) {
             Intent intent = new Intent(UserActivity.this, FeedbackActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         if (id == R.id.user_mymsg) {
             Intent intent = new Intent(UserActivity.this, MyMessageActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         if (id == R.id.user_address) {
             Intent intent = new Intent(UserActivity.this, MyAddressActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         if (id == R.id.user_info) {
             Intent intent = new Intent(UserActivity.this, UserInfoActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

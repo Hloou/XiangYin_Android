@@ -101,6 +101,11 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
     }
 
     @Override
+    public void initView() {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_yin_pan, menu);
         return true;

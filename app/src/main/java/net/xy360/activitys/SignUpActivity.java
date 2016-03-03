@@ -27,8 +27,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        initView();
     }
 
+    @Override
     public void initView() {
         user_agreement = (TextView) findViewById(R.id.signup_user_agreement);
         own_account = (TextView) findViewById(R.id.signup_account);

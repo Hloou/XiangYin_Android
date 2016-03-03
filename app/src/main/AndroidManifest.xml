@@ -18,10 +18,7 @@
             android:name=".activitys.UserActivity"
             android:label="@string/my" />
         <activity
-            android:name=".activitys.YinPanActivity"
-            android:label="@string/yinpan" />
-        <activity
-            android:name=".activitys.WenKuActivity"
+            android:name=".activitys.wenku.WenKuActivity"
             android:label="@string/wenku"/>
         <activity android:name=".wxapi.WXEntryActivity">
             <intent-filter>
@@ -53,35 +50,15 @@
             android:name=".activitys.user.MyMessageActivity"
             android:label="@string/mymsg_toolbar" />
         <activity android:name=".activitys.wenku.WenKuSearchActivity" />
+        <activity android:name=".activitys.yinpan.YinPanActivity"
+            android:label="@string/yinpan"/>
+
         <activity android:name=".activitys.yinpan.TrashActivity"
-            android:label="@string/trash"></activity>
-        <activity android:name=".activitys.SignUpActivity"/>
-        <activity
-            android:name=".activitys.ForgetPasswordActivity"
-            android:label="@string/password_forget"/>
-        <activity
-            android:name=".activitys.user.FeedbackActivity"
-            android:label="@string/feedback_toolbar"/>
-        <activity
-            android:name=".activitys.user.ModifyPasswordActivity"
-            android:label="@string/pw_mdf_toolbar"/>
-        <activity
-            android:name=".activitys.user.ModifyTelActivity"
-            android:label="@string/mdf_tel_toolbar"/>
-        <activity
-            android:name=".activitys.user.SettingsActivity"
-            android:label="@string/settinngs_toolbar"/>
-        <activity
-            android:name=".activitys.user.NewAddressActivity"
-            android:label="@string/newaddr_toolbar"/>
-        <activity
-            android:name=".activitys.user.MyMessageActivity"
-            android:label="@string/mymsg_toolbar"/>
-        <activity android:name=".activitys.WenKuSearchActivity"/>
-        <activity android:name=".activitys.user.MyAddressActivity">
-        </activity>
-        <activity android:name=".activitys.user.UserInfoActivity">
-        </activity>
+            android:label="@string/trash"/>
+
+        <activity android:name=".activitys.user.MyAddressActivity" />
+        <activity android:name=".activitys.user.UserInfoActivity" />
+
     </application>
 
 </manifest>
