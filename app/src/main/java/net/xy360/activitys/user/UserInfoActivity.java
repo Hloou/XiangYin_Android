@@ -3,7 +3,6 @@ package net.xy360.activitys.user;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +29,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     private EditText et_nickname, et_name, et_tel, et_sch, et_time, et_addr, et_sign;
     private TextView tv_mdftel;
-    private String nickname, name, tel, sch, entrtime, addr, sign;
+    private String nickname, name, tel, sch, time, addr, sign;
     private ManagementService managementService = null;
 
     @Override
@@ -84,7 +83,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private void setUI(UserInfo userInfo) {
         et_nickname.setText(userInfo.nickname);
         et_tel.setText(userInfo.telephone);
-        et_time.setText(userInfo.entranceTime.toString());
+        et_time.setText(userInfo.signupTime.toString());
         //et_nickname, et_name, et_tel, et_sch, et_time, et_addr, et_sign
         //tv_name.setText(userInfo.nickname);
         //tv_description.setText(userInfo.description == null ? getString(R.string.my_default_description) : userInfo.description);
@@ -102,24 +101,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         if (id == R.id.user_info_mdftel) {
             String nickname = et_nickname.getText().toString();
             String name = et_name.getText().toString();
-            //String tel = et_tel.getText().toString();
+            String tel = et_tel.getText().toString();
             String sch = et_sch.getText().toString();
-            String entrtime = et_time.getText().toString();
+            String time = et_time.getText().toString();
             String addr = et_addr.getText().toString();
             String sign = et_sign.getText().toString();
 
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.userinfo_save) {
-
-            return true;
-        } else
-            return super.onOptionsItemSelected(item);
-    }
     public void initView() {
         et_nickname = (EditText) findViewById(R.id.user_info_nickname);
         et_name = (EditText) findViewById(R.id.user_info_name);
