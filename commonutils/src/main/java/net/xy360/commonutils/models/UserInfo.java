@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by jolin on 2016/2/27.
  */
 public class UserInfo {
-    public int id;
+    public String id;
     public String telephone;
     public String password;
     public String salt;

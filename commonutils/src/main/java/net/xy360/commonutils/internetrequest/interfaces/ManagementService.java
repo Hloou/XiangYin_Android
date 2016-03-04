@@ -6,6 +6,8 @@ import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserInfo;
 import net.xy360.commonutils.models.UserLogin;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -32,10 +34,10 @@ public interface ManagementService {
     Observable<UserId> loginWeChat(@Query("code") String code);
 
     @GET("users/{id}/private")
-    Observable<UserInfo> getUserInfo(@Path("id") int id, @QueryMap Map<String, String> map);
+    Observable<UserInfo> getUserInfo(@Path("id") String id, @QueryMap Map<String, String> map);
 
     @POST("users/{id}")
-    Observable<UserInfo> putUserInfo(@Path("id") int id, @QueryMap Map<String, String> map);
+    Observable<UserInfo> updateUserInfo(@Path("id") String id, @Query("token") String token, @Query("modifiedFields") String json);
 
     @GET("universities")
     Observable<List<University>> getUniversitys();

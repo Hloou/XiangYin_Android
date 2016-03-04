@@ -14,5 +14,5 @@ import rx.Observable;
  */
 public interface FileService {
     @GET("users/{userid}/files")
-    Observable<List<File>> getFiles(@Path("userid")int userid, @Query("token")String token);
+    Observable<List<File>> getFiles(@Path("userid") String userid, @Query("token")String token);
 }

@@ -2,7 +2,9 @@ package net.xy360.activitys.user;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +18,9 @@ import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserInfo;
 import net.xy360.commonutils.userdata.UserData;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -93,6 +98,67 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_userinfo_save, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.userinfo_save) {
+            nickname = et_nickname.getText().toString();
+            JSONObject JSON = new JSONObject();
+            try {
+                JSON.put("nickname", nickname);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            UserInfo userInfo = UserData.load(this, UserInfo.class);
+            //if (userInfo == null) {
+                final UserId userId = UserData.load(this, UserId.class);
+                if (userId == null) {
+                    //do something error
+                }
+                if (managementService == null)
+                    managementService = BaseRequest.retrofit.create(ManagementService.class);
+                Map<String, String> map = new HashMap<>();
+                map.put("modifiedFields", JSON.toString());
+
+            Log.d("TAG", String.valueOf(userId.userId));
+            Log.d("TAG", userId.token);
+            Log.d("TAG", JSON.toString());
+
+            managementService.updateUserInfo(userId.userId, userId.token, JSON.toString())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .map(new Func1<UserInfo, UserInfo>() {
+                            @Override
+                            public UserInfo call(UserInfo userInfo) {
+                                UserData.save(UserInfoActivity.this, userInfo);
+                                return userInfo;
+                            }
+                        })
+                        .subscribe(new Subscriber<UserInfo>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(UserInfo userInfo) {
+                                setUI(userInfo);
+                            }
+                        });
+
+            //} else
+                //setUI(userInfo);
+            return true;
+        } else
+            return super.onOptionsItemSelected(item);
     }
 
     @Override
