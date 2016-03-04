@@ -14,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -32,6 +33,9 @@ public interface ManagementService {
 
     @GET("users/{id}/private")
     Observable<UserInfo> getUserInfo(@Path("id") int id, @QueryMap Map<String, String> map);
+
+    @POST("users/{id}")
+    Observable<UserInfo> putUserInfo(@Path("id") int id, @QueryMap Map<String, String> map);
 
     @GET("universities")
     Observable<List<University>> getUniversitys();

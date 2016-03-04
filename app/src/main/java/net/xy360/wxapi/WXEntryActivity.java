@@ -65,10 +65,10 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         et_password.setText("18818200005");
 
         api = WXAPIFactory.createWXAPI(this, wechat.APP_ID, false);
-        if (managementService == null)
-            managementService = BaseRequest.retrofit.create(ManagementService.class);
         api.handleIntent(getIntent(), this);
 
+        if (managementService == null)
+            managementService = BaseRequest.retrofit.create(ManagementService.class);
     }
 
     @Override

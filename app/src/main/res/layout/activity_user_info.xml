@@ -37,12 +37,6 @@
                 android:src="@mipmap/geren"
                 android:layout_gravity="center_vertical"/>
 
-            <ImageView
-                android:layout_width="@dimen/user_info_image"
-                android:layout_height="@dimen/user_info_image"
-                android:src="@mipmap/enter"
-                android:layout_gravity="center_vertical"/>
-
         </LinearLayout>
 
         <View
@@ -65,19 +59,14 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/user_info_text_leftmarg"
-                android:layout_weight="0.5"/>
-
-            <ImageView
-                android:layout_width="@dimen/user_info_image"
-                android:layout_height="@dimen/user_info_image"
-                android:src="@mipmap/enter"
-                android:layout_gravity="center_vertical"/>
+                android:layout_weight="0.5"
+                android:background="@null"
+                android:id="@+id/user_info_nickname"/>
 
         </LinearLayout>
 
@@ -100,13 +89,14 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/user_info_text_leftmarg"
-                android:layout_weight="0.5"/>
+                android:background="@null"
+                android:layout_weight="0.5"
+                android:id="@+id/user_info_name"/>
 
         </LinearLayout>
 
@@ -130,20 +120,22 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
-                android:layout_weight="0.5"/>
+                android:background="@null"
+                android:layout_weight="0.5"
+                android:id="@+id/user_info_tel"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorAccent"
-                android:text="@string/user_info_mdftel"/>
+                android:text="@string/user_info_mdftel"
+                android:id="@+id/user_info_mdftel"/>
 
         </LinearLayout>
 
@@ -157,7 +149,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/user_info_layout"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal">
 
@@ -171,9 +163,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/user_info_text_leftmarg"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="0.5"/>
 
             <ImageView
@@ -193,7 +184,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/user_info_layout"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal">
 
@@ -204,19 +195,15 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/user_info_text_leftmarg"
-                android:layout_weight="0.5"/>
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:layout_weight="0.5"
+                android:id="@+id/user_info_school"/>
 
-            <ImageView
-                android:layout_width="@dimen/user_info_image"
-                android:layout_height="@dimen/user_info_image"
-                android:src="@mipmap/enter"
-                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <View
@@ -229,7 +216,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/user_info_layout"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal">
 
@@ -240,19 +227,15 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/user_info_text_leftmarg"
-                android:layout_weight="0.5"/>
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:layout_weight="0.5"
+                android:id="@+id/user_info_time"/>
 
-            <ImageView
-                android:layout_width="@dimen/user_info_image"
-                android:layout_height="@dimen/user_info_image"
-                android:src="@mipmap/enter"
-                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <View
@@ -265,7 +248,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/user_info_layout"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal">
 
@@ -276,19 +259,15 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="5dp"/>
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/user_info_nickname"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/user_info_text_leftmarg"
-                android:layout_weight="0.5"/>
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:layout_weight="0.5"
+                android:id="@+id/user_info_myaddr"/>
 
-            <ImageView
-                android:layout_width="@dimen/user_info_image"
-                android:layout_height="@dimen/user_info_image"
-                android:src="@mipmap/enter"
-                android:layout_gravity="center_vertical"/>
         </LinearLayout>
 
         <View
@@ -301,7 +280,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/user_info_layout"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal">
 
@@ -314,7 +293,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:hint="@string/user_info_sign_edit"
@@ -324,7 +303,9 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/bg_gray_corner"
             android:textAlignment="textStart"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:id="@+id/user_info_sign"
+            android:textSize="12dp"/>
 
 
     </LinearLayout>
