@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class File {
     public int inspaceUserFileId;
-    public int fileId;
+    public String fileId;
     public String fileName;
     public String fileType;
     public Date ownedTime;

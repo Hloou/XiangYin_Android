@@ -31,7 +31,7 @@ public interface ManagementService {
     Observable<UserId> loginWeChat(@Query("code") String code);
 
     @GET("users/{id}/private")
-    Observable<UserInfo> getUserInfo(@Path("id") int id, @QueryMap Map<String, String> map);
+    Observable<UserInfo> getUserInfo(@Path("id") String id, @QueryMap Map<String, String> map);
 
     @GET("universities")
     Observable<List<University>> getUniversitys();

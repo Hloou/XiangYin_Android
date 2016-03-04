@@ -21,6 +21,7 @@ import android.widget.PopupWindow;
 
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
+import net.xy360.activitys.print.SelectedRetailerActivity;
 import net.xy360.adapters.YinPanAdapter;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.FileService;
@@ -57,6 +58,8 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yin_pan);
 
+        userId = UserData.load(this, UserId.class);
+
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         yinPanAdapter = new YinPanAdapter(this);
@@ -70,8 +73,18 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
             }
         });
 
-        userId = UserData.load(this, UserId.class);
+        initView();
 
+        if (labelService == null)
+            labelService = BaseRequest.retrofit.create(LabelService.class);
+        if (fileService == null)
+            fileService = BaseRequest.retrofit.create(FileService.class);
+
+        requestData();
+    }
+
+    @Override
+    public void initView() {
         //right top popup window
         View viewMore = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_more, null);
         popupMore = new PopupWindow(viewMore, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
@@ -89,20 +102,9 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
         wp.y = 0;
         wp.gravity = Gravity.LEFT | Gravity.BOTTOM;
         mWidget = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_selected, null);
+        mWidget.findViewById(R.id.ll_print).setOnClickListener(this);
         mWindowManager.addView(mWidget, wp);
         mWidget.setVisibility(View.INVISIBLE);
-
-        if (labelService == null)
-            labelService = BaseRequest.retrofit.create(LabelService.class);
-        if (fileService == null)
-            fileService = BaseRequest.retrofit.create(FileService.class);
-
-        requestData();
-    }
-
-    @Override
-    public void initView() {
-
     }
 
     @Override
@@ -164,7 +166,7 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
     }
 
     @Override
-    public void getFilesViaLabels(int labelId) {
+    public void getFilesViaLabels(String labelId) {
         labelService.getFilesViaLabels(userId.userId, labelId, userId.token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -200,6 +202,13 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
             popupMore.dismiss();
             Intent intent = new Intent(this, TrashActivity.class);
             startActivity(intent);
+        } else if (id == R.id.ll_print) {
+            goSelectedRetailer();
         }
+    }
+
+    public void goSelectedRetailer() {
+        Intent intent = new Intent(this, SelectedRetailerActivity.class);
+        startActivity(intent);
     }
 }

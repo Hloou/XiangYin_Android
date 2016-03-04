@@ -157,21 +157,8 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onError(Throwable e) {
                         Log.d("sha256 error", e.getMessage());
-                        //et_phone.setText(e.getMessage());
-                        if (e instanceof HttpException) {
-                            HttpException response = (HttpException) e;
-                            if (response.response().errorBody() != null)
-                                try {
-                                    et_phone.setText(response.response().errorBody().string());
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                            else {
-                                Gson gson = new Gson();
-                                et_phone.setText(gson.toJson(response.response().errorBody()));
-                            }
+                        BaseRequest.ErrorResponse(WXEntryActivity.this, e);
 
-                        }
                     }
 
                     @Override
@@ -234,22 +221,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.d("sha256 error", e.getMessage());
-                                //et_phone.setText(e.getMessage());
-                                if (e instanceof HttpException) {
-                                    HttpException response = (HttpException) e;
-                                    if (response.response().errorBody() != null)
-                                        try {
-                                            et_phone.setText(response.response().errorBody().string());
-                                        } catch (IOException e1) {
-                                            e1.printStackTrace();
-                                        }
-                                    else {
-                                        Gson gson = new Gson();
-                                        et_phone.setText(gson.toJson(response.response().errorBody()));
-                                    }
-
-                                }
+                                BaseRequest.ErrorResponse(WXEntryActivity.this, e);
                             }
 
                             @Override

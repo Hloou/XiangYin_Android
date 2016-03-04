@@ -4,7 +4,7 @@ package net.xy360.commonutils.models;
  * Created by jolin on 2016/2/28.
  */
 public class Copy {
-    public int copyId;
+    public String copyId;
     public String name;
     public String samplePicture;
     public int priceInCent;

@@ -3,8 +3,8 @@
     package="net.xy360">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,14 +12,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activitys.NavigationActivity"/>
-        <activity android:name=".activitys.IndexActivity"/>
+        <activity android:name=".activitys.NavigationActivity" />
+        <activity android:name=".activitys.IndexActivity" />
         <activity
             android:name=".activitys.UserActivity"
             android:label="@string/my" />
         <activity
             android:name=".activitys.wenku.WenKuActivity"
-            android:label="@string/wenku"/>
+            android:label="@string/wenku" />
         <activity android:name=".wxapi.WXEntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,15 +50,16 @@
             android:name=".activitys.user.MyMessageActivity"
             android:label="@string/mymsg_toolbar" />
         <activity android:name=".activitys.wenku.WenKuSearchActivity" />
-        <activity android:name=".activitys.yinpan.YinPanActivity"
-            android:label="@string/yinpan"/>
-
-        <activity android:name=".activitys.yinpan.TrashActivity"
-            android:label="@string/trash"/>
-
+        <activity
+            android:name=".activitys.yinpan.YinPanActivity"
+            android:label="@string/yinpan" />
+        <activity
+            android:name=".activitys.yinpan.TrashActivity"
+            android:label="@string/trash" />
         <activity android:name=".activitys.user.MyAddressActivity" />
         <activity android:name=".activitys.user.UserInfoActivity" />
-
+        <activity android:name=".activitys.print.SelectedRetailerActivity"
+            android:label="@string/select_retailer"/>
     </application>
 
 </manifest>
