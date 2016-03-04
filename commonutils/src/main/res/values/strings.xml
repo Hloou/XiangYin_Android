@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Commonutils</string>
+
+    <!-- error -->
+    <string name="error_password_error">密碼錯误</string>
+    <string name="error_telephone_existed_error">手机号已存在</string>
+    <string name="error_telephone_not_found_error">手机号不存在</string>
 </resources>

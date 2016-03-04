@@ -5,6 +5,7 @@
     android:background="@color/sky_blue">
 
     <LinearLayout
+        android:id="@+id/ll_print"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"

@@ -50,7 +50,7 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     if (yinPanListener != null)
-                        yinPanListener.getFilesViaLabels(labelList.get(position).id);
+                        yinPanListener.getFilesViaLabels(labelList.get(position).userLabelId);
                     hideLastViewPager();
                 }
             });

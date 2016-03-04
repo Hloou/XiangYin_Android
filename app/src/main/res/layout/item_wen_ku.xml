@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="@dimen/wenku_list_height"
-    android:paddingLeft="@dimen/wenku_list_leftright_padding"
-    android:paddingRight="@dimen/wenku_list_leftright_padding"
-    android:paddingTop="@dimen/wenku_list_topbottom_padding"
-    android:paddingBottom="@dimen/wenku_list_topbottom_padding">
+    android:layout_marginRight="@dimen/wenku_list_leftright_padding"
+    android:layout_marginLeft="@dimen/wenku_list_leftright_padding"
+    android:layout_marginTop="@dimen/wenku_list_topbottom_padding"
+    android:layout_marginBottom="@dimen/wenku_list_topbottom_padding">
 
     <ImageView
         android:layout_width="@dimen/wenku_list_height"

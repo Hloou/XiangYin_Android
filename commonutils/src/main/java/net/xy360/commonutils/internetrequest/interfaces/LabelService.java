@@ -19,5 +19,5 @@ public interface LabelService {
     Observable<List<Label>> getLabels(@Path("userid") String userid, @Query("token")String token);
 
     @GET("users/{userid}/labels/{labelid}/files")
-    Observable<List<File>> getFilesViaLabels(@Path("userid")String userid, @Path("labelid")int labelid, @Query("token")String token);
+    Observable<List<File>> getFilesViaLabels(@Path("userid")String userid, @Path("labelid")String labelid, @Query("token")String token);
 }

@@ -70,4 +70,9 @@
     <dimen name="user_info_line">8dp</dimen>
     <dimen name="user_info_text_leftmarg">30dp</dimen>
 
+    <!-- selected retailer -->
+    <dimen name="selected_retailer_list_height">100dp</dimen>
+    <dimen name="selected_retailer_list_upbottom_padding">5dp</dimen>
+    <dimen name="selected_retailer_list_image_length">100dp</dimen>
+
 </resources>
