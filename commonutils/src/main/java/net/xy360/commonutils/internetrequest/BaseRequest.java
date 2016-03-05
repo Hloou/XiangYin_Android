@@ -47,27 +47,32 @@ public class BaseRequest {
                 try {
                     s = response.response().errorBody().string();
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    //e1.printStackTrace();
+                }
+                net.xy360.commonutils.models.Error error = gson.fromJson(s, Error.class);
+                if (error.code >= 100 && error.code < 200) {
+                    Toast.makeText(context, context.getString(R.string.error_server_fail), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                switch (error.code) {
+                    case 210:
+
+                    case 220:
+
+                    case 230:
+                        Toast.makeText(context, context.getString(R.string.error_password_error), Toast.LENGTH_SHORT).show();
+                        return true;
+                    case 240:
+                    case 250:
+                    case 260:
+                        Toast.makeText(context, context.getString(R.string.error_telephone_not_found_error), Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+
                 }
             }
         }
-        net.xy360.commonutils.models.Error error = gson.fromJson(s, Error.class);
-        switch (error.code) {
-            case 210:
-
-            case 220:
-
-            case 230:
-                Toast.makeText(context, context.getString(R.string.error_password_error), Toast.LENGTH_SHORT).show();
-                return true;
-            case 240:
-            case 250:
-            case 260:
-                Toast.makeText(context, context.getString(R.string.error_telephone_not_found_error), Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-
-        }
+        Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, response.response().errorBody().string(), Toast.LENGTH_SHORT).show();
         return false;
     }

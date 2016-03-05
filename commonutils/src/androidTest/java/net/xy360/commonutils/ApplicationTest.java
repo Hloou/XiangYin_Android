@@ -8,11 +8,13 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.CopiesService;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.models.Order;
 import net.xy360.commonutils.models.University;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserInfo;
@@ -43,27 +45,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void test() {
-        ManagementService managementService = BaseRequest.retrofit.create(ManagementService.class);
-        managementService.getUniversitys()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<University>>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d("retrofit", "done");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("retrofit", e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<University> universities) {
-                        Log.d("retrofit", ""+universities.size());
-                    }
-                });
-        Log.d("retrofit test", "");
+        Order order = new Order();
+        Log.d("ffff", new TypeToken<List<Order>>(){}.getType().toString());
     }
 
 

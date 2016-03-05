@@ -58,8 +58,11 @@
             android:label="@string/trash" />
         <activity android:name=".activitys.user.MyAddressActivity" />
         <activity android:name=".activitys.user.UserInfoActivity" />
-        <activity android:name=".activitys.print.SelectedRetailerActivity"
-            android:label="@string/select_retailer"/>
+        <activity
+            android:name=".activitys.print.SelectedRetailerActivity"
+            android:label="@string/select_retailer" />
+        <activity android:name=".activitys.print.PrintOrderActivity"
+            android:label="@string/print_order"/>
     </application>
 
 </manifest>

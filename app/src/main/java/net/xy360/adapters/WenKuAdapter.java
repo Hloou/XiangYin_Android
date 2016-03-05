@@ -1,16 +1,21 @@
 package net.xy360.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.activitys.print.PrintOrderActivity;
+import net.xy360.commonutils.internetrequest.BaseRequest;
+import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
 
 import java.util.ArrayList;
@@ -38,6 +43,8 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
         private TextView tv_book, tv_price, tv_retrailer;
         private TextView tv_author, tv_page;
         private ViewPager vp;
+        private Button btn_print;
+        private int position;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -46,6 +53,21 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
             tv_retrailer = (TextView)itemView.findViewById(R.id.tv_retailer);
             tv_author = (TextView)itemView.findViewById(R.id.tv_author);
             tv_page = (TextView)itemView.findViewById(R.id.tv_page);
+            btn_print = (Button)itemView.findViewById(R.id.btn_print);
+            btn_print.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Copy copy = mDatas.get(position);
+                    Cart cart = new Cart();
+                    cart.retailerId = copy.retailerId;
+                    cart.retailerName = copy.retailerName;
+                    cart.copyItems = new ArrayList<Copy>();
+                    cart.copyItems.add(copy);
+                    Intent intent = new Intent(context, PrintOrderActivity.class);
+                    intent.putExtra(Cart.class.getName(), BaseRequest.gson.toJson(cart));
+                    context.startActivity(intent);
+                }
+            });
             vp = (ViewPager)itemView.findViewById(R.id.viewPager);
             vp.setAdapter(new WenKuPagerAdapter());
             itemView.findViewById(R.id.iv_three_dots).setOnClickListener(new View.OnClickListener() {
@@ -76,6 +98,7 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
         holder.tv_book.setText(mDatas.get(position).name);
         holder.tv_price.setText(String.format("%.2f", mDatas.get(position).priceInCent / 100.0));
         holder.tv_page.setText("" + mDatas.get(position).pageNumber);
+        holder.position = position;
     }
 
     @Override

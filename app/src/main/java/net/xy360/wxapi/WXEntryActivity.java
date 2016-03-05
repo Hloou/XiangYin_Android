@@ -151,12 +151,12 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                 .subscribe(new Subscriber<UserId>() {
                     @Override
                     public void onCompleted() {
-                        Log.d("sha256", "done");
+                        //Log.d("sha256", "done");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("sha256 error", e.getMessage());
+                        //Log.d("sha256 error", e.getMessage());
                         BaseRequest.ErrorResponse(WXEntryActivity.this, e);
 
                     }

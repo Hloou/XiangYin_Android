@@ -8,7 +8,7 @@ public class Copy {
     public String name;
     public String samplePicture;
     public int priceInCent;
-    public int retailerId;
+    public String retailerId;
     public String retailerName;
     public String retailerAddress;
     public String longitude;

@@ -1,18 +1,27 @@
 package net.xy360.activitys.print;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import com.google.gson.reflect.TypeToken;
 
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
 import net.xy360.adapters.RetailerAdapter;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.OrderService;
+import net.xy360.commonutils.models.Cart;
+import net.xy360.commonutils.models.File;
 import net.xy360.commonutils.models.Retailer;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;
@@ -24,6 +33,7 @@ public class SelectedRetailerActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private RetailerAdapter retailerAdapter;
     private OrderService orderService = null;
+    private List<File> fileList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +41,29 @@ public class SelectedRetailerActivity extends BaseActivity {
         setContentView(R.layout.activity_selected_retailer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
+        TypeToken type = new TypeToken<List<File>>(){};
+        String data = getIntent().getStringExtra(type.toString());
+        fileList = BaseRequest.gson.fromJson(data, type.getType());
         if (orderService == null)
             orderService = BaseRequest.retrofit.create(OrderService.class);
         requestData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_select_retailer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.select_retailer) {
+            goPrintOrder();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -67,5 +97,17 @@ public class SelectedRetailerActivity extends BaseActivity {
                         retailerAdapter.addRetailerList(retailers);
                     }
                 });
+    }
+
+    private void goPrintOrder() {
+        Cart cart = new Cart();
+        Retailer retailer = retailerAdapter.getSelectedRetailer();
+        cart.retailerId = retailer.retailerId;
+        cart.retailerName = retailer.retailerName;
+        cart.printintItems = new ArrayList<>();
+        cart.printintItems.addAll(fileList);
+        Intent intent = new Intent(this, PrintOrderActivity.class);
+        intent.putExtra(Cart.class.getName(), BaseRequest.gson.toJson(cart));
+        startActivity(intent);
     }
 }

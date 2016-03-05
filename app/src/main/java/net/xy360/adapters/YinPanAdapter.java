@@ -190,4 +190,13 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public int getItemCount() {
         return labelList.size() + fileList.size();
     }
+
+    public List<File> getSelectedFile() {
+        List<File> list = new ArrayList<>();
+        for (int i = 0; i < fileList.size(); i++) {
+            if (selectedList.get(i).booleanValue() == true)
+                list.add(fileList.get(i));
+        }
+        return list;
+    }
 }

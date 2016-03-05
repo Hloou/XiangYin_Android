@@ -144,6 +144,7 @@
                 android:gravity="center"
                 android:padding="@dimen/wenku_list_inner_padding">
                 <Button
+                    android:id="@+id/btn_print"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/wenku_flash"

@@ -5,4 +5,6 @@
     <string name="error_password_error">密碼錯误</string>
     <string name="error_telephone_existed_error">手机号已存在</string>
     <string name="error_telephone_not_found_error">手机号不存在</string>
+    <string name="error_connection_fail">无法连接服务器</string>
+    <string name="error_server_fail">服务器异常</string>
 </resources>

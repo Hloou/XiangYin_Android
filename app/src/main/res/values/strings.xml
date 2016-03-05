@@ -5,6 +5,7 @@
     <string name="my">我的</string>
     <string name="trash">废纸篓</string>
     <string name="select_retailer">选择商家</string>
+    <string name="print_order">服务订单</string>
 
     <!-- login page -->
     <string name="login_forget_password">忘记密码?</string>
@@ -132,5 +133,22 @@
     <string name="user_info_sign">个性签名：</string>
     <string name="user_info_mdftel">更换手机号</string>
     <string name="user_info_sign_edit">这个人很懒什么都没留下</string>
+
+    <!-- print order -->
+    <string name="print_order_real_pay">实付款:</string>
+    <string name="print_order_submit_order">提交订单</string>
+    <string name="print_order_send_method">送货方式</string>
+    <string name="print_order_take_by_myself">自取</string>
+    <string name="print_order_deliver_to_home">送货上门</string>
+    <string name="print_order_select_deliver_time">(选择送达时间)</string>
+    <string name="print_order_delete_file">移除文件</string>
+    <string name="print_order_set">份</string>
+    <string name="print_order_price">金额:</string>
+    <string name="print_order_to">至</string>
+    <string name="print_order_page">页数:</string>
+    <string name="print_order_specification">装订:</string>
+
+    <!-- select retailer -->
+    <string name="select_retailer_select">确认选择</string>
 
 </resources>
