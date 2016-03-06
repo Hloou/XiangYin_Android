@@ -19,4 +19,11 @@
     <color name="tab_press">#09BED1</color>
     <color name="tab_release">#DDE1E0</color>
     <color name="tab_divider">#00000000</color>
+
+    <!-- sign color -->
+    <color name="red_press">#DB3326</color>
+    <color name="yellow_press">#EFDA45</color>
+
+
+
 </resources>

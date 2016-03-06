@@ -133,4 +133,28 @@
     <string name="user_info_mdftel">更换手机号</string>
     <string name="user_info_sign_edit">这个人很懒什么都没留下</string>
 
+    <!-- welcome_sign -->
+    <string name="welcome_sign_skip">跳过广告</string>
+    <string name="welcome_sign_money">签到赚印币</string>
+    <string name="welcome_sign_sign">签到</string>
+    <string name="welcome_sign_action">心动不如行动</string>
+
+    <!-- sign -->
+    <string name="sign_text_one">1</string>
+    <string name="sign_text_two">2</string>
+    <string name="sign_text_three">3</string>
+    <string name="sign_text_four">4</string>
+    <string name="sign_text_five">5</string>
+    <string name="sign_view_grade">查看积分</string>
+    <string name="sign_already_sign">已签到</string>
+    <string name="sign_day">天</string>
+    <string name="sign_contiune_sign">连续签到</string>
+    <string name="sign_contiune_sign_text">天就可以</string>
+    <string name="sign_integral">积分</string>
+
+
+    <!-- My print money -->
+    <string name="print_money_sign_text">签到赚印币</string>
+    <string name="print_money_sign_rule">签到印币规则</string>
+    <string name="print_money_sign_break">亲，签到中断可是会扣除临时印币的呦！</string>
 </resources>
