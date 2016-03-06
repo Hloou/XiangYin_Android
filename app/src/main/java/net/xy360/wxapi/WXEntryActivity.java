@@ -64,11 +64,12 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         et_phone.setText("18818200005");
         et_password.setText("18818200005");
 
+        if (managementService == null)
+            managementService = BaseRequest.retrofit.create(ManagementService.class);
+
         api = WXAPIFactory.createWXAPI(this, wechat.APP_ID, false);
         api.handleIntent(getIntent(), this);
 
-        if (managementService == null)
-            managementService = BaseRequest.retrofit.create(ManagementService.class);
     }
 
     @Override
@@ -163,6 +164,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
                     @Override
                     public void onNext(UserId userId) {
+                        Log.d("ffff", "yeah");
                         Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
@@ -178,6 +180,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         super.onNewIntent(intent);
 
         setIntent(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         api.handleIntent(intent, this);
     }
 

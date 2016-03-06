@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import net.xy360.R;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.realm.RealmHelper;
+import net.xy360.interfaces.PrintOrderViewListener;
 
 /**
  * Created by jolin on 2016/3/5.
@@ -23,7 +26,10 @@ public class PrintCopyView extends FrameLayout implements View.OnClickListener{
 
     private RadioButton rb_selected;
     private TextView tv_minus, tv_plus, tv_count, tv_name, tv_price, tv_page, tv_specification;
+    private Button btn_delete;
     private int count;
+    private Copy copy;
+    private PrintOrderViewListener printOrderViewListener = null;
 
     public PrintCopyView(Context context) {
         super(context);
@@ -52,16 +58,23 @@ public class PrintCopyView extends FrameLayout implements View.OnClickListener{
         tv_page = (TextView)findViewById(R.id.tv_page);
         tv_price = (TextView)findViewById(R.id.tv_price);
         tv_specification = (TextView)findViewById(R.id.tv_specification);
+        btn_delete = (Button)findViewById(R.id.btn_delete);
 
         tv_count.setText("" + count);
         tv_minus.setOnClickListener(this);
         tv_plus.setOnClickListener(this);
+        btn_delete.setOnClickListener(this);
+    }
+
+    public void setPrintOrderViewListener(PrintOrderViewListener printOrderViewListener) {
+        this.printOrderViewListener = printOrderViewListener;
     }
 
     public void setData(Copy copy) {
-        tv_name.setText(copy.name);
-        tv_price.setText(String.format("%.2f", copy.priceInCent/100.0));
-        tv_page.setText(copy.pageNumber + "");
+        this.copy = copy;
+        tv_name.setText(copy.getName());
+        tv_price.setText(String.format("%.2f", copy.getPriceInCent()/100.0));
+        tv_page.setText(copy.getPageNumber() + "");
         tv_specification.setText("");
 
     }
@@ -74,6 +87,9 @@ public class PrintCopyView extends FrameLayout implements View.OnClickListener{
             tv_count.setText("" + count);
         } else if (id == R.id.tv_plus) {
             tv_count.setText("" + (++count));
+        } else if (id == R.id.btn_delete) {
+            if (printOrderViewListener != null)
+                printOrderViewListener.delete(this, 0, copy);
         }
     }
 }

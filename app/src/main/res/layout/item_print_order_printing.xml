@@ -48,9 +48,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/print_order_list_item_height"
+        android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="@dimen/print_order_list_delete_padding">
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
         <Button
+            android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/print_order_delete_file"
@@ -64,18 +70,28 @@
         android:layout_height="@dimen/print_order_list_item_height"
         android:orientation="horizontal"
         android:gravity="center_vertical">
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_border_corner" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/print_order_to" />
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_border_corner" />
+        <LinearLayout
+            android:layout_width="@dimen/print_order_list_plus_minus_width"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_border_corner"
+                android:inputType="number"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/print_order_to" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_border_corner"
+                android:inputType="number" />
+        </LinearLayout>
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

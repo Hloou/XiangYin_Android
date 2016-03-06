@@ -84,5 +84,6 @@
     <dimen name="print_order_list_delete_padding">10dp</dimen>
     <dimen name="print_order_list_plus_minus_height">40dp</dimen>
     <dimen name="print_order_list_plus_minus_width">120dp</dimen>
+    <dimen name="print_order_list_item_padding">10dp</dimen>
 
 </resources>

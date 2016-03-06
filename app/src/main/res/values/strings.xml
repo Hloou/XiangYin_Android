@@ -150,5 +150,6 @@
 
     <!-- select retailer -->
     <string name="select_retailer_select">确认选择</string>
+    <string name="select_retailer_have_not_select">尚未选择商家</string>
 
 </resources>

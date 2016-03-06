@@ -17,9 +17,12 @@ import net.xy360.activitys.print.PrintOrderActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.realm.RealmHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.RealmList;
 
 /**
  * Created by jolin on 2016/2/29.
@@ -57,14 +60,23 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
             btn_print.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //insert to cart
                     Copy copy = mDatas.get(position);
-                    Cart cart = new Cart();
-                    cart.retailerId = copy.retailerId;
-                    cart.retailerName = copy.retailerName;
-                    cart.copyItems = new ArrayList<Copy>();
-                    cart.copyItems.add(copy);
+                    Cart cart = RealmHelper.realm.where(Cart.class).equalTo("retailerId", copy.getRetailerId()).findFirst();
+                    //check is inserted
+                    if (cart == null) {
+                        cart = new Cart();
+                        cart.setRetailerId(copy.getRetailerId());
+                        cart.setRetailerName(copy.getRetailerName());
+                        cart.setCopyItems(new RealmList<Copy>());
+                    }
+
+                    //this will block, will change later
+                    RealmHelper.realm.beginTransaction();
+                    cart.getCopyItems().add(copy);
+                    RealmHelper.realm.copyToRealmOrUpdate(cart);
+                    RealmHelper.realm.commitTransaction();
                     Intent intent = new Intent(context, PrintOrderActivity.class);
-                    intent.putExtra(Cart.class.getName(), BaseRequest.gson.toJson(cart));
                     context.startActivity(intent);
                 }
             });
@@ -95,9 +107,9 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.tv_book.setText(mDatas.get(position).name);
-        holder.tv_price.setText(String.format("%.2f", mDatas.get(position).priceInCent / 100.0));
-        holder.tv_page.setText("" + mDatas.get(position).pageNumber);
+        holder.tv_book.setText(mDatas.get(position).getName());
+        holder.tv_price.setText(String.format("%.2f", mDatas.get(position).getPriceInCent() / 100.0));
+        holder.tv_page.setText("" + mDatas.get(position).getPageNumber());
         holder.position = position;
     }
 

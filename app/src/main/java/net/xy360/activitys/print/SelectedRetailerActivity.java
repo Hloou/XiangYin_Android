@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -19,11 +20,13 @@ import net.xy360.commonutils.internetrequest.interfaces.OrderService;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.File;
 import net.xy360.commonutils.models.Retailer;
+import net.xy360.commonutils.realm.RealmHelper;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -100,12 +103,26 @@ public class SelectedRetailerActivity extends BaseActivity {
     }
 
     private void goPrintOrder() {
-        Cart cart = new Cart();
+
         Retailer retailer = retailerAdapter.getSelectedRetailer();
-        cart.retailerId = retailer.retailerId;
-        cart.retailerName = retailer.retailerName;
-        cart.printintItems = new ArrayList<>();
-        cart.printintItems.addAll(fileList);
+        if (retailer == null) {
+            Toast.makeText(this, getString(R.string.select_retailer_have_not_select), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Cart cart = RealmHelper.realm.where(Cart.class).equalTo("retailerId", retailer.retailerId).findFirst();
+        if (cart == null) {
+            cart = new Cart();
+            cart.setRetailerId(retailer.retailerId);
+            cart.setRetailerName(retailer.retailerName);
+            cart.setPrintintItems(new RealmList<File>());
+        }
+
+        RealmHelper.realm.beginTransaction();
+        cart.getPrintintItems().addAll(fileList);
+        RealmHelper.realm.copyToRealmOrUpdate(cart);
+        RealmHelper.realm.commitTransaction();
+
         Intent intent = new Intent(this, PrintOrderActivity.class);
         intent.putExtra(Cart.class.getName(), BaseRequest.gson.toJson(cart));
         startActivity(intent);

@@ -11,9 +11,12 @@ import net.xy360.activitys.BaseActivity;
 import net.xy360.adapters.PrintOrderAdapter;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.models.Cart;
+import net.xy360.commonutils.realm.RealmHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.RealmResults;
 
 public class PrintOrderActivity extends BaseActivity {
 
@@ -27,10 +30,10 @@ public class PrintOrderActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
 
-        Log.d("getorder", getIntent().getStringExtra(Cart.class.getName()));
-        Cart cart = BaseRequest.gson.fromJson(getIntent().getStringExtra(Cart.class.getName()), Cart.class);
+        RealmResults<Cart> carts = RealmHelper.realm.where(Cart.class).findAll();
+
         List<Cart> list = new ArrayList<>();
-        list.add(cart);
+        list.addAll(carts);
         printOrderAdapter.addData(list);
     }
 

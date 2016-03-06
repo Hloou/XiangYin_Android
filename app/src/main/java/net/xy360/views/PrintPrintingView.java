@@ -4,12 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import net.xy360.R;
 import net.xy360.commonutils.models.File;
+import net.xy360.interfaces.PrintOrderViewListener;
 
 /**
  * Created by jolin on 2016/3/5.
@@ -19,6 +21,9 @@ public class PrintPrintingView extends FrameLayout implements View.OnClickListen
     private RadioButton rb_selected;
     private TextView tv_minus, tv_plus, tv_count, tv_name, tv_price, tv_page;
     private int count;
+    private Button btn_delete;
+    private PrintOrderViewListener printOrderViewListener;
+    private File file;
 
     public PrintPrintingView(Context context) {
         super(context);
@@ -45,10 +50,12 @@ public class PrintPrintingView extends FrameLayout implements View.OnClickListen
         tv_name = (TextView)findViewById(R.id.tv_name);
         tv_page = (TextView)findViewById(R.id.tv_page);
         tv_price = (TextView)findViewById(R.id.tv_price);
+        btn_delete = (Button)findViewById(R.id.btn_delete);
 
         tv_count.setText("" + count);
         tv_minus.setOnClickListener(this);
         tv_plus.setOnClickListener(this);
+        btn_delete.setOnClickListener(this);
     }
 
     @Override
@@ -59,11 +66,20 @@ public class PrintPrintingView extends FrameLayout implements View.OnClickListen
             tv_count.setText("" + count);
         } else if (id == R.id.tv_plus) {
             tv_count.setText("" + (++count));
+        } else if (id == R.id.btn_delete) {
+            if (printOrderViewListener != null)
+                printOrderViewListener.delete(this, 1, file);
+            //type 1 for printing
         }
     }
 
     public void setData(File file) {
-        tv_name.setText(file.fileName);
+        this.file = file;
+        tv_name.setText(file.getFileName());
 
+    }
+
+    public void setPrintOrderViewListener(PrintOrderViewListener printOrderViewListener) {
+        this.printOrderViewListener = printOrderViewListener;
     }
 }

@@ -46,7 +46,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     public void test() {
         Order order = new Order();
-        Log.d("ffff", new TypeToken<List<Order>>(){}.getType().toString());
+        Log.d("ffff", BaseRequest.gson.fromJson("\"OK\"", String.class));
     }
 
 
