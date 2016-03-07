@@ -13,7 +13,7 @@ public class Cart extends RealmObject{
     @PrimaryKey
     private String retailerId;
     private String retailerName;
-    private RealmList<File> printintItems;
+    private RealmList<File> printingItems;
     private RealmList<Copy> copyItems;
 
     public String getRetailerId() {
@@ -32,12 +32,12 @@ public class Cart extends RealmObject{
         this.retailerName = retailerName;
     }
 
-    public RealmList<File> getPrintintItems() {
-        return printintItems;
+    public RealmList<File> getPrintingItems() {
+        return printingItems;
     }
 
-    public void setPrintintItems(RealmList<File> printintItems) {
-        this.printintItems = printintItems;
+    public void setPrintingItems(RealmList<File> printingItems) {
+        this.printingItems = printingItems;
     }
 
     public RealmList<Copy> getCopyItems() {

@@ -115,11 +115,11 @@ public class SelectedRetailerActivity extends BaseActivity {
             cart = new Cart();
             cart.setRetailerId(retailer.retailerId);
             cart.setRetailerName(retailer.retailerName);
-            cart.setPrintintItems(new RealmList<File>());
+            cart.setPrintingItems(new RealmList<File>());
         }
 
         RealmHelper.realm.beginTransaction();
-        cart.getPrintintItems().addAll(fileList);
+        cart.getPrintingItems().addAll(fileList);
         RealmHelper.realm.copyToRealmOrUpdate(cart);
         RealmHelper.realm.commitTransaction();
 

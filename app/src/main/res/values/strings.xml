@@ -147,6 +147,20 @@
     <string name="print_order_to">至</string>
     <string name="print_order_page">页数:</string>
     <string name="print_order_specification">装订:</string>
+    <string name="print_order_address">收货地址</string>
+    <string name="print_order_change_address">修改收货地址</string>
+    <string name="print_order_discount">优惠兑換</string>
+    <string name="print_order_account_coin">账户印币:</string>
+    <string name="print_order_use">使用</string>
+    <string name="print_order_not_use">不使用</string>
+    <string name="print_order_input_coin_to_discount">输入印币数进行打印扺扣</string>
+    <string name="print_order_coin">印币</string>
+    <string name="print_order_total">打印总金额:</string>
+    <string name="print_order_total_discount">折扣金额:</string>
+    <string name="print_order_add_continue">继续添加</string>
+    <string name="print_order_add_yin_pan">从印盘添加</string>
+    <string name="print_order_add_wen_ku">从文库添加</string>
+    <string name="print_order_shoot_picture">拍照打印</string>
 
     <!-- select retailer -->
     <string name="select_retailer_select">确认选择</string>

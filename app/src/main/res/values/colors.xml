@@ -15,6 +15,7 @@
     <color name="green">#388E3C</color>
     <color name="black">#000000</color>
     <color name="light_red">#EA6C5D</color>
+    <color name="light_green">#4cdf53</color>
 
     <!-- tab color -->
     <color name="tab_press">#09BED1</color>

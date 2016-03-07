@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -16,9 +18,9 @@ import net.xy360.interfaces.PrintOrderViewListener;
 /**
  * Created by jolin on 2016/3/5.
  */
-public class PrintPrintingView extends FrameLayout implements View.OnClickListener{
+public class PrintPrintingView extends FrameLayout implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
 
-    private RadioButton rb_selected;
+    private CheckBox cb_selected;
     private TextView tv_minus, tv_plus, tv_count, tv_name, tv_price, tv_page;
     private int count;
     private Button btn_delete;
@@ -43,7 +45,7 @@ public class PrintPrintingView extends FrameLayout implements View.OnClickListen
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.item_print_order_printing, this, true);
         count = 1;
-        rb_selected = (RadioButton)findViewById(R.id.rb_selected);
+        cb_selected = (CheckBox)findViewById(R.id.cb_selected);
         tv_count = (TextView)findViewById(R.id.tv_count);
         tv_minus = (TextView)findViewById(R.id.tv_minus);
         tv_plus = (TextView)findViewById(R.id.tv_plus);
@@ -52,6 +54,7 @@ public class PrintPrintingView extends FrameLayout implements View.OnClickListen
         tv_price = (TextView)findViewById(R.id.tv_price);
         btn_delete = (Button)findViewById(R.id.btn_delete);
 
+        cb_selected.setOnCheckedChangeListener(this);
         tv_count.setText("" + count);
         tv_minus.setOnClickListener(this);
         tv_plus.setOnClickListener(this);
@@ -81,5 +84,15 @@ public class PrintPrintingView extends FrameLayout implements View.OnClickListen
 
     public void setPrintOrderViewListener(PrintOrderViewListener printOrderViewListener) {
         this.printOrderViewListener = printOrderViewListener;
+    }
+
+    public void setCb_selected(boolean isChecked) {
+        cb_selected.setChecked(isChecked);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (printOrderViewListener != null)
+            printOrderViewListener.selectChange(this, 1, isChecked);
     }
 }

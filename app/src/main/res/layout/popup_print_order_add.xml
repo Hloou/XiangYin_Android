@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/print_order_list_popup_height"
+    android:layout_marginLeft="@dimen/print_order_list_popup_button_leftright_padding"
+    android:layout_marginRight="@dimen/print_order_list_popup_button_leftright_padding"
+    android:padding="@dimen/print_order_list_popup_button_leftright_padding"
+    android:gravity="center"
+    android:background="@drawable/bg_white_corner">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/print_order_list_popup_button_divider"
+        android:text="@string/print_order_add_yin_pan"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_blue_round"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/print_order_list_popup_button_divider"
+        android:text="@string/print_order_add_wen_ku"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_red_round"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/print_order_shoot_picture"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_green_round"/>
+
+</LinearLayout>

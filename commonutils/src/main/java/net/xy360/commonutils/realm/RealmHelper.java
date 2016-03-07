@@ -13,7 +13,7 @@ public class RealmHelper {
         return new RealmConfiguration.Builder(context)
                 .name("myrealm.realm")
                 .deleteRealmIfMigrationNeeded()
-                .schemaVersion(2)
+                .schemaVersion(3)
                 .build();
     };
 

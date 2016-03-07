@@ -8,4 +8,6 @@ import android.view.View;
 public interface PrintOrderViewListener {
     //type 0 for copy, 1 for printing
     public void delete(View view, int type, Object o);
+
+    public void selectChange(View view, int type, boolean is_check);
 }
