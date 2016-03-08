@@ -251,7 +251,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
                 Log.d("ffff", BaseRequest.gson.toJson(copyItemList));
             }
-            
+
         }
     }
 }
