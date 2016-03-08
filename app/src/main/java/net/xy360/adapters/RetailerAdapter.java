@@ -83,4 +83,10 @@ public class RetailerAdapter extends RecyclerView.Adapter<RetailerAdapter.MyView
         retailerList.addAll(list);
         notifyItemRangeInserted(i, list.size());
     }
+
+    public Retailer getSelectedRetailer() {
+        if (lastSelected == -1)
+            return null;
+        return retailerList.get(lastSelected);
+    }
 }

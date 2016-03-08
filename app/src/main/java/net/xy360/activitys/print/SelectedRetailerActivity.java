@@ -1,20 +1,32 @@
 package net.xy360.activitys.print;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.gson.reflect.TypeToken;
 
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
 import net.xy360.adapters.RetailerAdapter;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.OrderService;
+import net.xy360.commonutils.models.Cart;
+import net.xy360.commonutils.models.File;
 import net.xy360.commonutils.models.Retailer;
+import net.xy360.commonutils.realm.RealmHelper;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -24,6 +36,7 @@ public class SelectedRetailerActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private RetailerAdapter retailerAdapter;
     private OrderService orderService = null;
+    private List<File> fileList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +44,29 @@ public class SelectedRetailerActivity extends BaseActivity {
         setContentView(R.layout.activity_selected_retailer);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
+        TypeToken type = new TypeToken<List<File>>(){};
+        String data = getIntent().getStringExtra(type.toString());
+        fileList = BaseRequest.gson.fromJson(data, type.getType());
         if (orderService == null)
             orderService = BaseRequest.retrofit.create(OrderService.class);
         requestData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_select_retailer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.select_retailer) {
+            goPrintOrder();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -67,5 +100,31 @@ public class SelectedRetailerActivity extends BaseActivity {
                         retailerAdapter.addRetailerList(retailers);
                     }
                 });
+    }
+
+    private void goPrintOrder() {
+
+        Retailer retailer = retailerAdapter.getSelectedRetailer();
+        if (retailer == null) {
+            Toast.makeText(this, getString(R.string.select_retailer_have_not_select), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Cart cart = RealmHelper.realm.where(Cart.class).equalTo("retailerId", retailer.retailerId).findFirst();
+        if (cart == null) {
+            cart = new Cart();
+            cart.setRetailerId(retailer.retailerId);
+            cart.setRetailerName(retailer.retailerName);
+            cart.setPrintingItems(new RealmList<File>());
+        }
+
+        RealmHelper.realm.beginTransaction();
+        cart.getPrintingItems().addAll(fileList);
+        RealmHelper.realm.copyToRealmOrUpdate(cart);
+        RealmHelper.realm.commitTransaction();
+
+        Intent intent = new Intent(this, PrintOrderActivity.class);
+        intent.putExtra(Cart.class.getName(), BaseRequest.gson.toJson(cart));
+        startActivity(intent);
     }
 }

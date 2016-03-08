@@ -72,6 +72,9 @@
         <activity
             android:name=".activitys.ad.PrintMoneyActivity"
             android:label="@string/print_moneyr" />
+
+        <activity android:name=".activitys.print.PrintOrderActivity"
+            android:label="@string/print_order"/>
     </application>
 
 </manifest>

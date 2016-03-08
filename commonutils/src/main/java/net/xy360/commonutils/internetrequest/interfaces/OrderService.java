@@ -6,6 +6,9 @@ import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -14,4 +17,8 @@ import rx.Observable;
 public interface OrderService {
     @GET("retailers")
     Observable<List<Retailer>> getRetailers();
+
+    @POST("users/{userId}/printing-orders")
+    Observable<String> addPrintOrder(@Path("userId")String userId, @Query("token")String token, @Query("printingOrderFields")String printOrderFields,
+                                     @Query("copyItemsFields")String copyItemsFields, @Query("printingItemsFields")String printingItemsFields);
 }

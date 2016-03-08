@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorTitle">#FFFFFF</color>
+    <color name="colorAccent">#09BED1</color>
+    <color name="colorTitle">#000000</color>
 
     <color name="sky_blue">#09BED1</color>
     <color name="white">#FFFFFF</color>
@@ -14,6 +14,8 @@
     <color name="lucency">#00000000</color>
     <color name="green">#388E3C</color>
     <color name="black">#000000</color>
+    <color name="light_red">#EA6C5D</color>
+    <color name="light_green">#4cdf53</color>
 
     <!-- tab color -->
     <color name="tab_press">#09BED1</color>

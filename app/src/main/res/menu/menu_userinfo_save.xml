@@ -5,5 +5,5 @@
         android:id="@+id/userinfo_save"
         android:title=""
         app:showAsAction="always"
-        android:icon="@mipmap/three_dot_horizontal"/>
+        android:icon="@mipmap/more_three_dot"/>
 </menu>

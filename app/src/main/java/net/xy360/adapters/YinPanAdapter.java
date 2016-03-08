@@ -146,12 +146,12 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             FileViewHolder myViewHolder = (FileViewHolder)holder;
             File file = fileList.get(position);
             myViewHolder.position = position;
-            myViewHolder.tv_name.setText(file.fileName);
-            myViewHolder.tv_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.ownedTime));
-            myViewHolder.tv_size.setText("" + file.size / 1024);
-            if (file.fileType.equals("pdf"))
+            myViewHolder.tv_name.setText(file.getFileName());
+            myViewHolder.tv_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.getOwnedTime()));
+            myViewHolder.tv_size.setText("" + file.getSize() / 1024);
+            if (file.getFileType().equals("pdf"))
                 myViewHolder.iv_icon.setImageResource(R.mipmap.pdf);
-            else if (file.fileType.equals("doc"))
+            else if (file.getFileType().equals("doc"))
                 myViewHolder.iv_icon.setImageResource(R.mipmap.word);
             myViewHolder.cb_selected.setChecked(selectedList.get(position));
         }
@@ -189,5 +189,14 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return labelList.size() + fileList.size();
+    }
+
+    public List<File> getSelectedFile() {
+        List<File> list = new ArrayList<>();
+        for (int i = 0; i < fileList.size(); i++) {
+            if (selectedList.get(i).booleanValue() == true)
+                list.add(fileList.get(i));
+        }
+        return list;
     }
 }

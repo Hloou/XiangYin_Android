@@ -19,6 +19,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.google.gson.reflect.TypeToken;
+
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
 import net.xy360.activitys.print.SelectedRetailerActivity;
@@ -209,6 +211,8 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
 
     public void goSelectedRetailer() {
         Intent intent = new Intent(this, SelectedRetailerActivity.class);
+        List<File> list = yinPanAdapter.getSelectedFile();
+        intent.putExtra(new TypeToken<List<File>>(){}.toString(), BaseRequest.gson.toJson(list));
         startActivity(intent);
     }
 }

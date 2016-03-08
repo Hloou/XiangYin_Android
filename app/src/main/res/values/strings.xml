@@ -5,6 +5,7 @@
     <string name="my">我的</string>
     <string name="trash">废纸篓</string>
     <string name="select_retailer">选择商家</string>
+    <string name="print_order">服务订单</string>
 
     <!-- welcome_page-->
     <string name="welcome_sign">欢迎广告页</string>
@@ -139,6 +140,38 @@
     <string name="user_info_sign">个性签名：</string>
     <string name="user_info_mdftel">更换手机号</string>
     <string name="user_info_sign_edit">这个人很懒什么都没留下</string>
+
+    <!-- print order -->
+    <string name="print_order_real_pay">实付款:</string>
+    <string name="print_order_submit_order">提交订单</string>
+    <string name="print_order_send_method">送货方式</string>
+    <string name="print_order_take_by_myself">自取</string>
+    <string name="print_order_deliver_to_home">送货上门</string>
+    <string name="print_order_select_deliver_time">(选择送达时间)</string>
+    <string name="print_order_delete_file">移除文件</string>
+    <string name="print_order_set">份</string>
+    <string name="print_order_price">金额:</string>
+    <string name="print_order_to">至</string>
+    <string name="print_order_page">页数:</string>
+    <string name="print_order_specification">装订:</string>
+    <string name="print_order_address">收货地址</string>
+    <string name="print_order_change_address">修改收货地址</string>
+    <string name="print_order_discount">优惠兑換</string>
+    <string name="print_order_account_coin">账户印币:</string>
+    <string name="print_order_use">使用</string>
+    <string name="print_order_not_use">不使用</string>
+    <string name="print_order_input_coin_to_discount">输入印币数进行打印扺扣</string>
+    <string name="print_order_coin">印币</string>
+    <string name="print_order_total">打印总金额:</string>
+    <string name="print_order_total_discount">折扣金额:</string>
+    <string name="print_order_add_continue">继续添加</string>
+    <string name="print_order_add_yin_pan">从印盘添加</string>
+    <string name="print_order_add_wen_ku">从文库添加</string>
+    <string name="print_order_shoot_picture">拍照打印</string>
+
+    <!-- select retailer -->
+    <string name="select_retailer_select">确认选择</string>
+    <string name="select_retailer_have_not_select">尚未选择商家</string>
 
     <!-- welcome_sign -->
     <string name="welcome_sign_skip">跳过广告</string>

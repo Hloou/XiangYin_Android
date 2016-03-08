@@ -31,29 +31,28 @@ import net.xy360.activitys.ad.WelcomeSignActivity;
 import net.xy360.activitys.user.MyAddressActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
-import net.xy360.commonutils.models.UserId;
-import net.xy360.commonutils.models.UserLogin;
-import net.xy360.commonutils.userdata.UserData;
-import net.xy360.contants.wechat;
-
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
-
 public class WXEntryActivity extends BaseActivity implements View.OnClickListener, IWXAPIEventHandler{
 
-    private EditText et_phone, et_password;
+    private EditText et_phone,
+    import net.xy360.commonutils.models.UserId;
+    import net.xy360.commonutils.models.UserLogin;
+    import net.xy360.commonutils.userdata.UserData;
+    import net.xy360.contants.wechat;
+
+    import java.io.IOException;
+    import java.math.BigInteger;
+    import java.security.MessageDigest;
+    import java.security.NoSuchAlgorithmException;
+
+    import retrofit2.adapter.rxjava.HttpException;
+    import rx.Subscriber;
+    import rx.android.schedulers.AndroidSchedulers;
+    import rx.functions.Func1;
+    import rx.schedulers.Schedulers;
+    et_password;
     private Button btn_login;
     private TextView forget, register;
     private ManagementService managementService = null;
-
 
     private IWXAPI api;
     private ImageView wechatLogin;
@@ -68,11 +67,12 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         et_phone.setText("18818200005");
         et_password.setText("18818200005");
 
+        if (managementService == null)
+            managementService = BaseRequest.retrofit.create(ManagementService.class);
+
         api = WXAPIFactory.createWXAPI(this, wechat.APP_ID, false);
         api.handleIntent(getIntent(), this);
 
-        if (managementService == null)
-            managementService = BaseRequest.retrofit.create(ManagementService.class);
     }
 
     @Override
@@ -155,24 +155,22 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                 .subscribe(new Subscriber<UserId>() {
                     @Override
                     public void onCompleted() {
-                        Log.d("sha256", "done");
+                        //Log.d("sha256", "done");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("sha256 error", e.getMessage());
+                        //Log.d("sha256 error", e.getMessage());
                         BaseRequest.ErrorResponse(WXEntryActivity.this, e);
 
                     }
 
                     @Override
                     public void onNext(UserId userId) {
-                        //Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
-                        Intent intent = new Intent(WXEntryActivity.this, WelcomeSignActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        //Log.d("ffff", "yeah");
+                        Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-
-
                     }
                 });
     }
@@ -185,6 +183,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         super.onNewIntent(intent);
 
         setIntent(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         api.handleIntent(intent, this);
     }
 
@@ -258,9 +257,5 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
     /**
      * wechat method end
      */
-
-
-
-
 
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,6 +17,7 @@ import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 
+import io.realm.RealmObject;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -29,6 +32,17 @@ public class BaseRequest {
 
     public static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+            .setExclusionStrategies(new ExclusionStrategy() {
+                @Override
+                public boolean shouldSkipField(FieldAttributes f) {
+                    return f.getDeclaringClass().equals(RealmObject.class);
+                }
+
+                @Override
+                public boolean shouldSkipClass(Class<?> clazz) {
+                    return false;
+                }
+            })
             .create();
 
 
@@ -47,27 +61,32 @@ public class BaseRequest {
                 try {
                     s = response.response().errorBody().string();
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    //e1.printStackTrace();
+                }
+                net.xy360.commonutils.models.Error error = gson.fromJson(s, Error.class);
+                if (error.code >= 100 && error.code < 200) {
+                    Toast.makeText(context, context.getString(R.string.error_server_fail), Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                switch (error.code) {
+                    case 210:
+
+                    case 220:
+
+                    case 230:
+                        Toast.makeText(context, context.getString(R.string.error_password_error), Toast.LENGTH_SHORT).show();
+                        return true;
+                    case 240:
+                    case 250:
+                    case 260:
+                        Toast.makeText(context, context.getString(R.string.error_telephone_not_found_error), Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+
                 }
             }
         }
-        net.xy360.commonutils.models.Error error = gson.fromJson(s, Error.class);
-        switch (error.code) {
-            case 210:
-
-            case 220:
-
-            case 230:
-                Toast.makeText(context, context.getString(R.string.error_password_error), Toast.LENGTH_SHORT).show();
-                return true;
-            case 240:
-            case 250:
-            case 260:
-                Toast.makeText(context, context.getString(R.string.error_telephone_not_found_error), Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-
-        }
+        Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, response.response().errorBody().string(), Toast.LENGTH_SHORT).show();
         return false;
     }
