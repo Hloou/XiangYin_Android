@@ -19,7 +19,9 @@ import net.xy360.activitys.BaseActivity;
 import net.xy360.adapters.PrintOrderAdapter;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.models.Cart;
+import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.realm.RealmHelper;
+import net.xy360.commonutils.userdata.UserData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class PrintOrderActivity extends BaseActivity implements View.OnClickList
     private PrintOrderAdapter printOrderAdapter;
     private View footerView;
     private PopupWindow popupAdd;
+    private UserId userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class PrintOrderActivity extends BaseActivity implements View.OnClickList
         List<Cart> list = new ArrayList<>();
         list.addAll(carts);
         printOrderAdapter.addData(list);
+        userId = UserData.load(this, UserId.class);
     }
 
     @Override
@@ -59,6 +63,7 @@ public class PrintOrderActivity extends BaseActivity implements View.OnClickList
         View viewAdd = LayoutInflater.from(this).inflate(R.layout.popup_print_order_add, null);
         popupAdd = new PopupWindow(viewAdd, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupAdd.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        findViewById(R.id.tv_submit).setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +71,8 @@ public class PrintOrderActivity extends BaseActivity implements View.OnClickList
         int id = v.getId();
         if (id == R.id.btn_add) {
             popupAdd.showAtLocation(findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
+        } else if (id == R.id.tv_submit) {
+
         }
     }
 }

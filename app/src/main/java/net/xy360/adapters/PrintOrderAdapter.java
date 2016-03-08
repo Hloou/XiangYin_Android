@@ -14,19 +14,29 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.commonutils.internetrequest.BaseRequest;
+import net.xy360.commonutils.internetrequest.interfaces.OrderService;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.models.CopyItem;
 import net.xy360.commonutils.models.File;
+import net.xy360.commonutils.models.Order;
+import net.xy360.commonutils.models.PrintingItem;
 import net.xy360.commonutils.realm.RealmHelper;
 import net.xy360.interfaces.PrintOrderViewListener;
 import net.xy360.views.PrintCopyView;
 import net.xy360.views.PrintPrintingView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import retrofit2.Retrofit;
 
 /**
  * Created by jolin on 2016/3/5.
@@ -37,6 +47,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context context;
     private List<Cart> cartList;
     private View footerView;
+    private OrderService orderService;
 
     class SelectedCart {
         boolean all_selected;
@@ -217,5 +228,30 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setFooterView(View view) {
         this.footerView = view;
+    }
+
+    public void submitItem() {
+        if (orderService == null)
+            orderService = BaseRequest.retrofit.create(OrderService.class);
+        for (int i = 0; i < selectedCartList.size(); i++) {
+            boolean t = false;
+            SelectedCart sc = selectedCartList.get(i);
+            Cart cart = cartList.get(i);
+            List<CopyItem> copyItemList = new ArrayList<>();
+            List<PrintingItem> printingItemList = new ArrayList<>();
+            //choose selected item
+            if (sc.copy_selected != null) {
+                for (int j = 0; j < sc.copy_selected.size(); j++) {
+                    Copy copy = cart.getCopyItems().get(j);
+                    CopyItem copyItem = new CopyItem();
+                    copyItem.copyId = Integer.parseInt(copy.getCopyId());
+                    //default 1, will change later
+                    copyItem.copies = 1;
+                    copyItemList.add(copyItem);
+                }
+                Log.d("ffff", BaseRequest.gson.toJson(copyItemList));
+            }
+            
+        }
     }
 }

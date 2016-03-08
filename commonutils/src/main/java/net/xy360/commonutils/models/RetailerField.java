@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by jolin on 2016/3/4.
  */
 public class RetailerField {
-    public String retailerId;
+    public int retailerId;
     public int totalPriceInCent;
     public int actualPriceInCent;
     public int paymentMethod;
