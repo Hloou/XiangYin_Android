@@ -1,106 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".activitys.ad.PrintMoneyActivity">
 
     <include layout="@layout/toolbar" />
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@color/red_press" />
-
-
-
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
+            android:layout_height="230dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/print_money_ad" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/print_money_margin"
-            android:text="@string/print_money_sign_break"
-            android:textSize="12sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/print_money_margin"
-            android:text="@string/print_money_sign_rule"
-            android:textColor="@color/sky_blue" />
-    </RelativeLayout>
+            android:layout_gravity="right|bottom"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/sky_blue" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的印币:" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1600"
+                    android:textColor="@color/red_press" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="临时印币:" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30"
+                    android:textColor="@color/green" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <net.xy360.activitys.ad.RoundImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/pdf"
+            imagecontrol:border_inside_color="@color/white"
+            imagecontrol:border_outside_color="@color/white_bg"
+            imagecontrol:border_thickness="5dp" />
+
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/integral_line_detail"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/sign_already_sign" />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:text="4"
-            android:textColor="@color/yellow_press" />
+            <TextView
+                android:id="@+id/integral_tv_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="积分明细"
+                android:textColor="@color/sky_blue" />
 
-        <TextView
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/integral_img_detail"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/sky_blue" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray" />
+
+
+        <LinearLayout
+            android:id="@+id/integral_line_income"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/sign_day" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/integral_tv_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="积分收入"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/integral_img_income"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/integral_line_expenditure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/integral_tv_expenditure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="积分支出"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/integral_img_expenditure"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="@color/red_press">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_contiune_sign" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:text="5"
-            android:textColor="@color/yellow_press" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_contiune_sign_text" />
-    </LinearLayout>
+    </ListView>
 
 
-    <TextView
-        android:layout_width="@dimen/print_money_sign_width"
-        android:layout_height="@dimen/print_money_sign_height"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/print_money_sign"
-        android:background="@mipmap/sign_bg"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:text="@string/print_money_sign_text" />
 </LinearLayout>

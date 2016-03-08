@@ -31,6 +31,8 @@
 
     <!-- setting page -->
     <dimen name="setting_padding">10dp</dimen>
+    <dimen name="setting_enter_width">20dp</dimen>
+    <dimen name="setting_enter_height">20dp</dimen>
 
 
     <!-- border tab widget dimen -->
@@ -78,8 +80,8 @@
     <!-- welcome sign -->
     <dimen name="welcome_sign_line">10dp</dimen>
     <dimen name="welcome_sign_text">10dp</dimen>
-    <dimen name="welcome_sign_sign_width">25dp</dimen>
-    <dimen name="welcome_sign_sign_height">25dp</dimen>
+    <dimen name="welcome_sign_sign_width">1dp</dimen>
+    <dimen name="welcome_sign_sign_height">35dp</dimen>
     <dimen name="welcome_sign_close_width">20dp</dimen>
     <dimen name="welcome_sign_logo_width">80dp</dimen>
     <dimen name="welcome_sign_logo_height">30dp</dimen>

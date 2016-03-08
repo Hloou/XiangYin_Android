@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.xy360.activitys.UserActivity"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
@@ -12,129 +12,212 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/bg_user"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <net.xy360.activitys.ad.RoundImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/pdf"
+            imagecontrol:border_inside_color="@color/white"
+            imagecontrol:border_outside_color="@color/white_bg"
+            imagecontrol:border_thickness="5dp" />
+
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <android.support.v7.widget.GridLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    <android.support.v7.widget.GridLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_gray"
         app:columnCount="3"
-        app:rowCount="3"
-        app:orientation="horizontal">
+        app:orientation="horizontal"
+        app:rowCount="3">
+
         <LinearLayout
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_dingdan"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_dingdan" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_dingdan"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_dingdan" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/user_line_integral"
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_jifen"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_jifen" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_jifen"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_jifen" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/user_line_mymsg"
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_ziliao"
-                android:id="@+id/user_info"/>
+                android:id="@+id/user_mymsg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_xiaoxi" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_ziliao"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_xiaoxi" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/user_line_info"
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_xiaoxi"
-                android:id="@+id/user_mymsg"/>
+                android:id="@+id/user_info"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_ziliao" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_xiaoxi"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_ziliao" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/user_line_address"
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_dizhi"
-                android:id="@+id/user_address"/>
+                android:id="@+id/user_address"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_dizhi" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_dizhi"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_dizhi" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/user_line_feedback"
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_fankui"
-                android:id="@+id/user_feedback"/>
+                android:id="@+id/user_feedback"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_fankui" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_fankui"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_fankui" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/user_line_setting"
+            android:layout_margin="1dp"
+            android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
+
             <ImageView
                 android:id="@+id/user_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/user_shezhi"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/user_shezhi" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/my_shezhi"/>
+                android:layout_margin="5dp"
+                android:text="@string/my_shezhi" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="1dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="1dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+
         </LinearLayout>
 
     </android.support.v7.widget.GridLayout>

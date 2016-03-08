@@ -1,84 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context=".activitys.user.SettingsActivity"
-              android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activitys.user.SettingsActivity">
 
     <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/setting_padding">
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <LinearLayout
+            android:id="@+id/settings_line_mdf_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_margin="10dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="@dimen/login_small_logo_length"
                 android:layout_height="@dimen/login_small_logo_length"
-                android:gravity="center_vertical"
                 android:layout_margin="5dp"
-                android:src="@mipmap/pw_modify"/>
+                android:gravity="center_vertical"
+                android:src="@mipmap/pw_modify" />
+
             <TextView
-                android:layout_width="@dimen/password_text_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/login_small_logo_length"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.7"
                 android:gravity="center_vertical"
                 android:text="@string/settings_mdf_pw" />
+
             <ImageView
                 android:id="@+id/settings_mdf_pw"
-                android:layout_width="@dimen/login_small_logo_length"
-                android:layout_height="@dimen/login_small_logo_length"
-                android:gravity="center_vertical"
+                android:layout_width="@dimen/setting_enter_width"
+                android:layout_height="@dimen/setting_enter_height"
                 android:layout_margin="5dp"
-                android:src="@mipmap/enter"/>
+                android:gravity="center_vertical"
+                android:src="@mipmap/enter" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray"/>
+            android:background="@color/bg_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_margin="10dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="@dimen/login_small_logo_length"
                 android:layout_height="@dimen/login_small_logo_length"
-                android:gravity="center_vertical"
                 android:layout_margin="5dp"
-                android:src="@mipmap/about"/>
+                android:gravity="center_vertical"
+                android:src="@mipmap/about" />
+
             <TextView
-                android:layout_width="@dimen/password_text_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/login_small_logo_length"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.7"
                 android:gravity="center_vertical"
                 android:text="@string/settings_about_xy" />
+
             <ImageView
                 android:id="@+id/settings_about"
-                android:layout_width="@dimen/login_small_logo_length"
-                android:layout_height="@dimen/login_small_logo_length"
-                android:gravity="center_vertical"
+                android:layout_width="@dimen/setting_enter_width"
+                android:layout_height="@dimen/setting_enter_height"
                 android:layout_margin="5dp"
-                android:src="@mipmap/enter"/>
+                android:gravity="center_vertical"
+                android:src="@mipmap/enter" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"/>
+            android:layout_height="5dp"
+            android:background="@color/bg_gray" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/login_small_logo_length"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:src="@mipmap/sign_out" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.7"
+                android:gravity="center_vertical"
+                android:text="@string/settings_sign_out" />
+
+            <ImageView
+                android:layout_width="@dimen/setting_enter_width"
+                android:layout_height="@dimen/setting_enter_height"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:src="@mipmap/enter" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/bg_gray" />
     </LinearLayout>
 
 </LinearLayout>

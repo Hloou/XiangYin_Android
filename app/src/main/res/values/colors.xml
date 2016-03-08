@@ -10,7 +10,7 @@
     <color name="gray">#DCDDDD</color>
     <color name="light_gray">#DCDDDD</color>
     <color name="bg_gray">#F4F5F6</color>
-    
+
     <color name="lucency">#00000000</color>
     <color name="green">#388E3C</color>
     <color name="black">#000000</color>
@@ -24,6 +24,8 @@
     <color name="red_press">#DB3326</color>
     <color name="yellow_press">#EFDA45</color>
 
+    <!--print money-->
+    <color name="white_bg">#edfdfdfb</color>
 
 
 </resources>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="net.xy360.activitys.ForgetPasswordActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_gray_corner"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/signup_text_padding">
+
+            <ImageView
+                android:layout_width="@dimen/login_small_logo_length"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:layout_margin="5dp"
+                android:src="@mipmap/tel_old" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="@dimen/signup_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/signup_textview_padding"
+                android:text="@string/mdf_tel_old" />
+
+            <EditText
+                android:background="@null"
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_gray_corner"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/signup_text_padding">
+
+            <ImageView
+                android:layout_width="@dimen/login_small_logo_length"
+                android:layout_height="@dimen/login_small_logo_length"
+                android:layout_margin="5dp"
+                android:src="@mipmap/tel_new" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray" />
+
+            <TextView
+                android:layout_width="@dimen/signup_text_width"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/signup_textview_padding"
+                android:text="@string/mdf_tel_new" />
+
+            <EditText
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_gray_corner"
+            android:orientation="horizontal"
+            android:padding="@dimen/signup_text_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/signup_code_enter"
+                android:text="@string/signup_enter_codes" />
+
+            <EditText
+                android:layout_width="@dimen/signup_code_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:layout_weight="0.33" />
+
+            <Button
+                android:layout_width="@dimen/signup_getcode_width"
+                android:layout_height="@dimen/signup_getcode_height"
+                android:layout_gravity="right"
+                android:background="@mipmap/btn_code_sky_blue"
+                android:padding="@dimen/signup_code_enter"
+                android:text="@string/signup_get_codes"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/btn_sky_blue_round"
+            android:text="@string/mdf_tel_cfm"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

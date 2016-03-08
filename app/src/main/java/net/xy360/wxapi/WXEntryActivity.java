@@ -1,6 +1,8 @@
 package net.xy360.wxapi;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +27,7 @@ import net.xy360.activitys.BaseActivity;
 import net.xy360.activitys.ForgetPasswordActivity;
 import net.xy360.activitys.NavigationActivity;
 import net.xy360.activitys.SignUpActivity;
+import net.xy360.activitys.ad.WelcomeSignActivity;
 import net.xy360.activitys.user.MyAddressActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
@@ -50,6 +53,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
     private Button btn_login;
     private TextView forget, register;
     private ManagementService managementService = null;
+
 
     private IWXAPI api;
     private ImageView wechatLogin;
@@ -163,9 +167,12 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
                     @Override
                     public void onNext(UserId userId) {
-                        Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        //Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
+                        Intent intent = new Intent(WXEntryActivity.this, WelcomeSignActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+
+
                     }
                 });
     }
@@ -251,5 +258,9 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
     /**
      * wechat method end
      */
+
+
+
+
 
 }

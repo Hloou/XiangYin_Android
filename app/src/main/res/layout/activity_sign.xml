@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/red_press"
     android:orientation="vertical">
-
     <include layout="@layout/toolbar" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,7 +15,7 @@
         android:background="@drawable/btn_yellow_circular"
         android:contentDescription=""
         android:gravity="center"
-        android:paddingTop="4dp"
+
         android:text="@string/sign_text_one" />
 
     <RelativeLayout
@@ -32,7 +32,6 @@
             android:background="@drawable/btn_white_corner"
             android:contentDescription=""
             android:gravity="center"
-            android:paddingTop="4dp"
             android:text="@string/sign_text_five"
             android:textColor="@color/white" />
 
@@ -51,7 +50,7 @@
             android:background="@drawable/btn_yellow_circular"
             android:contentDescription=""
             android:gravity="center"
-            android:paddingTop="4dp"
+
             android:text="@string/sign_text_two" />
 
     </RelativeLayout>
@@ -70,7 +69,7 @@
             android:background="@drawable/btn_yellow_circular"
             android:contentDescription=""
             android:gravity="center"
-            android:paddingTop="4dp"
+
             android:text="@string/sign_text_four" />
 
         <TextView
@@ -80,7 +79,7 @@
             android:background="@drawable/btn_yellow_circular"
             android:contentDescription=""
             android:gravity="center"
-            android:paddingTop="4dp"
+
             android:text="@string/sign_text_three" />
 
     </LinearLayout>
@@ -170,16 +169,20 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/sign_tv_integral"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center_horizontal"
         android:text="@string/sign_view_grade"
         android:textColor="@color/yellow_press" />
 
     <ImageView
+        android:id="@+id/sign_img_close"
+        android:layout_marginTop="10dp"
         android:layout_width="20dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:contentDescription=""
         android:src="@mipmap/close" />

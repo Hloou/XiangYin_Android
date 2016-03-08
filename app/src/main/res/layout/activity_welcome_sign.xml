@@ -10,15 +10,18 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/welcome_sign_tv_ad"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="440dp"
-            android:background="@color/colorAccent" />
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/welcome_sign_line_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -37,42 +40,42 @@
                     android:layout_width="@dimen/welcome_sign_close_width"
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp"
-                    android:src="@mipmap/close"
-                    android:contentDescription="" />
+                    android:contentDescription=""
+                    android:src="@mipmap/close" />
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="@dimen/welcome_sign_line">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_margin="@dimen/welcome_sign_text"
-            android:layout_weight="1"
             android:text="@string/welcome_sign_money" />
 
         <TextView
-            android:layout_width="@dimen/welcome_sign_sign_width"
+            android:id="@+id/welcome_tv_sign"
+            android:layout_width="80dp"
             android:layout_height="@dimen/welcome_sign_sign_height"
-            android:layout_margin="@dimen/welcome_sign_text"
-            android:layout_weight="1"
+            android:layout_centerHorizontal="true"
             android:background="@mipmap/sign_bg"
             android:gravity="center"
-            android:paddingTop="5dp"
+            android:paddingTop="8dp"
             android:text="@string/welcome_sign_sign" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_margin="@dimen/welcome_sign_text"
-            android:layout_weight="1"
             android:text="@string/welcome_sign_action" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="@dimen/welcome_sign_logo_width"
