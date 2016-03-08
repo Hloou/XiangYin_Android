@@ -2,6 +2,12 @@ package net.xy360.commonutils.realm;
 
 import android.content.Context;
 
+import net.xy360.commonutils.models.Cart;
+import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.models.CopyCart;
+import net.xy360.commonutils.models.File;
+import net.xy360.commonutils.models.PrintingCart;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -22,4 +28,14 @@ public class RealmHelper {
     }
 
     public static Realm realm;
+
+    public static void removeAllData() {
+        RealmHelper.realm.beginTransaction();
+        RealmHelper.realm.clear(Cart.class);
+        RealmHelper.realm.clear(CopyCart.class);
+        RealmHelper.realm.clear(Copy.class);
+        RealmHelper.realm.clear(PrintingCart.class);
+        RealmHelper.realm.clear(File.class);
+        RealmHelper.realm.commitTransaction();
+    }
 }

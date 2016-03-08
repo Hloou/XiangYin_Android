@@ -31,25 +31,23 @@ import net.xy360.activitys.ad.WelcomeSignActivity;
 import net.xy360.activitys.user.MyAddressActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
+import net.xy360.commonutils.models.UserId;
+import net.xy360.commonutils.models.UserLogin;
+import net.xy360.commonutils.userdata.UserData;
+import net.xy360.contants.wechat;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
 public class WXEntryActivity extends BaseActivity implements View.OnClickListener, IWXAPIEventHandler{
 
-    private EditText et_phone,
-    import net.xy360.commonutils.models.UserId;
-    import net.xy360.commonutils.models.UserLogin;
-    import net.xy360.commonutils.userdata.UserData;
-    import net.xy360.contants.wechat;
-
-    import java.io.IOException;
-    import java.math.BigInteger;
-    import java.security.MessageDigest;
-    import java.security.NoSuchAlgorithmException;
-
-    import retrofit2.adapter.rxjava.HttpException;
-    import rx.Subscriber;
-    import rx.android.schedulers.AndroidSchedulers;
-    import rx.functions.Func1;
-    import rx.schedulers.Schedulers;
-    et_password;
+    private EditText et_phone, et_password;
     private Button btn_login;
     private TextView forget, register;
     private ManagementService managementService = null;

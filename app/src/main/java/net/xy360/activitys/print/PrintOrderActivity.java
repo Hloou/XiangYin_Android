@@ -72,7 +72,7 @@ public class PrintOrderActivity extends BaseActivity implements View.OnClickList
         if (id == R.id.btn_add) {
             popupAdd.showAtLocation(findViewById(android.R.id.content), Gravity.CENTER, 0, 0);
         } else if (id == R.id.tv_submit) {
-
+            printOrderAdapter.submitItem(userId);
         }
     }
 }

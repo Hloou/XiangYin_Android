@@ -18,8 +18,11 @@ import android.widget.TextView;
 import net.xy360.R;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.models.CopyCart;
 import net.xy360.commonutils.realm.RealmHelper;
 import net.xy360.interfaces.PrintOrderViewListener;
+
+import io.realm.Realm;
 
 /**
  * Created by jolin on 2016/3/5.
@@ -27,10 +30,9 @@ import net.xy360.interfaces.PrintOrderViewListener;
 public class PrintCopyView extends FrameLayout implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
 
     private CheckBox cb_selected;
-    private TextView tv_minus, tv_plus, tv_count, tv_name, tv_price, tv_page, tv_specification;
+    private TextView tv_minus, tv_plus, tv_count, tv_name, tv_price, tv_page, tv_specification, tv_total_price;
     private Button btn_delete;
-    private int count;
-    private Copy copy;
+    private CopyCart copyCart;
     private PrintOrderViewListener printOrderViewListener = null;
 
     public PrintCopyView(Context context) {
@@ -51,7 +53,6 @@ public class PrintCopyView extends FrameLayout implements View.OnClickListener, 
     public void init(Context context) {
         //setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         LayoutInflater.from(context).inflate(R.layout.item_print_order_copy, this, true);
-        count = 1;
         cb_selected = (CheckBox)findViewById(R.id.cb_selected);
         tv_count = (TextView)findViewById(R.id.tv_count);
         tv_minus = (TextView)findViewById(R.id.tv_minus);
@@ -60,10 +61,10 @@ public class PrintCopyView extends FrameLayout implements View.OnClickListener, 
         tv_page = (TextView)findViewById(R.id.tv_page);
         tv_price = (TextView)findViewById(R.id.tv_price);
         tv_specification = (TextView)findViewById(R.id.tv_specification);
+        tv_total_price = (TextView)findViewById(R.id.tv_total_price);
         btn_delete = (Button)findViewById(R.id.btn_delete);
 
         cb_selected.setOnCheckedChangeListener(this);
-        tv_count.setText("" + count);
         tv_minus.setOnClickListener(this);
         tv_plus.setOnClickListener(this);
         btn_delete.setOnClickListener(this);
@@ -73,26 +74,37 @@ public class PrintCopyView extends FrameLayout implements View.OnClickListener, 
         this.printOrderViewListener = printOrderViewListener;
     }
 
-    public void setData(Copy copy) {
-        this.copy = copy;
+    public void setData(CopyCart copyCart) {
+        this.copyCart = copyCart;
+        Copy copy = copyCart.getCopy();
         tv_name.setText(copy.getName());
-        tv_price.setText(String.format("%.2f", copy.getPriceInCent()/100.0));
+        tv_price.setText(String.format("%.2f", copy.getPriceInCent() / 100.0));
         tv_page.setText(copy.getPageNumber() + "");
         tv_specification.setText("");
-
+        tv_count.setText("" + copyCart.getCopies());
+        tv_total_price.setText(String.format("%.2f", copyCart.getCopies() * copy.getPriceInCent() / 100.0));
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_minus) {
-            count = (count == 1 ? 1 : --count);
-            tv_count.setText("" + count);
+            if (copyCart.getCopies() != 1) {
+                RealmHelper.realm.beginTransaction();
+                copyCart.setCopies(copyCart.getCopies() - 1);
+                RealmHelper.realm.commitTransaction();
+                tv_count.setText("" + copyCart.getCopies());
+                tv_total_price.setText(String.format("%.2f", copyCart.getCopies() * copyCart.getCopy().getPriceInCent() / 100.0));
+            }
         } else if (id == R.id.tv_plus) {
-            tv_count.setText("" + (++count));
+            RealmHelper.realm.beginTransaction();
+            copyCart.setCopies(copyCart.getCopies() + 1);
+            RealmHelper.realm.commitTransaction();
+            tv_count.setText("" + copyCart.getCopies());
+            tv_total_price.setText(String.format("%.2f", copyCart.getCopies() * copyCart.getCopy().getPriceInCent() / 100.0));
         } else if (id == R.id.btn_delete) {
             if (printOrderViewListener != null)
-                printOrderViewListener.delete(this, 0, copy);
+                printOrderViewListener.delete(this, 0, copyCart);
         }
     }
 

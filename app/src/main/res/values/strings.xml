@@ -168,6 +168,7 @@
     <string name="print_order_add_yin_pan">从印盘添加</string>
     <string name="print_order_add_wen_ku">从文库添加</string>
     <string name="print_order_shoot_picture">拍照打印</string>
+    <string name="print_order_total_price">总价:</string>
 
     <!-- select retailer -->
     <string name="select_retailer_select">确认选择</string>

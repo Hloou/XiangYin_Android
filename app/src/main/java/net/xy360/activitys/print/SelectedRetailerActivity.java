@@ -19,6 +19,7 @@ import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.OrderService;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.File;
+import net.xy360.commonutils.models.PrintingCart;
 import net.xy360.commonutils.models.Retailer;
 import net.xy360.commonutils.realm.RealmHelper;
 
@@ -110,17 +111,31 @@ public class SelectedRetailerActivity extends BaseActivity {
             return;
         }
 
+        RealmHelper.realm.beginTransaction();
         Cart cart = RealmHelper.realm.where(Cart.class).equalTo("retailerId", retailer.retailerId).findFirst();
         if (cart == null) {
-            cart = new Cart();
+            cart = RealmHelper.realm.createObject(Cart.class);
             cart.setRetailerId(retailer.retailerId);
             cart.setRetailerName(retailer.retailerName);
-            cart.setPrintingItems(new RealmList<File>());
+            cart.setPrintingItems(new RealmList<PrintingCart>());
         }
 
-        RealmHelper.realm.beginTransaction();
-        cart.getPrintingItems().addAll(fileList);
-        RealmHelper.realm.copyToRealmOrUpdate(cart);
+        for (int i = 0; i < fileList.size(); i++) {
+            File file = RealmHelper.realm.copyToRealmOrUpdate(fileList.get(i));
+
+            PrintingCart printingCart = RealmHelper.realm.where(PrintingCart.class)
+                    .equalTo("id", retailer.retailerId + file.getFileId()).findFirst();
+            if (printingCart == null) {
+                printingCart = RealmHelper.realm.createObject(PrintingCart.class);
+                printingCart.setId(retailer.retailerId + file.getFileId());
+                printingCart.setFile(file);
+                printingCart.setCopies(1);
+                cart.getPrintingItems().add(printingCart);
+            } else {
+                printingCart.setCopies(printingCart.getCopies() + 1);
+            }
+        }
+
         RealmHelper.realm.commitTransaction();
 
         Intent intent = new Intent(this, PrintOrderActivity.class);

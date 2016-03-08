@@ -7,6 +7,7 @@ import io.realm.RealmObject;
  */
 public class CopyItem {
 
+
     public int copyId;
 
     public int copies;

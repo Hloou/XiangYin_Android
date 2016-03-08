@@ -17,11 +17,13 @@ import net.xy360.activitys.print.PrintOrderActivity;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.models.CopyCart;
 import net.xy360.commonutils.realm.RealmHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 
 /**
@@ -60,21 +62,30 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
             btn_print.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //insert to cart
                     Copy copy = mDatas.get(position);
+                    //insert cart to database
+                    //this will block, will change later
+                    RealmHelper.realm.beginTransaction();
+                    copy = RealmHelper.realm.copyToRealmOrUpdate(copy);
                     Cart cart = RealmHelper.realm.where(Cart.class).equalTo("retailerId", copy.getRetailerId()).findFirst();
                     //check is inserted
                     if (cart == null) {
-                        cart = new Cart();
+                        cart = RealmHelper.realm.createObject(Cart.class);
                         cart.setRetailerId(copy.getRetailerId());
                         cart.setRetailerName(copy.getRetailerName());
-                        cart.setCopyItems(new RealmList<Copy>());
+                        cart.setCopyItems(new RealmList<CopyCart>());
                     }
-
-                    //this will block, will change later
-                    RealmHelper.realm.beginTransaction();
-                    cart.getCopyItems().add(copy);
-                    RealmHelper.realm.copyToRealmOrUpdate(cart);
+                    CopyCart copyCart = RealmHelper.realm.where(CopyCart.class).equalTo("id", copy.getRetailerId() + copy.getCopyId()).findFirst();
+                    //check is insert
+                    if (copyCart == null) {
+                        copyCart = RealmHelper.realm.createObject(CopyCart.class);
+                        copyCart.setId(copy.getRetailerId() + copy.getCopyId());
+                        copyCart.setCopy(copy);
+                        copyCart.setCopies(1);
+                        cart.getCopyItems().add(copyCart);
+                    } else {
+                        copyCart.setCopies(copyCart.getCopies() + 1);
+                    }
                     RealmHelper.realm.commitTransaction();
                     Intent intent = new Intent(context, PrintOrderActivity.class);
                     context.startActivity(intent);

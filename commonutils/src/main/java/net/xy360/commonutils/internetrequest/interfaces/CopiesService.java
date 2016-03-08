@@ -13,6 +13,6 @@ import rx.Observable;
  * Created by jolin on 2016/2/28.
  */
 public interface CopiesService {
-    @GET("/copies")
+    @GET("copies")
     Observable<List<Copy>> getCopies(@Query("query") String query, @Query("pageNumber") int pageNumber);
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -81,6 +82,7 @@ public class WenKuActivity extends BaseActivity implements View.OnClickListener{
 
                         @Override
                         public void onError(Throwable e) {
+                            BaseRequest.ErrorResponse(WenKuActivity.this, e);
                         }
 
                         @Override
@@ -89,6 +91,7 @@ public class WenKuActivity extends BaseActivity implements View.OnClickListener{
                                 nowpage = 0;
                                 return;
                             }
+                            Log.d("fff", "" + copies.size());
                             wenKuAdapter.addDatas(copies);
                         }
                     });

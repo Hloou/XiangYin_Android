@@ -18,10 +18,14 @@ import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.OrderService;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
+import net.xy360.commonutils.models.CopyCart;
 import net.xy360.commonutils.models.CopyItem;
 import net.xy360.commonutils.models.File;
 import net.xy360.commonutils.models.Order;
+import net.xy360.commonutils.models.PrintingCart;
 import net.xy360.commonutils.models.PrintingItem;
+import net.xy360.commonutils.models.RetailerField;
+import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.realm.RealmHelper;
 import net.xy360.interfaces.PrintOrderViewListener;
 import net.xy360.views.PrintCopyView;
@@ -34,9 +38,14 @@ import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import io.realm.RealmList;
 import retrofit2.Retrofit;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by jolin on 2016/3/5.
@@ -54,7 +63,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         List<Boolean> copy_selected;
         List<Boolean> printing_selected;
     }
-
+    //record selected item
     private List<SelectedCart> selectedCartList;
 
     public PrintOrderAdapter(Context context) {
@@ -91,7 +100,8 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (type == 0) {  //copy
                 RealmHelper.realm.beginTransaction();
                 int i = cart.getCopyItems().indexOf(o);
-                cart.getCopyItems().remove(i);
+                cart.getCopyItems().get(i).removeFromRealm();
+                //cart.getCopyItems().remove(i);
                 copy_selected.remove(i);
                 if (cart.getCopyItems().size() == 0 && cart.getPrintingItems().size() == 0) {
                     int index = cartList.indexOf(cart);
@@ -105,7 +115,8 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             } else if (type == 1) { // printing
                 RealmHelper.realm.beginTransaction();
                 int i = cart.getPrintingItems().indexOf(o);
-                cart.getPrintingItems().remove(i);
+                cart.getPrintingItems().get(i).removeFromRealm();
+                //cart.getPrintingItems().remove(i);
                 print_selected.remove(i);
                 if (cart.getCopyItems().size() == 0 && cart.getPrintingItems().size() == 0) {
                     int index = cartList.indexOf(cart);
@@ -173,7 +184,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             //set copy data
             holder.copy_selected = sc.copy_selected;
-            List<Copy> copies = cart.getCopyItems();
+            RealmList<CopyCart> copies = cart.getCopyItems();
             if (copies != null) {
                 for (int i = 0; i < copies.size(); i++) {
                     PrintCopyView printCopyView = new PrintCopyView(context);
@@ -186,7 +197,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             //set printing data
             holder.print_selected = sc.printing_selected;
-            List<File> files = cart.getPrintingItems();
+            List<PrintingCart> files = cart.getPrintingItems();
             if (files != null) {
                 for (int i = 0; i < files.size(); i++) {
                     PrintPrintingView printPrintingView = new PrintPrintingView(context);
@@ -230,7 +241,38 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.footerView = view;
     }
 
-    public void submitItem() {
+    public void calTotalPrice() {
+        int total = 0;
+        for (int i = 0; i < cartList.size(); i++) {
+            Cart cart = cartList.get(i);
+            //get copy selected
+            List<Boolean> cs = selectedCartList.get(i).copy_selected;
+            //get print selected
+            List<Boolean> ps = selectedCartList.get(i).printing_selected;
+            if (cs != null) {
+                List<CopyCart> copyCarts = cart.getCopyItems();
+                for (int j = 0; j < cs.size(); j++) {
+                    if (cs.get(j).booleanValue()) {
+                        CopyCart copyCart = copyCarts.get(j);
+                        total += copyCart.getCopies() * copyCart.getCopy().getPriceInCent();
+                    }
+                }
+            }
+            if (ps != null) {
+                List<PrintingCart> printingCarts = cart.getPrintingItems();
+                for (int j = 0; j < ps.size(); j++) {
+                    if (ps.get(j).booleanValue()) {
+                        PrintingCart printingCart = printingCarts.get(j);
+                        //no price ,default 1
+                        total += printingCart.getCopies() * 1;
+                    }
+                }
+            }
+        }
+        //output total price
+    }
+
+    public void submitItem(UserId userId) {
         if (orderService == null)
             orderService = BaseRequest.retrofit.create(OrderService.class);
         for (int i = 0; i < selectedCartList.size(); i++) {
@@ -239,18 +281,51 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             Cart cart = cartList.get(i);
             List<CopyItem> copyItemList = new ArrayList<>();
             List<PrintingItem> printingItemList = new ArrayList<>();
+            //set retailer item
+            RetailerField retailerField = new RetailerField();
+            retailerField.retailerId = cart.getRetailerId();
+            retailerField.totalPriceInCent = 500;
+            retailerField.actualPriceInCent = 500;
+            retailerField.paymentMethod = 0;
+            retailerField.isRetailerDelivery = true;
+            retailerField.deliveryAddressId = 1;
+            retailerField.remark = "ASAP";
+            retailerField.status = 2;
+            retailerField.userSubmittedTime = new Date();
             //choose selected item
             if (sc.copy_selected != null) {
                 for (int j = 0; j < sc.copy_selected.size(); j++) {
-                    Copy copy = cart.getCopyItems().get(j);
+                    t = true;
+                    Copy copy = cart.getCopyItems().get(j).getCopy();
                     CopyItem copyItem = new CopyItem();
                     copyItem.copyId = Integer.parseInt(copy.getCopyId());
                     //default 1, will change later
-                    copyItem.copies = 1;
+                    copyItem.copies = cart.getCopyItems().get(j).getCopies();
                     copyItemList.add(copyItem);
                 }
                 Log.d("ffff", BaseRequest.gson.toJson(copyItemList));
             }
+
+            orderService.addPrintOrder(userId.userId, userId.token, BaseRequest.gson.toJson(retailerField),
+                                        BaseRequest.gson.toJson(copyItemList), BaseRequest.gson.toJson(printingItemList))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d("fail", "fail");
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                            Log.d("submit it", s);
+                        }
+                    });
 
         }
     }
