@@ -1,14 +1,22 @@
 package net.xy360.activitys;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.activitys.ad.DpPxChange;
+import net.xy360.activitys.ad.PrintMoneyActivity;
 import net.xy360.activitys.user.FeedbackActivity;
 import net.xy360.activitys.user.MyAddressActivity;
 import net.xy360.activitys.user.MyMessageActivity;
@@ -31,14 +39,13 @@ import rx.schedulers.Schedulers;
 public class UserActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tv_name, tv_description;
-    private ImageView settings, feedback, message, address, info;
+    private LinearLayout user_line_integral,user_line_mymsg,user_line_info,user_line_address,user_line_feedback,user_line_setting;
     private ManagementService managementService = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         initView();
 
         UserInfo userInfo = UserData.load(this, UserInfo.class);
@@ -85,17 +92,34 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
     public void initView() {
         tv_name = (TextView)findViewById(R.id.tv_name);
         tv_description = (TextView)findViewById(R.id.tv_description);
-        settings = (ImageView)findViewById(R.id.user_setting);
-        feedback = (ImageView)findViewById(R.id.user_feedback);
-        message = (ImageView)findViewById(R.id.user_mymsg);
-        address = (ImageView)findViewById(R.id.user_address);
-        info = (ImageView)findViewById(R.id.user_info);
 
-        settings.setOnClickListener(this);
-        feedback.setOnClickListener(this);
-        message.setOnClickListener(this);
-        address.setOnClickListener(this);
-        info.setOnClickListener(this);
+        user_line_integral= (LinearLayout)findViewById(R.id.user_line_integral);
+        user_line_mymsg= (LinearLayout)findViewById(R.id.user_line_mymsg);
+        user_line_info= (LinearLayout)findViewById(R.id.user_line_info);
+        user_line_address= (LinearLayout)findViewById(R.id.user_line_address);
+        user_line_feedback= (LinearLayout)findViewById(R.id.user_line_feedback);
+        user_line_setting = (LinearLayout)findViewById(R.id.user_line_setting);
+
+        user_line_integral.setOnClickListener(this);
+        user_line_mymsg.setOnClickListener(this);
+        user_line_info.setOnClickListener(this);
+        user_line_address.setOnClickListener(this);
+        user_line_feedback.setOnClickListener(this);
+        user_line_setting.setOnClickListener(this);
+
+
+        //导航条背景
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        //设置导航条标题颜色
+        toolbarTitle.setTextColor(ContextCompat.getColor(this, R.color.black));
+
+
+        //设置页面头布局
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            UserActivity.this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        }
     }
 
 
@@ -107,24 +131,28 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.user_setting) {
+        if (id == R.id.user_line_setting) {
             Intent intent = new Intent(UserActivity.this, SettingsActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.user_feedback) {
+        if (id == R.id.user_line_feedback) {
             Intent intent = new Intent(UserActivity.this, FeedbackActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.user_mymsg) {
+        if (id == R.id.user_line_mymsg) {
             Intent intent = new Intent(UserActivity.this, MyMessageActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.user_address) {
+        if (id == R.id.user_line_address) {
             Intent intent = new Intent(UserActivity.this, MyAddressActivity.class);
             startActivity(intent);
         }
-        if (id == R.id.user_info) {
+        if (id == R.id.user_line_info) {
             Intent intent = new Intent(UserActivity.this, UserInfoActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.user_line_integral) {
+            Intent intent = new Intent(UserActivity.this, PrintMoneyActivity.class);
             startActivity(intent);
         }
     }

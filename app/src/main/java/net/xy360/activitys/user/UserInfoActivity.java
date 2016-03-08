@@ -1,5 +1,6 @@
 package net.xy360.activitys.user;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +34,7 @@ import rx.schedulers.Schedulers;
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener{
 
     private EditText et_nickname, et_name, et_tel, et_sch, et_time, et_addr, et_sign;
-    private TextView tv_mdftel;
+    private TextView tv_mdftel,user_info_mdftel;
     private String nickname, name, tel, sch, time, addr, sign;
     private ManagementService managementService = null;
 
@@ -163,6 +164,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        Intent intent = new Intent();
         int id = v.getId();
         if (id == R.id.user_info_mdftel) {
             String nickname = et_nickname.getText().toString();
@@ -174,9 +176,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             String sign = et_sign.getText().toString();
 
         }
+        if(id==R.id.user_info_mdftel){
+            intent.setClass(UserInfoActivity.this, ModifyTelActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void initView() {
+        user_info_mdftel = (TextView)findViewById(R.id.user_info_mdftel);
         et_nickname = (EditText) findViewById(R.id.user_info_nickname);
         et_name = (EditText) findViewById(R.id.user_info_name);
         et_tel = (EditText) findViewById(R.id.user_info_tel);
@@ -186,6 +193,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         et_sign = (EditText) findViewById(R.id.user_info_sign);
 
         tv_mdftel = (TextView) findViewById(R.id.user_info_mdftel);
+
+
+        user_info_mdftel.setOnClickListener(this);
     }
 
 }

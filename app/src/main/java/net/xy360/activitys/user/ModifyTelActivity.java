@@ -14,7 +14,7 @@ public class ModifyTelActivity extends BaseActivity {
     protected void onCreate(Bundle saveInstanceState) {
 
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_forget_password);
+        setContentView(R.layout.activity_mdf_tel);
     }
     public void initView() {
 

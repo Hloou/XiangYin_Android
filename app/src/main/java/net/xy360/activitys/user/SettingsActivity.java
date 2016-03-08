@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.tencent.mm.sdk.openapi.SendAuth;
 
@@ -15,8 +16,8 @@ import net.xy360.activitys.BaseActivity;
  */
 public class SettingsActivity extends BaseActivity implements View.OnClickListener{
 
-    private ImageView mdf_pw;
     private ImageView about;
+    private LinearLayout settings_line_mdf_pw;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -29,17 +30,17 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void initView() {
-        mdf_pw = (ImageView) findViewById(R.id.settings_mdf_pw);
         about = (ImageView) findViewById(R.id.settings_about);
+        settings_line_mdf_pw = (LinearLayout)findViewById(R.id.settings_line_mdf_pw);
 
-        mdf_pw.setOnClickListener(this);
         about.setOnClickListener(this);
+        settings_line_mdf_pw.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.settings_mdf_pw) {
+        if (id == R.id.settings_line_mdf_pw) {
             Intent intent = new Intent(SettingsActivity.this, ModifyPasswordActivity.class);
             startActivity(intent);
         }

@@ -13,7 +13,7 @@ public class NewAddressActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_feedback);
+        setContentView(R.layout.activity_new_address);
     }
 
     public void initView() {
