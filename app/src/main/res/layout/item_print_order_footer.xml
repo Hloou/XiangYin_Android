@@ -5,33 +5,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/print_order_list_footer_add_height"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/print_order_list_footer_button_height"
-            android:layout_weight="1"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/print_order_total_price"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/print_order_list_footer_button_height"
-            android:text="@string/print_order_add_continue"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="@dimen/print_order_list_footer_address_height"
         android:orientation="vertical">
         <LinearLayout
@@ -144,15 +117,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="XXX"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/print_order_totalword"/>
+                <TextView
+                    android:id="@+id/tv_types"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/print_order_goods"/>
+            </LinearLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/print_order_total"/>
+            <TextView
+                android:id="@+id/tv_print_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_red"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -165,6 +157,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/print_order_total_discount"/>
+            <TextView
+                android:id="@+id/tv_discount_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_red"/>
         </LinearLayout>
     </LinearLayout>
 

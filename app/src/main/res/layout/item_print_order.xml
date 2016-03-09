@@ -48,12 +48,15 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:checkedButton="@+id/rb_radio_button1">
         <RadioButton
+            android:id="@+id/rb_radio_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/print_order_take_by_myself" />
         <RadioButton
+            android:id="@+id/rb_radio_button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/print_order_deliver_to_home"/>

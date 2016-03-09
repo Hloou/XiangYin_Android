@@ -104,7 +104,8 @@
     <dimen name="print_order_list_plus_minus_width">120dp</dimen>
     <dimen name="print_order_list_item_padding">10dp</dimen>
     <dimen name="print_order_list_footer_add_height">50dp</dimen>
-    <dimen name="print_order_list_footer_button_height">40dp</dimen>
+    <dimen name="print_order_list_footer_button_height">30dp</dimen>
+    <dimen name="print_order_list_footer_button_padding">10dp</dimen>
     <dimen name="print_order_list_footer_address_height">60dp</dimen>
     <dimen name="print_order_list_footer_discount_height">60dp</dimen>
     <dimen name="print_order_list_popup_height">250dp</dimen>
@@ -112,4 +113,10 @@
     <dimen name="print_order_list_popup_button_leftright_padding">20dp</dimen>
     <dimen name="print_order_list_popup_button_divider">20dp</dimen>
 
+    <!-- all order -->
+    <dimen name="all_order_list_item_height">70dp</dimen>
+    <dimen name="all_order_list_item_icon_length">50dp</dimen>
+    <dimen name="all_order_list_header_height">40dp</dimen>
+    <dimen name="all_order_list_header_icon_height">20dp</dimen>
+    <dimen name="all_order_list_footer_button_height">40dp</dimen>
 </resources>

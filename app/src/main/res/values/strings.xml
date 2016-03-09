@@ -169,6 +169,8 @@
     <string name="print_order_add_wen_ku">从文库添加</string>
     <string name="print_order_shoot_picture">拍照打印</string>
     <string name="print_order_total_price">总价:</string>
+    <string name="print_order_totalword">共</string>
+    <string name="print_order_goods">件商品</string>
 
     <!-- select retailer -->
     <string name="select_retailer_select">确认选择</string>
@@ -198,4 +200,22 @@
     <string name="print_money_sign_text">签到赚印币</string>
     <string name="print_money_sign_rule">签到印币规则</string>
     <string name="print_money_sign_break">亲，签到中断可是会扣除临时印币的呦！</string>
+
+    <!-- All order -->
+    <string name="all_order_all">全部</string>
+    <string name="all_order_wait_paid">待付款</string>
+    <string name="all_order_wait_receive">待收货</string>
+    <string name="all_order_completed">已完成</string>
+    <string name="all_order_page">页数:</string>
+    <string name="all_order_specification">装订:</string>
+    <string name="all_order_totalword">共</string>
+    <string name="all_order_goods">件商品</string>
+    <string name="all_order_print_total_price">打印总金额:</string>
+    <string name="all_order_discount_price">折扣金额:</string>
+    <string name="all_order_delivery_price">运费:</string>
+    <string name="all_order_real_pay">实付款:</string>
+    <string name="all_order_cancel_order">取消订单</string>
+    <string name="all_order_complete_pay">完成支付</string>
+    <string name="all_order_sure_receive">确认收货</string>
+    <string name="all_order_submit_order_time">下单时间:</string>
 </resources>

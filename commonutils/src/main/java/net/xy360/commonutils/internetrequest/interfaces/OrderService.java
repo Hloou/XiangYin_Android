@@ -1,5 +1,6 @@
 package net.xy360.commonutils.internetrequest.interfaces;
 
+import net.xy360.commonutils.models.Order;
 import net.xy360.commonutils.models.Retailer;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface OrderService {
     @POST("users/{userId}/printing-orders")
     Observable<String> addPrintOrder(@Path("userId")String userId, @Query("token")String token, @Query("printingOrderFields")String printOrderFields,
                                      @Query("copyItemsFields")String copyItemsFields, @Query("printingItemsFields")String printingItemsFields);
+
+    @GET("users/{userId}/printing-orders")
+    Observable<List<Order>> getPrintOrder(@Path("userId")String userId, @Query("token")String token,
+                                    @Query("pageNumber")int i, @Query("status")String status);
 }

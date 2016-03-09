@@ -58,6 +58,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private View footerView;
     private OrderService orderService;
 
+
     class SelectedCart {
         boolean all_selected;
         List<Boolean> copy_selected;
@@ -241,8 +242,15 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.footerView = view;
     }
 
-    public void calTotalPrice() {
-        int total = 0;
+    public class RetTotal {
+        public int total;
+        public int type;
+    }
+
+    public RetTotal calTotalPrice() {
+        RetTotal retTotal = new RetTotal();
+        retTotal.total = 0;
+        retTotal.type = 0;
         for (int i = 0; i < cartList.size(); i++) {
             Cart cart = cartList.get(i);
             //get copy selected
@@ -254,7 +262,8 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 for (int j = 0; j < cs.size(); j++) {
                     if (cs.get(j).booleanValue()) {
                         CopyCart copyCart = copyCarts.get(j);
-                        total += copyCart.getCopies() * copyCart.getCopy().getPriceInCent();
+                        retTotal.total += copyCart.getCopies() * copyCart.getCopy().getPriceInCent();
+                        retTotal.type++;
                     }
                 }
             }
@@ -264,12 +273,14 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     if (ps.get(j).booleanValue()) {
                         PrintingCart printingCart = printingCarts.get(j);
                         //no price ,default 1
-                        total += printingCart.getCopies() * 1;
+                        retTotal.total += printingCart.getCopies() * 1;
+                        retTotal.type++;
                     }
                 }
             }
         }
         //output total price
+        return retTotal;
     }
 
     public void submitItem(UserId userId) {

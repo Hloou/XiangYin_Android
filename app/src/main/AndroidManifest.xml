@@ -62,7 +62,6 @@
         <activity
             android:name=".activitys.print.SelectedRetailerActivity"
             android:label="@string/select_retailer" />
-
         <activity
             android:name=".activitys.ad.WelcomeSignActivity"
             android:label="@string/welcome_sign" />
@@ -72,9 +71,10 @@
         <activity
             android:name=".activitys.ad.PrintMoneyActivity"
             android:label="@string/print_moneyr" />
-
-        <activity android:name=".activitys.print.PrintOrderActivity"
-            android:label="@string/print_order"/>
+        <activity
+            android:name=".activitys.print.PrintOrderActivity"
+            android:label="@string/print_order" />
+        <activity android:name=".activitys.print.AllOrderActivity"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import net.xy360.R;
 import net.xy360.activitys.ad.DpPxChange;
 import net.xy360.activitys.ad.PrintMoneyActivity;
+import net.xy360.activitys.print.AllOrderActivity;
 import net.xy360.activitys.user.FeedbackActivity;
 import net.xy360.activitys.user.MyAddressActivity;
 import net.xy360.activitys.user.MyMessageActivity;
@@ -100,6 +101,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         user_line_feedback= (LinearLayout)findViewById(R.id.user_line_feedback);
         user_line_setting = (LinearLayout)findViewById(R.id.user_line_setting);
 
+        findViewById(R.id.ll_my_order).setOnClickListener(this);
+
         user_line_integral.setOnClickListener(this);
         user_line_mymsg.setOnClickListener(this);
         user_line_info.setOnClickListener(this);
@@ -131,27 +134,25 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.user_line_setting) {
+        if (id == R.id.ll_my_order) {
+            Intent intent = new Intent(this, AllOrderActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.user_line_setting) {
             Intent intent = new Intent(UserActivity.this, SettingsActivity.class);
             startActivity(intent);
-        }
-        if (id == R.id.user_line_feedback) {
+        } else if (id == R.id.user_line_feedback) {
             Intent intent = new Intent(UserActivity.this, FeedbackActivity.class);
             startActivity(intent);
-        }
-        if (id == R.id.user_line_mymsg) {
+        } else if (id == R.id.user_line_mymsg) {
             Intent intent = new Intent(UserActivity.this, MyMessageActivity.class);
             startActivity(intent);
-        }
-        if (id == R.id.user_line_address) {
+        } else if (id == R.id.user_line_address) {
             Intent intent = new Intent(UserActivity.this, MyAddressActivity.class);
             startActivity(intent);
-        }
-        if (id == R.id.user_line_info) {
+        } else if (id == R.id.user_line_info) {
             Intent intent = new Intent(UserActivity.this, UserInfoActivity.class);
             startActivity(intent);
-        }
-        if (id == R.id.user_line_integral) {
+        } else if (id == R.id.user_line_integral) {
             Intent intent = new Intent(UserActivity.this, PrintMoneyActivity.class);
             startActivity(intent);
         }
