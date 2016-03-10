@@ -33,6 +33,8 @@ public class AllOrderFragment extends Fragment {
 
     private int page = 1;
 
+    private boolean requesting = false;
+
     public AllOrderFragment() {
         // Required empty public constructor
     }
@@ -83,18 +85,23 @@ public class AllOrderFragment extends Fragment {
     private void requestData() {
         if (page == 0)
             return;
+        if (requesting)
+            return;
+        requesting = true;
         orderService.getPrintOrder(userId.userId, userId.token, page++, "[6]")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Order>>() {
                     @Override
                     public void onCompleted() {
-
+                        requesting = false;
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        BaseRequest.ErrorResponse(getContext(), e);
+                        if (page != 0)
+                            BaseRequest.ErrorResponse(getContext(), e);
+                        requesting = false;
                     }
 
                     @Override

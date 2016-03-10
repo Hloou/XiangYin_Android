@@ -7,6 +7,7 @@
     android:orientation="horizontal"
     android:layout_marginBottom="@dimen/all_order_list_item_divider">
     <ImageView
+        android:id="@+id/iv_icon"
         android:layout_width="@dimen/all_order_list_item_icon_length"
         android:layout_height="@dimen/all_order_list_item_icon_length"
         android:layout_margin="@dimen/all_order_list_item_icon_padding"/>

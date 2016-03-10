@@ -1,6 +1,7 @@
 package net.xy360.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.activitys.print.AllOrderActivity;
+import net.xy360.commonutils.internetrequest.BaseRequest;
+import net.xy360.commonutils.internetrequest.interfaces.OrderService;
 import net.xy360.commonutils.models.CopyItem;
 import net.xy360.commonutils.models.CopyOrder;
 import net.xy360.commonutils.models.Order;
 import net.xy360.commonutils.models.PrintingOrder;
+import net.xy360.commonutils.models.UserId;
+import net.xy360.commonutils.userdata.UserData;
 import net.xy360.fragments.AllOrderFragment;
 import net.xy360.views.OrderCopyView;
 import net.xy360.views.OrderPrintingView;
@@ -24,6 +30,10 @@ import net.xy360.views.OrderPrintingView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by jolin on 2016/3/9.
@@ -34,6 +44,8 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
     private Context context;
     private List<Order> orderList;
     private int type;
+    private OrderService orderService = null;
+    private UserId userId = null;
 
     //type 0 for all order, show iv_status
     //type 1 for wait paid, show radio button, hide iv_status
@@ -43,6 +55,10 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
         this.context = context;
         orderList = new ArrayList<>();
         this.type = type;
+        if (orderService == null)
+            orderService = BaseRequest.retrofit.create(OrderService.class);
+        if (userId == null)
+            userId = UserData.load(context, UserId.class);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -51,7 +67,6 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
         LinearLayout ll_unpaid, ll_completed, ll_unreceived;
         LinearLayout ll_copyitem, ll_printingitem;
         CheckBox cb_selected;
-        Button btn_cancel, btn_complete, btn_receive;
         Order order;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -69,9 +84,9 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
             ll_copyitem = (LinearLayout)itemView.findViewById(R.id.ll_copyitem);
             ll_printingitem = (LinearLayout)itemView.findViewById(R.id.ll_printingitem);
             cb_selected = (CheckBox)itemView.findViewById(R.id.cb_selected);
-            btn_cancel = (Button)itemView.findViewById(R.id.btn_cancel);
-            btn_complete = (Button)itemView.findViewById(R.id.btn_complete);
-            btn_receive = (Button)itemView.findViewById(R.id.btn_receive);
+            itemView.findViewById(R.id.btn_cancel).setOnClickListener(this);
+            itemView.findViewById(R.id.btn_complete).setOnClickListener(this);
+            itemView.findViewById(R.id.btn_receive).setOnClickListener(this);
             if (type == 1)
                 cb_selected.setVisibility(View.VISIBLE);
         }
@@ -82,10 +97,55 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
             if (id == R.id.btn_complete) {
 
             } else if (id == R.id.btn_cancel) {
+                orderService.updatePrintOrder(userId.userId, order.orderId + "", userId.token, "cancel")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+                            refreshUI();
+                        }
 
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+
+                        }
+                    });
+                refreshUI();
             } else if (id == R.id.btn_receive) {
+                orderService.updatePrintOrder(userId.userId, order.orderId + "", userId.token, "confirm")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<String>() {
+                            @Override
+                            public void onCompleted() {
+                                refreshUI();
+                            }
 
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(String s) {
+
+                            }
+                        });
+                refreshUI();
             }
+        }
+
+        public void refreshUI() {
+            Intent intent = new Intent(context, AllOrderActivity.class);
+            //use single top, send intent to activity to refresh
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
         }
     }
 
@@ -119,7 +179,7 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
             holder.ll_unpaid.setVisibility(View.VISIBLE);
         else if (order.status == 1)
             holder.ll_completed.setVisibility(View.VISIBLE);
-        else
+        else if (order.status >=2 && order.status <= 5)
             holder.ll_unreceived.setVisibility(View.VISIBLE);
         holder.ll_copyitem.removeAllViews();
         holder.ll_printingitem.removeAllViews();

@@ -3,6 +3,7 @@ package net.xy360.commonutils.internetrequest.interfaces;
 import net.xy360.commonutils.models.Order;
 import net.xy360.commonutils.models.PaperBindingPrice;
 import net.xy360.commonutils.models.Retailer;
+import net.xy360.commonutils.models.RetailerPrice;
 
 import java.util.List;
 
@@ -29,10 +30,10 @@ public interface OrderService {
     Observable<List<Order>> getPrintOrder(@Path("userId")String userId, @Query("token")String token,
                                     @Query("pageNumber")int i, @Query("status")String status);
 
-    @PUT("users/{userId}/printing-orders/{printingId")
+    @PUT("users/{userId}/printing-orders/{printingId}")
     Observable<String> updatePrintOrder(@Path("userId")String userId, @Path("printingId")String printingId,
                                         @Query("token")String token, @Query("operation")String operation);
 
-    @GET("retailers/{retailer_id}/prices")
-    Observable<PaperBindingPrice> getRetailerPrice();
+    @GET("retailers/{retailerId}/prices")
+    Observable<RetailerPrice> getRetailerPrice(@Path("retailerId")String retailerId);
 }

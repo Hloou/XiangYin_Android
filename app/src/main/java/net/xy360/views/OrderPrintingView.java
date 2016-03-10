@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import org.w3c.dom.Text;
 public class OrderPrintingView extends FrameLayout {
 
     private TextView tv_name, tv_price, tv_specification, tv_double_side, tv_page, tv_copies;
+    private ImageView iv_icon;
     private PrintingOrder printingOrder;
 
     public OrderPrintingView(Context context) {
@@ -43,6 +45,7 @@ public class OrderPrintingView extends FrameLayout {
         tv_double_side = (TextView)findViewById(R.id.tv_double_side);
         tv_page = (TextView)findViewById(R.id.tv_page);
         tv_copies = (TextView)findViewById(R.id.tv_copies);
+        iv_icon = (ImageView)findViewById(R.id.iv_icon);
     }
 
     public void setData(PrintingOrder printingOrder) {
@@ -65,6 +68,10 @@ public class OrderPrintingView extends FrameLayout {
         tv_page.setText(context.getString(R.string.all_order_totalword) + (printingOrder.endPageNumber - printingOrder.startPageNumber + 1) +
                         context.getString(R.string.all_order_pageword));
         tv_copies.setText("*" + printingOrder.copies + context.getString(R.string.all_order_typeword));
+        if (printingOrder.fileType.equals("pdf"))
+            iv_icon.setImageResource(R.mipmap.pdf);
+        else if (printingOrder.fileType.equals("doc"))
+            iv_icon.setImageResource(R.mipmap.word);
     }
 
 }

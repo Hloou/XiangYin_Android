@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.xy360.R;
@@ -20,6 +21,7 @@ public class OrderCopyView extends FrameLayout{
 
     private CopyOrder copyOrder;
     private TextView tv_name, tv_price, tv_page, tv_specification;
+    private ImageView iv_icon;
 
     public OrderCopyView(Context context) {
         super(context);
@@ -42,6 +44,7 @@ public class OrderCopyView extends FrameLayout{
         tv_page = (TextView)findViewById(R.id.tv_page);
         tv_price = (TextView)findViewById(R.id.tv_price);
         tv_specification = (TextView)findViewById(R.id.tv_specification);
+        iv_icon = (ImageView)findViewById(R.id.iv_icon);
     }
 
     public void setData(CopyOrder copyOrder) {
