@@ -57,6 +57,8 @@ public class BaseRequest {
         String s = null;
         if (e instanceof HttpException) {
             HttpException response = (HttpException) e;
+            if (response.code() == 500)
+                Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
             if (response.response().errorBody() != null) {
                 try {
                     s = response.response().errorBody().string();
@@ -86,7 +88,7 @@ public class BaseRequest {
                 }
             }
         }
-        Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, response.response().errorBody().string(), Toast.LENGTH_SHORT).show();
         return false;
     }

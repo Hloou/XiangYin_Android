@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,10 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class AllOrderFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class UnReceiveOrderFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private AllOrderAdapter allOrderAdapter;
@@ -33,34 +35,24 @@ public class AllOrderFragment extends Fragment {
 
     private int page = 1;
 
-    public AllOrderFragment() {
+    public UnReceiveOrderFragment() {
         // Required empty public constructor
     }
 
-
-    public static AllOrderFragment newInstance() {
-        AllOrderFragment fragment = new AllOrderFragment();
-
-        return fragment;
+    public static UnReceiveOrderFragment newInstance() {
+        UnReceiveOrderFragment unReceiveOrderFragment = new UnReceiveOrderFragment();
+        return unReceiveOrderFragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_order, container, false);
+        View view = inflater.inflate(R.layout.fragment_un_receive_order, container, false);
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        allOrderAdapter = new AllOrderAdapter(getContext(), 0);
+        allOrderAdapter = new AllOrderAdapter(getContext(), 2);
         recyclerView.setAdapter(allOrderAdapter);
-
-        userId = UserData.load(getContext(), UserId.class);
-
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -71,6 +63,8 @@ public class AllOrderFragment extends Fragment {
                     requestData();
             }
         });
+
+        userId = UserData.load(getContext(), UserId.class);
 
         if (orderService == null)
             orderService = BaseRequest.retrofit.create(OrderService.class);
@@ -83,7 +77,7 @@ public class AllOrderFragment extends Fragment {
     private void requestData() {
         if (page == 0)
             return;
-        orderService.getPrintOrder(userId.userId, userId.token, page++, "[6]")
+        orderService.getPrintOrder(userId.userId, userId.token, page++, "[2,3,4,5]")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Order>>() {
@@ -104,7 +98,6 @@ public class AllOrderFragment extends Fragment {
                             return;
                         }
                         allOrderAdapter.addData(orders);
-                        Log.d("addData", orders.size() + "");
                     }
                 });
     }

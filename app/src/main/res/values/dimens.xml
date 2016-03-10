@@ -114,9 +114,14 @@
     <dimen name="print_order_list_popup_button_divider">20dp</dimen>
 
     <!-- all order -->
+    <dimen name="all_order_list_icon_padding">10dp</dimen>
     <dimen name="all_order_list_item_height">70dp</dimen>
     <dimen name="all_order_list_item_icon_length">50dp</dimen>
+    <dimen name="all_order_list_item_icon_padding">10dp</dimen>
+    <dimen name="all_order_list_divider">10dp</dimen>
+    <dimen name="all_order_list_item_divider">5dp</dimen>
     <dimen name="all_order_list_header_height">40dp</dimen>
     <dimen name="all_order_list_header_icon_height">20dp</dimen>
     <dimen name="all_order_list_footer_button_height">40dp</dimen>
+    <dimen name="all_order_list_detail_padding">10dp</dimen>
 </resources>

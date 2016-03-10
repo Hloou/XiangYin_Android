@@ -7,13 +7,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import net.xy360.R;
 import net.xy360.fragments.AllOrderFragment;
+import net.xy360.fragments.CompletedOrderFragment;
+import net.xy360.fragments.UnPaidOrderFragment;
+import net.xy360.fragments.UnReceiveOrderFragment;
 
 /**
  * Created by jolin on 2016/3/9.
  */
 public class OrderPagerAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 1;
+    final int PAGE_COUNT = 4;
     private String tabTitles[];
     private Context context;
 
@@ -28,7 +31,14 @@ public class OrderPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return AllOrderFragment.newInstance();
+        if (position == 0)
+            return AllOrderFragment.newInstance();
+        else if (position == 1)
+            return UnPaidOrderFragment.newInstance();
+        else if (position == 2)
+            return UnReceiveOrderFragment.newInstance();
+        else
+            return CompletedOrderFragment.newInstance();
     }
 
     @Override

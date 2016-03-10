@@ -26,7 +26,25 @@ public class AllOrderActivity extends BaseActivity {
     @Override
     public void initView() {
         viewPager = (ViewPager)findViewById(R.id.viewPager);
-        viewPager.setAdapter(new OrderPagerAdapter(getSupportFragmentManager(), this));
+        viewPager.setOffscreenPageLimit(3);
+        final OrderPagerAdapter orderPagerAdapter = new OrderPagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setAdapter(orderPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                setTitle(orderPagerAdapter.getPageTitle(position));
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tabLayout = (TabLayout)findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }

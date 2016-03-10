@@ -26,6 +26,6 @@ public class Order {
     public Date userCancelledTime;
     public Date abortedTime;
 
-    public List<PrintingItem> printingItems;
-    public List<CopyItem> copyItems;
+    public List<PrintingOrder> printingItems;
+    public List<CopyOrder> copyItems;
 }

@@ -218,4 +218,18 @@
     <string name="all_order_complete_pay">完成支付</string>
     <string name="all_order_sure_receive">确认收货</string>
     <string name="all_order_submit_order_time">下单时间:</string>
+    <string name="all_order_pageword">页</string>
+    <string name="all_order_typeword">份</string>
+
+    <!-- specification -->
+    <string name="specification_1">A3彩色</string>
+    <string name="specification_2">A3黑白</string>
+    <string name="specification_3">A4彩色</string>
+    <string name="specification_4">A4黑白</string>
+    <string name="specification_5">彩色照片</string>
+    <string name="specification_double">双面</string>
+    <string name="specification_single">单面</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

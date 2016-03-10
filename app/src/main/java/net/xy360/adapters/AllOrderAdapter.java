@@ -6,14 +6,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.xy360.R;
+import net.xy360.commonutils.models.CopyItem;
+import net.xy360.commonutils.models.CopyOrder;
 import net.xy360.commonutils.models.Order;
+import net.xy360.commonutils.models.PrintingOrder;
 import net.xy360.fragments.AllOrderFragment;
+import net.xy360.views.OrderCopyView;
+import net.xy360.views.OrderPrintingView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +45,14 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
         this.type = type;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_retailer, tv_types, tv_price, tv_discount_price, tv_delivery_price, tv_real_pay;
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        TextView tv_retailer, tv_types, tv_price, tv_discount_price, tv_delivery_price, tv_real_pay, tv_submit_time;
         ImageView iv_status;
         LinearLayout ll_unpaid, ll_completed, ll_unreceived;
+        LinearLayout ll_copyitem, ll_printingitem;
+        CheckBox cb_selected;
+        Button btn_cancel, btn_complete, btn_receive;
+        Order order;
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_retailer = (TextView)itemView.findViewById(R.id.tv_retailer);
@@ -49,10 +61,31 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
             tv_discount_price = (TextView)itemView.findViewById(R.id.tv_discount_price);
             tv_delivery_price = (TextView)itemView.findViewById(R.id.tv_delivery_price);
             tv_real_pay = (TextView)itemView.findViewById(R.id.tv_real_pay);
+            tv_submit_time = (TextView)itemView.findViewById(R.id.tv_submit_time);
             iv_status = (ImageView)itemView.findViewById(R.id.iv_status);
             ll_unpaid = (LinearLayout)itemView.findViewById(R.id.ll_unpaid);
             ll_completed = (LinearLayout)itemView.findViewById(R.id.ll_completed);
             ll_unreceived = (LinearLayout)itemView.findViewById(R.id.ll_unreceived);
+            ll_copyitem = (LinearLayout)itemView.findViewById(R.id.ll_copyitem);
+            ll_printingitem = (LinearLayout)itemView.findViewById(R.id.ll_printingitem);
+            cb_selected = (CheckBox)itemView.findViewById(R.id.cb_selected);
+            btn_cancel = (Button)itemView.findViewById(R.id.btn_cancel);
+            btn_complete = (Button)itemView.findViewById(R.id.btn_complete);
+            btn_receive = (Button)itemView.findViewById(R.id.btn_receive);
+            if (type == 1)
+                cb_selected.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            if (id == R.id.btn_complete) {
+
+            } else if (id == R.id.btn_cancel) {
+
+            } else if (id == R.id.btn_receive) {
+
+            }
         }
     }
 
@@ -71,6 +104,8 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
         holder.tv_discount_price.setText("0.00");
         holder.tv_delivery_price.setText("0.00");
         holder.tv_real_pay.setText(String.format("%.2f", order.actualPriceInCent / 100.0));
+        holder.tv_submit_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(order.userSubmittedTime));
+        holder.order = orderList.get(position);
         if (type == 0) {
             if (order.status == 0)
                 holder.iv_status.setImageResource(R.mipmap.unpaid);
@@ -86,6 +121,24 @@ public class AllOrderAdapter extends RecyclerView.Adapter<AllOrderAdapter.MyView
             holder.ll_completed.setVisibility(View.VISIBLE);
         else
             holder.ll_unreceived.setVisibility(View.VISIBLE);
+        holder.ll_copyitem.removeAllViews();
+        holder.ll_printingitem.removeAllViews();
+        List<CopyOrder> copyOrders = order.copyItems;
+        if (copyOrders != null) {
+            for (int i = 0; i < copyOrders.size(); i++) {
+                OrderCopyView orderCopyView = new OrderCopyView(context);
+                orderCopyView.setData(copyOrders.get(i));
+                holder.ll_copyitem.addView(orderCopyView);
+            }
+        }
+        List<PrintingOrder> printingOrders = order.printingItems;
+        if (printingOrders != null) {
+            for (int i = 0; i < printingOrders.size(); i++) {
+                OrderPrintingView orderPrintingView = new OrderPrintingView(context);
+                orderPrintingView.setData(printingOrders.get(i));
+                holder.ll_printingitem.addView(orderPrintingView);
+            }
+        }
     }
 
     private void hideAll(MyViewHolder holder) {
