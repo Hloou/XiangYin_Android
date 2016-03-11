@@ -97,9 +97,7 @@ public class SelectedRetailerActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (!BaseRequest.ErrorResponse(SelectedRetailerActivity.this, e)) {
-                            //do sth
-                        }
+                        BaseRequest.ErrorResponse(SelectedRetailerActivity.this, e);
                     }
 
                     @Override
@@ -134,6 +132,7 @@ public class SelectedRetailerActivity extends BaseActivity {
                             cart.setRetailerName(selectRetailer.retailerName);
                             cart.setPrintingItems(new RealmList<PrintingCart>());
                             cart.setRetailerPrice(BaseRequest.gson.toJson(retailerPrice));
+                            cart.setIsRetailerDelivery(false);
                         }
 
                         for (int i = 0; i < fileList.size(); i++) {

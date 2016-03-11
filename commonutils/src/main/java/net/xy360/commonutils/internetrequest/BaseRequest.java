@@ -22,6 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by jolin on 2016/2/24.
@@ -45,9 +46,9 @@ public class BaseRequest {
             })
             .create();
 
-
     public static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(endPoint)
+            .addConverterFactory(ScalarsConverterFactory.create()) //for primitive object
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build();
@@ -57,6 +58,7 @@ public class BaseRequest {
         String s = null;
         if (e instanceof HttpException) {
             HttpException response = (HttpException) e;
+            //Log.d("error", response.message());
             if (response.code() == 500)
                 Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
             if (response.response().errorBody() != null) {
@@ -88,7 +90,7 @@ public class BaseRequest {
                 }
             }
         }
-        //Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.error_connection_fail), Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, response.response().errorBody().string(), Toast.LENGTH_SHORT).show();
         return false;
     }

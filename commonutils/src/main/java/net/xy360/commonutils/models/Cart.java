@@ -16,6 +16,7 @@ public class Cart extends RealmObject{
     private RealmList<PrintingCart> printingItems;
     private RealmList<CopyCart> copyItems;
     private String retailerPrice;
+    private boolean isRetailerDelivery;
 
     public String getRetailerId() {
         return retailerId;
@@ -55,5 +56,13 @@ public class Cart extends RealmObject{
 
     public void setRetailerPrice(String retailerPrice) {
         this.retailerPrice = retailerPrice;
+    }
+
+    public boolean getIsRetailerDelivery() {
+        return isRetailerDelivery;
+    }
+
+    public void setIsRetailerDelivery(boolean isRetailerDelivery) {
+        this.isRetailerDelivery = isRetailerDelivery;
     }
 }

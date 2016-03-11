@@ -1,10 +1,12 @@
 package net.xy360.commonutils.internetrequest.interfaces;
 
 import net.xy360.commonutils.models.File;
+import net.xy360.commonutils.models.UserId;
 
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -15,4 +17,8 @@ import rx.Observable;
 public interface FileService {
     @GET("users/{userid}/files")
     Observable<List<File>> getFiles(@Path("userid")String userid, @Query("token")String token);
+
+    @PUT("users/{userid}/files/{inspaceid}")
+    Observable<String> renameFile(@Path("userid")String userid, @Path("inspaceid")int inspaceid,
+                                  @Query("token")String token, @Query("newName")String newName);
 }

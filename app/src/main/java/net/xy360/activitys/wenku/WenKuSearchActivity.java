@@ -33,6 +33,8 @@ public class WenKuSearchActivity extends BaseActivity implements TextWatcher{
     private EditText et_search;
     private String searchText = "";
 
+    private boolean requesting = false;
+
     private int setAddFlag = 0; //0 for set, 1 for add
 
     @Override
@@ -80,32 +82,38 @@ public class WenKuSearchActivity extends BaseActivity implements TextWatcher{
     }
 
     private void requestData() {
-        if (nowpage != 0)
-            copiesService.getCopies(searchText, nowpage++)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<List<Copy>>() {
-                        @Override
-                        public void onCompleted() {
+        if (nowpage == 0)
+            return;
+        if (requesting)
+            return;
+        requesting = true;
+        copiesService.getCopies(searchText, nowpage++)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Copy>>() {
+                    @Override
+                    public void onCompleted() {
+                        requesting = false;
+                    }
 
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        BaseRequest.ErrorResponse(WenKuSearchActivity.this, e);
+                        requesting = false;
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
+                    @Override
+                    public void onNext(List<Copy> copies) {
+                        if(copies.size() == 0) {
+                            nowpage = 0;
+                            return;
                         }
-
-                        @Override
-                        public void onNext(List<Copy> copies) {
-                            if(copies.size() == 0) {
-                                nowpage = 0;
-                                return;
-                            }
-                            if (setAddFlag == 0)
-                                wenKuAdapter.setDatas(copies);
-                            else
-                                wenKuAdapter.addDatas(copies);
-                        }
-                    });
+                        if (setAddFlag == 0)
+                            wenKuAdapter.setDatas(copies);
+                        else
+                            wenKuAdapter.addDatas(copies);
+                    }
+                });
     }
 
     @Override

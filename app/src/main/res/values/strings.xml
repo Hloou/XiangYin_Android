@@ -123,6 +123,9 @@
     <string name="yinpan_trash">废纸篓</string>
     <string name="yinpan_offline">离线文件</string>
     <string name="yinpan_print">打印</string>
+    <string name="yinpan_ok">确认</string>
+    <string name="yinpan_cancel">取消</string>
+    <string name="yinpan_rename_success">重命名成功</string>
 
     <!-- yinpan trash -->
     <string name="trash_all_selected">全选</string>

@@ -74,6 +74,7 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
                         cart.setRetailerId(copy.getRetailerId());
                         cart.setRetailerName(copy.getRetailerName());
                         cart.setCopyItems(new RealmList<CopyCart>());
+                        cart.setIsRetailerDelivery(false);
                     }
                     CopyCart copyCart = RealmHelper.realm.where(CopyCart.class).equalTo("id", copy.getRetailerId() + copy.getCopyId()).findFirst();
                     //check is insert

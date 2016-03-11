@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import net.xy360.R;
@@ -81,19 +82,22 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements PrintOrderViewListener, CompoundButton.OnCheckedChangeListener{
+    class MyViewHolder extends RecyclerView.ViewHolder implements PrintOrderViewListener, CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener{
         CheckBox cb_selected;
         TextView tv_retailer;
         LinearLayout ll_copyitem, ll_printitem;
         List<Boolean> copy_selected, print_selected;
         Cart cart;
+        RadioGroup rg_delivery;
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_retailer = (TextView)itemView.findViewById(R.id.tv_retailer);
             ll_copyitem = (LinearLayout)itemView.findViewById(R.id.ll_copyitem);
             ll_printitem = (LinearLayout)itemView.findViewById(R.id.ll_printingitem);
             cb_selected = (CheckBox)itemView.findViewById(R.id.cb_selected);
+            rg_delivery = (RadioGroup)itemView.findViewById(R.id.rg_delivery);
             cb_selected.setOnCheckedChangeListener(this);
+            rg_delivery.setOnCheckedChangeListener(this);
         }
 
         @Override
@@ -158,6 +162,13 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
         }
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            RealmHelper.realm.beginTransaction();
+            cart.setIsRetailerDelivery(checkedId != R.id.rb_radio_button1);
+            RealmHelper.realm.commitTransaction();
+        }
     }
 
     @Override
@@ -182,6 +193,7 @@ public class PrintOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.ll_copyitem.removeAllViews();
             holder.ll_printitem.removeAllViews();
             holder.cb_selected.setChecked(sc.all_selected);
+            holder.rg_delivery.check(cart.getIsRetailerDelivery() ? R.id.rb_radio_button2 : R.id.rb_radio_button1);
 
             //set copy data
             holder.copy_selected = sc.copy_selected;

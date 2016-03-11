@@ -88,6 +88,7 @@
                 android:text="@string/yinpan_move"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_rename"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

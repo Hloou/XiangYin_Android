@@ -29,6 +29,7 @@ public class WenKuActivity extends BaseActivity implements View.OnClickListener{
     private CopiesService copiesService = null;
     private int nowpage = 1;
     private LinearLayout ll_search;
+    private boolean requesting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +44,6 @@ public class WenKuActivity extends BaseActivity implements View.OnClickListener{
         wenKuAdapter = new WenKuAdapter(this);
         recyclerView.setAdapter(wenKuAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -70,31 +66,36 @@ public class WenKuActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void requestData() {
-        if (nowpage != 0)
-            copiesService.getCopies("", nowpage++)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<List<Copy>>() {
-                        @Override
-                        public void onCompleted() {
+        if (nowpage == 0)
+            return;
+        if (requesting)
+            return;
+        requesting = true;
+        copiesService.getCopies("", nowpage++)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Copy>>() {
+                    @Override
+                    public void onCompleted() {
+                        requesting = false;
+                    }
 
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        BaseRequest.ErrorResponse(WenKuActivity.this, e);
+                        requesting = false;
+                    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            BaseRequest.ErrorResponse(WenKuActivity.this, e);
+                    @Override
+                    public void onNext(List<Copy> copies) {
+                        if (copies.size() == 0) {
+                            nowpage = 0;
+                            return;
                         }
-
-                        @Override
-                        public void onNext(List<Copy> copies) {
-                            if(copies.size() == 0) {
-                                nowpage = 0;
-                                return;
-                            }
-                            Log.d("fff", "" + copies.size());
-                            wenKuAdapter.addDatas(copies);
-                        }
-                    });
+                        Log.d("fff", "" + copies.size());
+                        wenKuAdapter.addDatas(copies);
+                    }
+                });
     }
 
     @Override
