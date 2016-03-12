@@ -3,6 +3,7 @@ package net.xy360.adapters;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,24 +20,48 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.internal.ResponseParsers;
+import com.alibaba.sdk.android.oss.model.GetObjectRequest;
+import com.alibaba.sdk.android.oss.model.GetObjectResult;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+
 import net.xy360.R;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.internetrequest.interfaces.FileService;
+import net.xy360.commonutils.internetrequest.interfaces.OSSService;
 import net.xy360.commonutils.models.File;
 import net.xy360.commonutils.models.Label;
+import net.xy360.commonutils.models.OSSCredential;
+import net.xy360.commonutils.models.OSSFile;
+import net.xy360.commonutils.models.PaperBindingPrice;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.userdata.UserData;
+import net.xy360.contants.Download;
 import net.xy360.fragments.YinPanRenameFragment;
 import net.xy360.interfaces.YinPanListener;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -59,6 +84,7 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private UserId userId;
 
     private FileService fileService = null;
+    private OSSService ossService = null;
 
     class TabViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_name;
@@ -82,7 +108,8 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private ImageView iv_icon;
         private TextView tv_name, tv_time, tv_size;
         private CheckBox cb_selected;
-        private int position;
+        private File file;
+        private OSSFile ossFile;
         public FileViewHolder(View itemView) {
             super(itemView);
             vp = (ViewPager)itemView.findViewById(R.id.viewPager);
@@ -116,7 +143,8 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             cb_selected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    selectedList.set(position, isChecked);
+                    int index = fileList.indexOf(file);
+                    selectedList.set(index, isChecked);
                     if (isChecked)
                         selectedCount++;
                     else
@@ -127,7 +155,7 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
             itemView.findViewById(R.id.ll_rename).setOnClickListener(this);
-
+            itemView.findViewById(R.id.ll_download).setOnClickListener(this);
         }
 
         @Override
@@ -135,9 +163,82 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             int id = v.getId();
             if (id == R.id.ll_rename) {
                 YinPanRenameFragment yinPanRenameFragment = new YinPanRenameFragment();
-                yinPanRenameFragment.setFileName(fileList.get(position), this);
+                yinPanRenameFragment.setFileName(file, this);
                 yinPanRenameFragment.show(((AppCompatActivity)context).getSupportFragmentManager() , "rename");
 
+            } else if (id == R.id.ll_download) {
+                if (ossService == null)
+                    ossService = BaseRequest.retrofit.create(OSSService.class);
+                ossService.getFilePathViaId(file.getFileId())
+                        .flatMap(new Func1<OSSFile, Observable<OSSCredential>>() {
+                            @Override
+                            public Observable<OSSCredential> call(OSSFile ossFile) {
+                                Log.d("download", BaseRequest.gson.toJson(ossFile));
+                                FileViewHolder.this.ossFile = ossFile;
+                                return ossService.getOSSCredential(userId.userId, userId.token);
+                            }
+                        })
+                        .map(new Func1<OSSCredential, String>() {
+                            @Override
+                            public String call(OSSCredential ossCredential) {
+                                Log.d("download", BaseRequest.gson.toJson(ossCredential));
+                                OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossCredential.AccessKeyId, ossCredential.AccessKeySecret, ossCredential.SecurityToken);
+                                OSS oss = new OSSClient(context, ossFile.ossEndPoint, credentialProvider);
+                                GetObjectRequest get = new GetObjectRequest(ossFile.ossBucketName, ossFile.ossFileName);
+                                String result = "success";
+                                try {
+                                    GetObjectResult getResult = oss.getObject(get);
+                                    java.io.File directory = new java.io.File(Environment.getExternalStorageDirectory() + Download.FILE_PATH);
+                                    directory.mkdir();
+                                    java.io.File file = new java.io.File(directory, ossFile.ossFileName);
+                                    FileOutputStream fileOutputStream = new FileOutputStream(file);
+                                    InputStream inputStream = getResult.getObjectContent();
+                                    byte[] buffer = new byte[1024];
+                                    int len = 0;
+                                    while ((len = inputStream.read(buffer)) != -1) {
+                                        Log.d("download", "" + len);
+                                        fileOutputStream.write(buffer, 0, len);
+                                    }
+                                    fileOutputStream.close();
+                                    Log.d("download", getResult.getMetadata().getContentType());
+                                } catch (ClientException e) {
+                                    Log.d("download", e.getMessage());
+                                    result = e.getMessage();
+                                } catch (ServiceException e) {
+                                    Log.d("download", e.getMessage());
+                                    result = e.getMessage();
+                                } catch (FileNotFoundException e) {
+                                    Log.d("download", e.getMessage());
+                                    result = e.getMessage();
+                                } catch (IOException e) {
+                                    Log.d("download", e.getMessage());
+                                    result = e.getMessage();
+                                }
+                                return result;
+                            }
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<String>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.d("download", e.getMessage());
+                            }
+
+                            @Override
+                            public void onNext(String s) {
+                                if (s.equals("success"))
+                                    Toast.makeText(context, context.getString(R.string.yinpan_finish_download), Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(context, context.getString(R.string.yinpan_error_download), Toast.LENGTH_SHORT).show();
+                                Log.d("download", "success");
+                            }
+                        });
             }
         }
 
@@ -146,14 +247,15 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             //Log.d("ffff", fileList.get(position).getFileName());
             //fileList.get(position).setFileName(name);
             //notifyItemChanged(labelList.size() + position);
-            fileService.renameFile(userId.userId, fileList.get(position).getInspaceUserFileId(), userId.token, name)
+            fileService.renameFile(userId.userId, file.getInspaceUserFileId(), userId.token, name)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<String>() {
                         @Override
                         public void onCompleted() {
-                            fileList.get(position).setFileName(name);
-                            notifyItemChanged(labelList.size() + position);
+                            file.setFileName(name);
+                            int index = fileList.indexOf(file);
+                            notifyItemChanged(labelList.size() + index);
                         }
 
                         @Override
@@ -206,14 +308,16 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             position = position - labelList.size();
             FileViewHolder myViewHolder = (FileViewHolder)holder;
             File file = fileList.get(position);
-            myViewHolder.position = position;
+            myViewHolder.file = file;
             myViewHolder.tv_name.setText(file.getFileName());
             myViewHolder.tv_time.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(file.getOwnedTime()));
             myViewHolder.tv_size.setText(file.getSize() / 1024 + "KB");
-            if (file.getFileType().equals("pdf"))
-                myViewHolder.iv_icon.setImageResource(R.mipmap.pdf);
-            else if (file.getFileType().equals("doc"))
-                myViewHolder.iv_icon.setImageResource(R.mipmap.word);
+            if (file.getFileType() != null) {
+                if (file.getFileType().equals("pdf"))
+                    myViewHolder.iv_icon.setImageResource(R.mipmap.pdf);
+                else if (file.getFileType().equals("doc"))
+                    myViewHolder.iv_icon.setImageResource(R.mipmap.word);
+            }
             myViewHolder.cb_selected.setChecked(selectedList.get(position));
         }
     }

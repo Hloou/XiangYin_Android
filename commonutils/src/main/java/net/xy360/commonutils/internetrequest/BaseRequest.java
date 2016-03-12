@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -52,6 +53,7 @@ public class BaseRequest {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build();
+
 
     // true for solve the error, false for not solve
     public static boolean ErrorResponse(Context context, Throwable e) {

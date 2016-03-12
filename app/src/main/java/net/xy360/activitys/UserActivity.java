@@ -60,8 +60,6 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
             Map<String, String> map = new HashMap<>();
             map.put("token", userId.token);
             managementService.getUserInfo(userId.userId, map)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
                     .map(new Func1<UserInfo, UserInfo>() {
                         @Override
                         public UserInfo call(UserInfo userInfo) {
@@ -69,6 +67,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
                             return userInfo;
                         }
                     })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<UserInfo>() {
                         @Override
                         public void onCompleted() {

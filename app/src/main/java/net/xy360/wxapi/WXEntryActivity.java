@@ -140,8 +140,6 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         UserLogin userLogin = new UserLogin(phone, passwordsha);
 
         managementService.login(userLogin.toMap())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<UserId, UserId>() {
                     @Override
                     public UserId call(UserId userId) {
@@ -150,6 +148,8 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                         return userId;
                     }
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserId>() {
                     @Override
                     public void onCompleted() {
@@ -167,7 +167,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                     public void onNext(UserId userId) {
                         //Log.d("ffff", "yeah");
                         Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 });

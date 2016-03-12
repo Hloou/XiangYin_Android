@@ -122,10 +122,16 @@
     <string name="yinpan_new_tab">新建标签</string>
     <string name="yinpan_trash">废纸篓</string>
     <string name="yinpan_offline">离线文件</string>
+    <string name="yinpan_upload">上传文件</string>
     <string name="yinpan_print">打印</string>
     <string name="yinpan_ok">确认</string>
     <string name="yinpan_cancel">取消</string>
     <string name="yinpan_rename_success">重命名成功</string>
+    <string name="yinpan_start_download">开始下载</string>
+    <string name="yinpan_finish_download">完成下载</string>
+    <string name="yinpan_error_download">下载失败</string>
+    <string name="yinpan_finish_upload">上传成功</string>
+    <string name="yinpan_error_upload">上传失败</string>
 
     <!-- yinpan trash -->
     <string name="trash_all_selected">全选</string>
