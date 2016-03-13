@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="net.xy360.activitys.yinpan.TrashActivity">
 
     <include layout="@layout/toolbar" />
 
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/widget_height"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/ll_restore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/btn_green">
+            <ImageView
+                android:layout_width="@dimen/yinpan_trash_widget_icon_length"
+                android:layout_height="@dimen/yinpan_trash_widget_icon_length"
+                android:src="@mipmap/restore"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trash_restore"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_fully_delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/btn_red">
+            <ImageView
+                android:layout_width="@dimen/yinpan_trash_widget_icon_length"
+                android:layout_height="@dimen/yinpan_trash_widget_icon_length"
+                android:src="@mipmap/fully_delete"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trash_fully_delete"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

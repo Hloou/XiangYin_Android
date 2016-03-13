@@ -77,11 +77,13 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
 
                         @Override
                         public void onError(Throwable e) {
-
+                            Log.d("error", e.toString());
+                            BaseRequest.ErrorResponse(UserActivity.this, e);
                         }
 
                         @Override
                         public void onNext(UserInfo userInfo) {
+                            Log.d("ffff", BaseRequest.gson.toJson(userInfo));
                             setUI(userInfo);
                         }
                     });
@@ -110,19 +112,6 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
         user_line_feedback.setOnClickListener(this);
         user_line_setting.setOnClickListener(this);
 
-
-        //导航条背景
-        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        //设置导航条标题颜色
-        toolbarTitle.setTextColor(ContextCompat.getColor(this, R.color.black));
-
-
-        //设置页面头布局
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            UserActivity.this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-        }
     }
 
 

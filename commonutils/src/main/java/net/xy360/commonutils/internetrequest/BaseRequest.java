@@ -33,7 +33,7 @@ public class BaseRequest {
     public final static String endPointSecure = "https://120.27.146.10:9000/";
 
     public static Gson gson = new GsonBuilder()
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
             .setExclusionStrategies(new ExclusionStrategy() {
                 @Override
                 public boolean shouldSkipField(FieldAttributes f) {

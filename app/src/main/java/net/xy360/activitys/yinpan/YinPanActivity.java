@@ -6,6 +6,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.ClientException;
@@ -48,8 +50,10 @@ import net.xy360.commonutils.models.File;
 import net.xy360.commonutils.models.Label;
 import net.xy360.commonutils.models.OSSCredential;
 import net.xy360.commonutils.models.OSSFile;
+import net.xy360.commonutils.models.StorageInfo;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.userdata.UserData;
+import net.xy360.fragments.YinPanUploadFragment;
 import net.xy360.interfaces.YinPanListener;
 import net.xy360.utils.RealPathFromURI;
 
@@ -61,11 +65,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class YinPanActivity extends BaseActivity implements YinPanListener, View.OnClickListener{
+public class YinPanActivity extends BaseActivity implements View.OnClickListener, YinPanUploadFragment.DownloadListener{
 
     private static final int SELECT_PHOTO = 100;
 
     private RecyclerView recyclerView;
+    private TextView tv_size;
     private YinPanAdapter yinPanAdapter;
 
     private LabelService labelService = null;
@@ -81,6 +86,8 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
 
     private OSSFile ossFile;
 
+    private Handler mHandler = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,9 +96,11 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
         userId = UserData.load(this, UserId.class);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        tv_size = (TextView)findViewById(R.id.tv_size);
+        tv_size.setText("0M/0M");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         yinPanAdapter = new YinPanAdapter(this);
-        yinPanAdapter.setYinPanListener(this);
+        //yinPanAdapter.setYinPanListener(this);
         recyclerView.setAdapter(yinPanAdapter);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -111,6 +120,16 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
             ossService = BaseRequest.retrofit.create(OSSService.class);
 
         requestData();
+
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showWidget(yinPanAdapter.getSelectedFile().size());
+                mHandler.postDelayed(this, 200);
+            }
+        }, 200);
+
     }
 
     @Override
@@ -135,6 +154,7 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
         wp.gravity = Gravity.LEFT | Gravity.BOTTOM;
         mWidget = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_selected, null);
         mWidget.findViewById(R.id.ll_print).setOnClickListener(this);
+        mWidget.findViewById(R.id.ll_delete).setOnClickListener(this);
         mWindowManager.addView(mWidget, wp);
         mWidget.setVisibility(View.INVISIBLE);
     }
@@ -176,7 +196,7 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
                     }
                 });
 
-        fileService.getFiles(userId.userId, userId.token)
+        fileService.getFiles(userId.userId, userId.token, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<File>>() {
@@ -187,7 +207,7 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
 
                     @Override
                     public void onError(Throwable e) {
-
+                        BaseRequest.ErrorResponse(YinPanActivity.this, e);
                     }
 
                     @Override
@@ -195,33 +215,32 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
                         yinPanAdapter.setFileList(files);
                     }
                 });
+        fileService.getStorage(userId.userId, userId.token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<StorageInfo>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        BaseRequest.ErrorResponse(YinPanActivity.this, e);
+                    }
+
+                    @Override
+                    public void onNext(StorageInfo storageInfo) {
+                        tv_size.setText(String.format("%.2fM/%.2fM", (storageInfo.usedInByte >> 20) * 1.0, (storageInfo.maxStorageInByte >> 20) * 1.0));
+                    }
+                });
     }
 
-    @Override
     public void getFilesViaLabels(String labelId) {
-        labelService.getFilesViaLabels(userId.userId, labelId, userId.token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<File>>() {
-                    @Override
-                    public void onCompleted() {
+        //should jump to another activity and show it
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<File> files) {
-                        Log.d("file", "" + files.size());
-                        yinPanAdapter.setFileList(files);
-                    }
-                });
     }
 
-    @Override
     public void showWidget(int show) {
         //Log.d("show", "" + show);
         mWidget.setVisibility(show == 0 ? View.INVISIBLE : View.VISIBLE);
@@ -241,6 +260,8 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType("image/*");
             startActivityForResult(intent, SELECT_PHOTO);
+        } else if (id == R.id.ll_delete) {
+            allDelete();
         }
     }
 
@@ -314,27 +335,9 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
     }
 
     public void startUpload(final String realPath, final String hash, OSSCredential ossCredential) {
-        PutObjectRequest put = new PutObjectRequest(ossFile.ossBucketName, RealPathFromURI.getFileName(realPath), realPath);
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossCredential.AccessKeyId, ossCredential.AccessKeySecret, ossCredential.SecurityToken);
-        OSS oss = new OSSClient(this, ossFile.ossEndPoint, credentialProvider);
-        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-            @Override
-            public void onProgress(PutObjectRequest putObjectRequest, long l, long l1) {
-                Log.d("upload", l + " " + l1);
-            }
-        });
-        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-            @Override
-            public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
-                Log.d("putobject", "success");
-                uploadFileToServer(realPath, hash);
-            }
-
-            @Override
-            public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
-                Log.d("putobject", "failure");
-            }
-        });
+        YinPanUploadFragment yinPanUploadFragment = new YinPanUploadFragment();
+        yinPanUploadFragment.setData(realPath, hash, ossFile, ossCredential);
+        yinPanUploadFragment.show(getSupportFragmentManager(), "upload");
     }
 
     private void uploadFileToServer(String realPath, String hash) {
@@ -352,15 +355,50 @@ public class YinPanActivity extends BaseActivity implements YinPanListener, View
 
                 @Override
                 public void onError(Throwable e) {
+                    Log.d("error", e.toString());
                     Log.d("error", e.getMessage());
-                    //BaseRequest.ErrorResponse(YinPanActivity.this, e);
+                    BaseRequest.ErrorResponse(YinPanActivity.this, e);
                 }
 
                 @Override
                 public void onNext(File file) {
+                    Log.d("success", BaseRequest.gson.toJson(file));
+                    yinPanAdapter.addFile(file);
                     Toast.makeText(YinPanActivity.this, getString(R.string.yinpan_finish_upload), Toast.LENGTH_SHORT).show();
                 }
             });
     }
 
+    @Override
+    public void afterDownload(String realPath, String hash, String reason) {
+        if (realPath != null)
+            uploadFileToServer(realPath, hash);
+        else
+            Toast.makeText(this, reason, Toast.LENGTH_SHORT).show();
+    }
+
+    private void allDelete() {
+        List<File> files = yinPanAdapter.getSelectedFile();
+        for (int i = 0; i < files.size(); i++) {
+            final File file = files.get(i);
+            fileService.deleteFile(userId.userId, "" + file.getInspaceUserFileId(), userId.token)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+                            yinPanAdapter.removeFile(file);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                        }
+                    });
+        }
+    }
 }

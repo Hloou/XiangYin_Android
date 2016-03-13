@@ -75,9 +75,9 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<File> fileList = null;
     private List<Label> labelList = null;
     private List<Boolean> selectedList = null;
-    private int selectedCount = 0;
+    //private int selectedCount = 0;
 
-    private YinPanListener yinPanListener = null;
+    //private YinPanListener yinPanListener = null;
 
     private ViewPager lastViewPager = null;
 
@@ -95,8 +95,8 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (yinPanListener != null)
-                        yinPanListener.getFilesViaLabels(labelList.get(position).userLabelId);
+                    //if (yinPanListener != null)
+                    //    yinPanListener.getFilesViaLabels(labelList.get(position).userLabelId);
                     hideLastViewPager();
                 }
             });
@@ -145,17 +145,11 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int index = fileList.indexOf(file);
                     selectedList.set(index, isChecked);
-                    if (isChecked)
-                        selectedCount++;
-                    else
-                        selectedCount = selectedCount == 0 ? 0 : --selectedCount;
-                    if (yinPanListener != null)
-                        yinPanListener.showWidget(selectedCount);
-
                 }
             });
             itemView.findViewById(R.id.ll_rename).setOnClickListener(this);
             itemView.findViewById(R.id.ll_download).setOnClickListener(this);
+            itemView.findViewById(R.id.ll_delete).setOnClickListener(this);
         }
 
         @Override
@@ -167,94 +161,126 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 yinPanRenameFragment.show(((AppCompatActivity)context).getSupportFragmentManager() , "rename");
 
             } else if (id == R.id.ll_download) {
-                if (ossService == null)
-                    ossService = BaseRequest.retrofit.create(OSSService.class);
-                ossService.getFilePathViaId(file.getFileId())
-                        .flatMap(new Func1<OSSFile, Observable<OSSCredential>>() {
-                            @Override
-                            public Observable<OSSCredential> call(OSSFile ossFile) {
-                                Log.d("download", BaseRequest.gson.toJson(ossFile));
-                                FileViewHolder.this.ossFile = ossFile;
-                                return ossService.getOSSCredential(userId.userId, userId.token);
-                            }
-                        })
-                        .map(new Func1<OSSCredential, String>() {
-                            @Override
-                            public String call(OSSCredential ossCredential) {
-                                Log.d("download", BaseRequest.gson.toJson(ossCredential));
-                                OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossCredential.AccessKeyId, ossCredential.AccessKeySecret, ossCredential.SecurityToken);
-                                OSS oss = new OSSClient(context, ossFile.ossEndPoint, credentialProvider);
-                                GetObjectRequest get = new GetObjectRequest(ossFile.ossBucketName, ossFile.ossFileName);
-                                String result = "success";
-                                try {
-                                    GetObjectResult getResult = oss.getObject(get);
-                                    java.io.File directory = new java.io.File(Environment.getExternalStorageDirectory() + Download.FILE_PATH);
-                                    directory.mkdir();
-                                    java.io.File file = new java.io.File(directory, ossFile.ossFileName);
-                                    FileOutputStream fileOutputStream = new FileOutputStream(file);
-                                    InputStream inputStream = getResult.getObjectContent();
-                                    byte[] buffer = new byte[1024];
-                                    int len = 0;
-                                    while ((len = inputStream.read(buffer)) != -1) {
-                                        Log.d("download", "" + len);
-                                        fileOutputStream.write(buffer, 0, len);
-                                    }
-                                    fileOutputStream.close();
-                                    Log.d("download", getResult.getMetadata().getContentType());
-                                } catch (ClientException e) {
-                                    Log.d("download", e.getMessage());
-                                    result = e.getMessage();
-                                } catch (ServiceException e) {
-                                    Log.d("download", e.getMessage());
-                                    result = e.getMessage();
-                                } catch (FileNotFoundException e) {
-                                    Log.d("download", e.getMessage());
-                                    result = e.getMessage();
-                                } catch (IOException e) {
-                                    Log.d("download", e.getMessage());
-                                    result = e.getMessage();
-                                }
-                                return result;
-                            }
-                        })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<String>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.d("download", e.getMessage());
-                            }
-
-                            @Override
-                            public void onNext(String s) {
-                                if (s.equals("success"))
-                                    Toast.makeText(context, context.getString(R.string.yinpan_finish_download), Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(context, context.getString(R.string.yinpan_error_download), Toast.LENGTH_SHORT).show();
-                                Log.d("download", "success");
-                            }
-                        });
+                download();
+            } else if (id == R.id.ll_delete) {
+                delete();
             }
         }
 
-        @Override
-        public void rename(final String name) {
-            //Log.d("ffff", fileList.get(position).getFileName());
-            //fileList.get(position).setFileName(name);
-            //notifyItemChanged(labelList.size() + position);
-            fileService.renameFile(userId.userId, file.getInspaceUserFileId(), userId.token, name)
+        public void delete() {
+            final File f = file;
+            fileService.deleteFile(userId.userId, "" + f.getInspaceUserFileId(), userId.token)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<String>() {
                         @Override
                         public void onCompleted() {
-                            file.setFileName(name);
-                            int index = fileList.indexOf(file);
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            BaseRequest.ErrorResponse(context, e);
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                            int index = fileList.indexOf(f);
+                            fileList.remove(index);
+                            selectedList.remove(index);
+                            notifyItemRemoved(labelList.size() + index);
+                        }
+                    });
+
+        }
+
+        public void download() {
+            if (ossService == null)
+                ossService = BaseRequest.retrofit.create(OSSService.class);
+            File f = file;
+            ossService.getFilePathViaId(f.getFileId())
+                    .flatMap(new Func1<OSSFile, Observable<OSSCredential>>() {
+                        @Override
+                        public Observable<OSSCredential> call(OSSFile ossFile) {
+                            Log.d("download", BaseRequest.gson.toJson(ossFile));
+                            FileViewHolder.this.ossFile = ossFile;
+                            return ossService.getOSSCredential(userId.userId, userId.token);
+                        }
+                    })
+                    .map(new Func1<OSSCredential, String>() {
+                        @Override
+                        public String call(OSSCredential ossCredential) {
+                            Log.d("download", BaseRequest.gson.toJson(ossCredential));
+                            OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(ossCredential.AccessKeyId, ossCredential.AccessKeySecret, ossCredential.SecurityToken);
+                            OSS oss = new OSSClient(context, ossFile.ossEndPoint, credentialProvider);
+                            GetObjectRequest get = new GetObjectRequest(ossFile.ossBucketName, ossFile.ossFileName);
+                            String result = "success";
+                            try {
+                                GetObjectResult getResult = oss.getObject(get);
+                                java.io.File directory = new java.io.File(Environment.getExternalStorageDirectory() + Download.FILE_PATH);
+                                directory.mkdir();
+                                java.io.File file = new java.io.File(directory, ossFile.ossFileName);
+                                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                                InputStream inputStream = getResult.getObjectContent();
+                                byte[] buffer = new byte[1024];
+                                int len = 0;
+                                while ((len = inputStream.read(buffer)) != -1) {
+                                    Log.d("download", "" + len);
+                                    fileOutputStream.write(buffer, 0, len);
+                                }
+                                fileOutputStream.close();
+                                Log.d("download", getResult.getMetadata().getContentType());
+                            } catch (ClientException e) {
+                                Log.d("download", e.getMessage());
+                                result = e.getMessage();
+                            } catch (ServiceException e) {
+                                Log.d("download", e.getMessage());
+                                result = e.getMessage();
+                            } catch (FileNotFoundException e) {
+                                Log.d("download", e.getMessage());
+                                result = e.getMessage();
+                            } catch (IOException e) {
+                                Log.d("download", e.getMessage());
+                                result = e.getMessage();
+                            }
+                            return result;
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.d("download", e.getMessage());
+                        }
+
+                        @Override
+                        public void onNext(String s) {
+                            if (s.equals("success"))
+                                Toast.makeText(context, context.getString(R.string.yinpan_finish_download), Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(context, context.getString(R.string.yinpan_error_download), Toast.LENGTH_SHORT).show();
+                            Log.d("download", "success");
+                        }
+                    });
+        }
+
+        @Override
+        public void rename(final String name) {
+            final File f = file;
+            fileService.renameFile(userId.userId, f.getInspaceUserFileId(), userId.token, name)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<String>() {
+                        @Override
+                        public void onCompleted() {
+                            f.setFileName(name);
+                            int index = fileList.indexOf(f);
                             notifyItemChanged(labelList.size() + index);
                         }
 
@@ -322,9 +348,9 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void setYinPanListener(YinPanListener yinPanListener) {
+    /*public void setYinPanListener(YinPanListener yinPanListener) {
         this.yinPanListener = yinPanListener;
-    }
+    }*/
 
     public void setLabelList(List<Label> list) {
         labelList.addAll(list);
@@ -332,9 +358,9 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public void setFileList(List<File> list) {
-        selectedCount = 0;
-        if (yinPanListener != null)
-            yinPanListener.showWidget(selectedCount);
+        //selectedCount = 0;
+        //if (yinPanListener != null)
+         //   yinPanListener.showWidget(selectedCount);
         fileList.clear();
         fileList.addAll(list);
         selectedList.clear();
@@ -343,6 +369,12 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         selectedList.addAll(lb);
         notifyDataSetChanged();
 
+    }
+
+    public void addFile(File file) {
+        fileList.add(file);
+        selectedList.add(Boolean.FALSE);
+        notifyItemInserted(labelList.size() + fileList.size() - 1);
     }
 
     public void hideLastViewPager() {
@@ -364,4 +396,12 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
         return list;
     }
+
+    public void removeFile(File file) {
+        int index = fileList.indexOf(file);
+        fileList.remove(index);
+        selectedList.remove(index);
+        notifyDataSetChanged();
+    }
+
 }

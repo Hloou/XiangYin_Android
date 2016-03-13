@@ -59,6 +59,10 @@
     <dimen name="yinpan_popup_window_height">180dp</dimen>
     <dimen name="yinpan_rename_dialog_et_margin">5dp</dimen>
     <dimen name="yinpan_popup_window_logo_length">30dp</dimen>
+    <dimen name="yinpan_dialog_icon_length">50dp</dimen>
+
+    <!-- yinpan trash dimen -->
+    <dimen name="yinpan_trash_widget_icon_length">30dp</dimen>
 
     <!-- new address page -->
     <dimen name="addr_layout_margin">2sp</dimen>

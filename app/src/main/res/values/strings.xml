@@ -132,9 +132,12 @@
     <string name="yinpan_error_download">下载失败</string>
     <string name="yinpan_finish_upload">上传成功</string>
     <string name="yinpan_error_upload">上传失败</string>
+    <string name="yinpan_cancel_upload">取消上传</string>
 
     <!-- yinpan trash -->
     <string name="trash_all_selected">全选</string>
+    <string name="trash_restore">还原文件</string>
+    <string name="trash_fully_delete">彻底刪除</string>
 
     <!-- user info -->
     <string name="user_info_toolbar">个人资料</string>

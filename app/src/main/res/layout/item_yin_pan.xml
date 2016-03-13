@@ -106,6 +106,7 @@
                 android:text="@string/yinpan_rename"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_delete"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
