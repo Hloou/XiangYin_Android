@@ -14,6 +14,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -38,4 +39,13 @@ public interface ManagementService {
 
     @GET("universities")
     Observable<List<University>> getUniversitys();
+
+    @POST("users/sms-codes")
+    Observable<String> getSmsCode(@Query("telephone")String telephone, @Query("usage")String usage);
+
+    @PUT("user-telephones/{telephone}/password")
+    Observable<String> resetPWD(@Path("telephone")String telephone, @Query("smsCode")String smsCode, @Query("newPassword")String newPassword);
+
+    @POST("users")
+    Observable<UserInfo> signup(@Query("telephone")String telephone, @Query("password")String password, @Query("smsCode")String code);
 }

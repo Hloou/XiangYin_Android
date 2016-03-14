@@ -30,12 +30,19 @@
     <string name="signup_user_agreement">《用户协议》</string>
     <string name="signup_user">已拥有账户</string>
     <string name="signup_signup">马上注册</string>
+    <string name="signup_sended">信息已发送</string>
+    <string name="signup_signup_success">注册成功</string>
+    <string name="signup_password_not_same">密码不一致</string>
+    <string name="signup_agree">请接受《用户协议》</string>
 
     <!-- password page -->
     <string name="password_forget">忘记密码</string>
     <string name="password_new">新密码:</string>
     <string name="password_confirm">确认新密码:</string>
     <string name="password_modified">马上找回</string>
+    <string name="password_sended">信息已发送</string>
+    <string name="password_password_not_same">密码不一致</string>
+    <string name="password_success">修改密码成功</string>
 
     <!-- tab widget text -->
     <string name="tab_index">首页</string>

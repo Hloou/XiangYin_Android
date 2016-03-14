@@ -36,6 +36,7 @@ import net.xy360.commonutils.models.UserLogin;
 import net.xy360.commonutils.userdata.UserData;
 import net.xy360.contants.wechat;
 import net.xy360.fragments.LoadingFragment;
+import net.xy360.utils.Sha256Calculater;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -75,15 +76,6 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        /*if(UserData.getUserId(this) != null) {
-            Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }*/
-    }
 
     public void initView() {
         et_phone = (EditText)findViewById(R.id.et_phone);
@@ -130,16 +122,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
         String phone = et_phone.getText().toString();
         String password = et_password.getText().toString();
-        String passwordsha = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.reset();
-            byte[] hash = md.digest(password.getBytes());
-            passwordsha = String.format("%064x", new BigInteger(1, hash));
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        String passwordsha = Sha256Calculater.calSha(password);
 
         UserLogin userLogin = new UserLogin(phone, passwordsha);
         Subscription s = managementService.login(userLogin.toMap())
@@ -186,7 +169,6 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         super.onNewIntent(intent);
 
         setIntent(intent);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         api.handleIntent(intent, this);
     }
 
@@ -211,7 +193,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                 String token = sendResp.token;
                 Log.d("Tag", "token\t" + token);
 
-                managementService.loginWeChat(token)
+                /*managementService.loginWeChat(token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .map(new Func1<UserId, UserId>() {
@@ -239,7 +221,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                             }
-                        });
+                        });*/
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
                 result = R.string.errcode_cancel;
