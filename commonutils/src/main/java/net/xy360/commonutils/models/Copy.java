@@ -24,6 +24,7 @@ public class Copy extends RealmObject{
     private int paperBindingId;
     private boolean isForSale;
     private boolean isValid;
+    private String thumbnail;
 
     public String getCopyId() {
         return copyId;
@@ -152,4 +153,15 @@ public class Copy extends RealmObject{
     public void setIsValid(boolean isValid) {
         this.isValid = isValid;
     }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+
+
 }

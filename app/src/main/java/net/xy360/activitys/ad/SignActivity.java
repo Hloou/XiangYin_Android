@@ -1,6 +1,7 @@
 package net.xy360.activitys.ad;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -14,14 +15,30 @@ import android.widget.TextView;
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
 import net.xy360.activitys.NavigationActivity;
+import net.xy360.commonutils.internetrequest.BaseRequest;
+import net.xy360.commonutils.internetrequest.interfaces.AdvertisementService;
+import net.xy360.commonutils.models.SignInInfo;
+import net.xy360.commonutils.models.UserId;
+import net.xy360.commonutils.userdata.UserData;
+import net.xy360.utils.DpPxChange;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2016/3/6.
  */
 public class SignActivity extends BaseActivity implements View.OnClickListener {
 
-    private TextView sign_tv_integral;
-    private ImageView sign_img_close,btn_callback;
+    private ImageView sign_img_close;
+    private List<TextView> textViewList;
+    private TextView tv_count, tv_income;
+    private AdvertisementService advertisementService = null;
+    private UserId userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,36 +46,34 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_sign);
         initView();
         initListener();
+
+        userId = UserData.load(this, UserId.class);
+
+        if (advertisementService == null)
+            advertisementService = BaseRequest.retrofit.create(AdvertisementService.class);
+
+        requestData();
     }
 
     @Override
     public void initView() {
-        sign_tv_integral = (TextView) findViewById(R.id.sign_tv_integral);
         sign_img_close = (ImageView)findViewById(R.id.sign_img_close);
-        btn_callback = (ImageView)findViewById(R.id.btn_callback);
+        textViewList = new ArrayList<>();
+        textViewList.add((TextView)findViewById(R.id.tv_count1));
+        textViewList.add((TextView) findViewById(R.id.tv_count2));
+        textViewList.add((TextView) findViewById(R.id.tv_count3));
+        textViewList.add((TextView) findViewById(R.id.tv_count4));
+        textViewList.add((TextView) findViewById(R.id.tv_count5));
+        tv_count = (TextView)findViewById(R.id.tv_count);
+        tv_income = (TextView)findViewById(R.id.tv_income);
 
         //导航条背景
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.red_press));
-        //设置导航条返回按钮
-        btn_callback.setImageResource(R.mipmap.callback_white);
 
-        //设置页面头布局
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //透明状态栏
-            SignActivity.this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //定义一个LayoutParams
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            int MarginTopDp = DpPxChange.dip2px(SignActivity.this, 20);
-            layoutParams.setMargins(0, MarginTopDp, 0, 0);
-            toolbar.setPadding(0, MarginTopDp, 0, 0);
-
-        }
     }
 
     private void initListener() {
-        sign_tv_integral.setOnClickListener(this);
         sign_img_close.setOnClickListener(this);
-        btn_callback.setOnClickListener(this);
     }
 
     @Override
@@ -66,19 +81,41 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
 
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.sign_tv_integral:
-                intent.setClass(SignActivity.this, PrintMoneyActivity.class);
-                startActivity(intent);
-                break;
             case R.id.sign_img_close:
                 intent.setClass(SignActivity.this, NavigationActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                break;
-            case R.id.btn_callback:
-                finish();
                 break;
         }
 
+    }
+
+    private void requestData() {
+        advertisementService.signIn(userId.userId, userId.token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<SignInInfo>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        BaseRequest.ErrorResponse(SignActivity.this, e);
+                    }
+
+                    @Override
+                    public void onNext(SignInInfo signInInfo) {
+                        tv_count.setText("" + signInInfo.consecutiveSignInDays);
+                        tv_income.setText(String.format("%.2f", signInInfo.temporaryBalanceInCent / 100.0));
+                        for (int i = 0; i < signInInfo.consecutiveSignInDays; i++) {
+                            TextView t =textViewList.get(i);
+                            t.setBackgroundResource(R.drawable.btn_yellow_circular);
+                            t.setTextColor(0xff000000);
+                        }
+                    }
+                });
     }
 
 

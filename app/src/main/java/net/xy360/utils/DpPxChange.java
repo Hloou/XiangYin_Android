@@ -1,4 +1,4 @@
-package net.xy360.activitys.ad;
+package net.xy360.utils;
 
 import android.content.Context;
 

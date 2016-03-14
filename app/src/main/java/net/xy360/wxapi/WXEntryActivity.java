@@ -35,12 +35,14 @@ import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserLogin;
 import net.xy360.commonutils.userdata.UserData;
 import net.xy360.contants.wechat;
+import net.xy360.fragments.LoadingFragment;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -124,6 +126,8 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
 
     public void login() {
 
+        final LoadingFragment loadingFragment = LoadingFragment.showLoading(getSupportFragmentManager());
+
         String phone = et_phone.getText().toString();
         String password = et_password.getText().toString();
         String passwordsha = null;
@@ -138,8 +142,7 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         }
 
         UserLogin userLogin = new UserLogin(phone, passwordsha);
-
-        managementService.login(userLogin.toMap())
+        Subscription s = managementService.login(userLogin.toMap())
                 .map(new Func1<UserId, UserId>() {
                     @Override
                     public UserId call(UserId userId) {
@@ -154,23 +157,25 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onCompleted() {
                         //Log.d("sha256", "done");
+                        loadingFragment.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         //Log.d("sha256 error", e.getMessage());
                         BaseRequest.ErrorResponse(WXEntryActivity.this, e);
-
+                        loadingFragment.dismiss();
                     }
 
                     @Override
                     public void onNext(UserId userId) {
                         //Log.d("ffff", "yeah");
-                        Intent intent = new Intent(WXEntryActivity.this, NavigationActivity.class);
+                        Intent intent = new Intent(WXEntryActivity.this, WelcomeSignActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 });
+        loadingFragment.setSubscription(s);
     }
 
     /**

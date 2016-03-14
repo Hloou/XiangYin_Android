@@ -2,6 +2,7 @@ package net.xy360.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.xy360.R;
 import net.xy360.activitys.print.PrintOrderActivity;
@@ -45,6 +48,7 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView iv_thumbnail;
         private TextView tv_book, tv_price, tv_retrailer;
         private TextView tv_author, tv_page;
         private ViewPager vp;
@@ -53,6 +57,7 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            iv_thumbnail = (ImageView)itemView.findViewById(R.id.iv_thumbnail);
             tv_book = (TextView)itemView.findViewById(R.id.tv_book);
             tv_price = (TextView)itemView.findViewById(R.id.tv_price);
             tv_retrailer = (TextView)itemView.findViewById(R.id.tv_retailer);
@@ -123,6 +128,7 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
         holder.tv_price.setText(String.format("%.2f", mDatas.get(position).getPriceInCent() / 100.0));
         holder.tv_page.setText("" + mDatas.get(position).getPageNumber());
         holder.position = position;
+        ImageLoader.getInstance().displayImage(mDatas.get(position).getThumbnail(), holder.iv_thumbnail);
     }
 
     @Override

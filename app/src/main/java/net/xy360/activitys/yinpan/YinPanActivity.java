@@ -125,6 +125,7 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                //Log.d("handler", "1");
                 showWidget(yinPanAdapter.getSelectedFile().size());
                 mHandler.postDelayed(this, 200);
             }
@@ -400,5 +401,11 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
                         }
                     });
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 }

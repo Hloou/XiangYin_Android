@@ -57,7 +57,9 @@
         <activity
             android:name=".activitys.yinpan.TrashActivity"
             android:label="@string/trash" />
-        <activity android:name=".activitys.user.MyAddressActivity" />
+        <activity
+            android:name=".activitys.user.MyAddressActivity"
+            android:label="@string/newaddr_toolbar" />
         <activity android:name=".activitys.user.UserInfoActivity" />
         <activity
             android:name=".activitys.print.SelectedRetailerActivity"
@@ -74,7 +76,9 @@
         <activity
             android:name=".activitys.print.PrintOrderActivity"
             android:label="@string/print_order" />
-        <activity android:name=".activitys.print.AllOrderActivity"></activity>
+        <activity android:name=".activitys.print.AllOrderActivity" />
+        <activity android:name=".activitys.user.MyAddressListActivity"
+            android:label="@string/address_list_toolbar"/>
     </application>
 
 </manifest>

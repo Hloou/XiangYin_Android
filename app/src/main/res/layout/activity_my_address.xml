@@ -1,127 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".activitys.user.MyAddressActivity"
-android:orientation="vertical">
-
-<include layout="@layout/toolbar" />
-
-<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/setting_padding"
-    android:layout_margin="@dimen/setting_padding">
+    tools:context=".activitys.user.MyAddressActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_margin="@dimen/addr_layout_margin"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:paddingTop="@dimen/address_text_padding"
-        android:paddingBottom="@dimen/address_text_padding">
-
-        <TextView
-            android:layout_width="@dimen/password_text_width"
-            android:layout_height="@dimen/login_small_logo_length"
-            android:padding="@dimen/signup_textview_padding"
-            android:gravity="center"
-            android:text="@string/newaddr_name" />
-        <EditText
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/setting_padding">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"/>
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="@dimen/address_text_padding"
+            android:paddingBottom="@dimen/address_text_padding">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_name" />
+            <EditText
+                android:id="@+id/et_receiver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        android:layout_marginLeft="@dimen/addr_view"
-        android:layout_marginRight="@dimen/addr_view"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_margin="@dimen/addr_layout_margin"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/address_text_padding"
-        android:paddingBottom="@dimen/address_text_padding">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginLeft="@dimen/addr_view"
+            android:layout_marginRight="@dimen/addr_view"/>
 
-        <TextView
-            android:layout_width="@dimen/password_text_width"
-            android:layout_height="@dimen/login_small_logo_length"
-            android:padding="@dimen/signup_textview_padding"
-            android:gravity="center"
-            android:text="@string/newaddr_tel" />
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"/>
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/addr_layout_margin"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/address_text_padding"
+            android:paddingBottom="@dimen/address_text_padding">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_tel" />
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="phone"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        android:layout_marginLeft="@dimen/addr_view"
-        android:layout_marginRight="@dimen/addr_view"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="5dp"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginLeft="@dimen/addr_view"
+            android:layout_marginRight="@dimen/addr_view"/>
 
-        <TextView
-            android:layout_width="@dimen/password_text_width"
-            android:layout_height="@dimen/login_small_logo_length"
-            android:padding="@dimen/signup_textview_padding"
-            android:gravity="center"
-            android:text="@string/newaddr_address" />
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="@dimen/password_text_width"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/signup_textview_padding"
+                android:gravity="center"
+                android:text="@string/newaddr_address" />
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginLeft="@dimen/addr_view"
+            android:layout_marginRight="@dimen/addr_view"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_adderess_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加地址"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_sky_blue_round"/>
+
+
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        android:layout_marginLeft="@dimen/addr_view"
-        android:layout_marginRight="@dimen/addr_view"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_adderess_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="添加地址"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_sky_blue_round"/>
-
-
-
-</LinearLayout>
 
 </LinearLayout>

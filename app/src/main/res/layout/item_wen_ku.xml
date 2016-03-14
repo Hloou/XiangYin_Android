@@ -8,6 +8,7 @@
     android:layout_marginBottom="@dimen/wenku_list_topbottom_padding">
 
     <ImageView
+        android:id="@+id/iv_thumbnail"
         android:layout_width="@dimen/wenku_list_height"
         android:layout_height="@dimen/wenku_list_height" />
 

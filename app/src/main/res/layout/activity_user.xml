@@ -15,7 +15,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <net.xy360.activitys.ad.RoundImageView
+        <net.xy360.views.RoundImageView
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_gravity="center"

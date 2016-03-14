@@ -50,6 +50,7 @@
     <string name="feedback_title_hint">4-25个字</string>
     <string name="feedback_content_hint">请输入您对产品的意见，我们将不断优化体验</string>
     <string name="feedback_commit">提交反馈</string>
+    <string name="feedback_submit_success">提交成功</string>
 
     <!-- password modified page -->
     <string name="pw_mdf_toolbar">修改密码</string>
@@ -75,7 +76,7 @@
     <string name="my_jifen">我的印币</string>
     <string name="my_ziliao">个人资料</string>
     <string name="my_xiaoxi">我的消息</string>
-    <string name="my_dizhi">收资地址</string>
+    <string name="my_dizhi">收货地址</string>
     <string name="my_fankui">服务与反馈</string>
     <string name="my_shezhi">设置</string>
     <string name="my_default_description">这个人很懒什么都没留下</string>
@@ -98,6 +99,10 @@
     <string name="newaddr_school">学&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;校：</string>
     <string name="newaddr_school_location">所在校区:</string>
     <string name="newaddr_save">保存地址</string>
+    <string name="newaddr_submit_success">提交成功</string>
+
+    <!-- address list -->
+    <string name="address_list_toolbar">收货地址</string>
 
     <!-- my messae page -->
     <string name="mymsg_toolbar">我的消息</string>
@@ -193,6 +198,7 @@
     <string name="welcome_sign_money">签到赚印币</string>
     <string name="welcome_sign_sign">签到</string>
     <string name="welcome_sign_action">心动不如行动</string>
+    <string name="welcome_sign_signed">已签到</string>
 
     <!-- sign -->
     <string name="sign_text_one">1</string>

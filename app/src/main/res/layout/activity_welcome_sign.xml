@@ -63,11 +63,20 @@
             android:id="@+id/welcome_tv_sign"
             android:layout_width="80dp"
             android:layout_height="@dimen/welcome_sign_sign_height"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:background="@mipmap/sign_bg"
             android:gravity="center"
             android:paddingTop="8dp"
-            android:text="@string/welcome_sign_sign" />
+            android:text="@string/welcome_sign_sign"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_signed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/welcome_sign_signed"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"

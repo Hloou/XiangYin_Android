@@ -130,4 +130,8 @@
     <dimen name="all_order_list_header_icon_height">20dp</dimen>
     <dimen name="all_order_list_footer_button_height">40dp</dimen>
     <dimen name="all_order_list_detail_padding">10dp</dimen>
+
+    <!-- address list -->
+    <dimen name="address_list_button_padding">10dp</dimen>
+    <dimen name="address_list_padding">10dp</dimen>
 </resources>

@@ -1,25 +1,18 @@
 package net.xy360.activitys;
 
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.xy360.R;
-import net.xy360.activitys.ad.DpPxChange;
 import net.xy360.activitys.ad.PrintMoneyActivity;
 import net.xy360.activitys.print.AllOrderActivity;
 import net.xy360.activitys.user.FeedbackActivity;
 import net.xy360.activitys.user.MyAddressActivity;
+import net.xy360.activitys.user.MyAddressListActivity;
 import net.xy360.activitys.user.MyMessageActivity;
 import net.xy360.activitys.user.SettingsActivity;
 import net.xy360.activitys.user.UserInfoActivity;
@@ -136,7 +129,7 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
             Intent intent = new Intent(UserActivity.this, MyMessageActivity.class);
             startActivity(intent);
         } else if (id == R.id.user_line_address) {
-            Intent intent = new Intent(UserActivity.this, MyAddressActivity.class);
+            Intent intent = new Intent(UserActivity.this, MyAddressListActivity.class);
             startActivity(intent);
         } else if (id == R.id.user_line_info) {
             Intent intent = new Intent(UserActivity.this, UserInfoActivity.class);

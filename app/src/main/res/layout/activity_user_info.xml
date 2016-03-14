@@ -36,7 +36,7 @@
                     android:layout_weight="0.3"
                     android:text="@string/user_info_head" />
 
-                <net.xy360.activitys.ad.RoundImageView
+                <net.xy360.views.RoundImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center"

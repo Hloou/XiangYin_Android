@@ -1,4 +1,4 @@
-package net.xy360.activitys.ad;
+package net.xy360.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
