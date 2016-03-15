@@ -56,6 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import rx.Observable;
@@ -329,7 +330,7 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (i == 0) {
             TabViewHolder myViewHolder = (TabViewHolder)holder;
             myViewHolder.position = position;
-            myViewHolder.tv_name.setText(labelList.get(position).description);
+            myViewHolder.tv_name.setText(labelList.get(position).labelDescription);
         } else if (i == 1) {
             position = position - labelList.size();
             FileViewHolder myViewHolder = (FileViewHolder)holder;
@@ -401,6 +402,38 @@ public class YinPanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         int index = fileList.indexOf(file);
         fileList.remove(index);
         selectedList.remove(index);
+        notifyDataSetChanged();
+    }
+
+    public void notSelectedAll() {
+        selectedList.clear();
+        List<Boolean> lb = Arrays.asList(new Boolean[fileList.size()]);
+        Collections.fill(lb, Boolean.FALSE);
+        selectedList.addAll(lb);
+        notifyDataSetChanged();
+    }
+
+    private int sortNameOrder = 1;
+    public void sortByName() {
+        sortNameOrder = -sortNameOrder;
+        Collections.sort(fileList, new Comparator<File>() {
+            @Override
+            public int compare(File lhs, File rhs) {
+                return sortNameOrder * lhs.getFileName().compareTo(rhs.getFileName());
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    private int sortDateOrder = 1;
+    public void sortByDate() {
+        sortDateOrder = -sortDateOrder;
+        Collections.sort(fileList, new Comparator<File>() {
+            @Override
+            public int compare(File lhs, File rhs) {
+                return sortDateOrder * lhs.getOwnedTime().compareTo(rhs.getOwnedTime());
+            }
+        });
         notifyDataSetChanged();
     }
 

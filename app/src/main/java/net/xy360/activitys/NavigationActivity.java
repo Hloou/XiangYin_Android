@@ -3,6 +3,7 @@ package net.xy360.activitys;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 
@@ -50,4 +51,5 @@ public class NavigationActivity extends TabActivity {
     public void initView() {
 
     }
+
 }

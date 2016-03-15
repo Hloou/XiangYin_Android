@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import net.xy360.R;
 import net.xy360.activitys.print.PrintOrderActivity;
+import net.xy360.commonutils.imageloader.MyImageLoader;
 import net.xy360.commonutils.internetrequest.BaseRequest;
 import net.xy360.commonutils.models.Cart;
 import net.xy360.commonutils.models.Copy;
@@ -128,7 +129,7 @@ public class WenKuAdapter extends RecyclerView.Adapter<WenKuAdapter.MyViewHolder
         holder.tv_price.setText(String.format("%.2f", mDatas.get(position).getPriceInCent() / 100.0));
         holder.tv_page.setText("" + mDatas.get(position).getPageNumber());
         holder.position = position;
-        ImageLoader.getInstance().displayImage(mDatas.get(position).getThumbnail(), holder.iv_thumbnail);
+        ImageLoader.getInstance().displayImage(mDatas.get(position).getThumbnail(), holder.iv_thumbnail, MyImageLoader.options);
     }
 
     @Override

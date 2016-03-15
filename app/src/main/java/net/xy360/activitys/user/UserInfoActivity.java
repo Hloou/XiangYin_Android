@@ -20,6 +20,7 @@ import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserInfo;
 import net.xy360.commonutils.userdata.UserData;
+import net.xy360.fragments.GenderFragment;
 import net.xy360.fragments.LoadingFragment;
 
 import org.json.JSONException;
@@ -34,12 +35,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class UserInfoActivity extends BaseActivity implements View.OnClickListener{
+public class UserInfoActivity extends BaseActivity implements View.OnClickListener, GenderFragment.GenderListener{
 
     private EditText et_nickname, et_name, et_sch, et_time, et_addr, et_sign;
     private TextView tv_mdftel, user_info_mdftel, tv_phone, tv_gender;
     private ManagementService managementService = null;
     private UserId userId = null;
+    private int gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         et_name.setText(userInfo.realName);
         et_sch.setText(userInfo.universityName);
         et_addr.setText(userInfo.dormitory);
+        findViewById(R.id.ll_gender).setOnClickListener(this);
+        gender = userInfo.gender;
         if (userInfo.gender == 1)
             tv_gender.setText(getString(R.string.user_info_male));
         else
@@ -122,12 +126,11 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 json.put("universityName", et_sch.getText().toString());
                 json.put("dormitory", et_addr.getText().toString());
                 json.put("description", et_sign.getText().toString());
+                json.put("gender", gender);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            Log.d("fff", json.toString());
 
             final LoadingFragment loadingFragment = LoadingFragment.showLoading(getSupportFragmentManager());
             Subscription s = managementService.updateUserInfo(userId.userId, userId.token, json.toString())
@@ -173,6 +176,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             Intent intent = new Intent();
             intent.setClass(UserInfoActivity.this, ModifyTelActivity.class);
             startActivity(intent);
+        } else if (id == R.id.ll_gender) {
+            GenderFragment genderFragment = new GenderFragment();
+            genderFragment.show(getSupportFragmentManager(), "gender");
         }
     }
 
@@ -191,4 +197,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         user_info_mdftel.setOnClickListener(this);
     }
 
+    @Override
+    public void selectedGender(int i) {
+        gender = i;
+        if (gender == 1)
+            tv_gender.setText(getString(R.string.user_info_male));
+        else
+            tv_gender.setText(getString(R.string.user_info_female));
+    }
 }

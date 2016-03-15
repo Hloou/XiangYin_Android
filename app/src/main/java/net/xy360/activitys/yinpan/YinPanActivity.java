@@ -57,6 +57,8 @@ import net.xy360.fragments.YinPanUploadFragment;
 import net.xy360.interfaces.YinPanListener;
 import net.xy360.utils.RealPathFromURI;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import rx.Observable;
@@ -72,6 +74,8 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
     private RecyclerView recyclerView;
     private TextView tv_size;
     private YinPanAdapter yinPanAdapter;
+
+    private TextView tv_sort_name, tv_sort_date;
 
     private LabelService labelService = null;
     private FileService fileService = null;
@@ -95,21 +99,6 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
 
         userId = UserData.load(this, UserId.class);
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        tv_size = (TextView)findViewById(R.id.tv_size);
-        tv_size.setText("0M/0M");
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        yinPanAdapter = new YinPanAdapter(this);
-        //yinPanAdapter.setYinPanListener(this);
-        recyclerView.setAdapter(yinPanAdapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                yinPanAdapter.hideLastViewPager();
-            }
-        });
-
         initView();
 
         if (labelService == null)
@@ -119,7 +108,7 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
         if (ossService == null)
             ossService = BaseRequest.retrofit.create(OSSService.class);
 
-        requestData();
+        //requestData();
 
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
@@ -135,6 +124,24 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initView() {
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        tv_sort_date = (TextView)findViewById(R.id.tv_sort_date);
+        tv_sort_name = (TextView)findViewById(R.id.tv_sort_name);
+        tv_sort_date.setOnClickListener(this);
+        tv_sort_name.setOnClickListener(this);
+        tv_size = (TextView)findViewById(R.id.tv_size);
+        tv_size.setText("0M/0M");
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        yinPanAdapter = new YinPanAdapter(this);
+        //yinPanAdapter.setYinPanListener(this);
+        recyclerView.setAdapter(yinPanAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                yinPanAdapter.hideLastViewPager();
+            }
+        });
         //right top popup window
         View viewMore = LayoutInflater.from(this).inflate(R.layout.popup_yin_pan_more, null);
         popupMore = new PopupWindow(viewMore, getResources().getDimensionPixelSize(R.dimen.yinpan_popup_window_width),
@@ -174,6 +181,12 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
             return true;
         } else
             return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestData();
     }
 
     private void requestData() {
@@ -263,7 +276,24 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
             startActivityForResult(intent, SELECT_PHOTO);
         } else if (id == R.id.ll_delete) {
             allDelete();
+        } else if (id == R.id.tv_sort_name) {
+            clearSort();
+            tv_sort_name.setBackgroundResource(R.drawable.btn_sky_blue_rectangle_corner);
+            tv_sort_name.setTextColor(0xffffffff);
+            yinPanAdapter.sortByName();
+        } else if (id == R.id.tv_sort_date) {
+            clearSort();
+            tv_sort_date.setBackgroundResource(R.drawable.btn_sky_blue_rectangle_corner);
+            tv_sort_date.setTextColor(0xffffffff);
+            yinPanAdapter.sortByDate();
         }
+    }
+
+    private void clearSort() {
+        tv_sort_name.setBackgroundResource(R.drawable.btn_white_rectangle_corner);
+        tv_sort_date.setBackgroundResource(R.drawable.btn_white_rectangle_corner);
+        tv_sort_name.setTextColor(0xff000000);
+        tv_sort_date.setTextColor(0xff000000);
     }
 
     public void goSelectedRetailer() {
@@ -407,5 +437,13 @@ public class YinPanActivity extends BaseActivity implements View.OnClickListener
     protected void onDestroy() {
         mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mWidget.getVisibility() == View.VISIBLE)
+            yinPanAdapter.notSelectedAll();
+        else
+            super.onBackPressed();
     }
 }

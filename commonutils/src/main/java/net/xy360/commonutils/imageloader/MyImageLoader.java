@@ -26,7 +26,7 @@ public class MyImageLoader {
                     .threadPriority(Thread.NORM_PRIORITY - 2)
                     .denyCacheImageMultipleSizesInMemory()
                     .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-        //  .diskCacheSize(50 * 1024 * 1024) // 50 MiB
+                    .diskCacheSize(50 * 1024 * 1024) // 50 MiB
                     .tasksProcessingOrder(QueueProcessingType.LIFO)
                     .writeDebugLogs()
                     .build();
