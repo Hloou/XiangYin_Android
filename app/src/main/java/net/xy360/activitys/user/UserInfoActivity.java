@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.xy360.R;
 import net.xy360.activitys.BaseActivity;
@@ -19,6 +20,7 @@ import net.xy360.commonutils.internetrequest.interfaces.ManagementService;
 import net.xy360.commonutils.models.UserId;
 import net.xy360.commonutils.models.UserInfo;
 import net.xy360.commonutils.userdata.UserData;
+import net.xy360.fragments.LoadingFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,72 +29,80 @@ import java.util.HashMap;
 import java.util.Map;
 
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener{
 
-    private EditText et_nickname, et_name, et_tel, et_sch, et_time, et_addr, et_sign;
-    private TextView tv_mdftel,user_info_mdftel;
-    private String nickname, name, tel, sch, time, addr, sign;
+    private EditText et_nickname, et_name, et_sch, et_time, et_addr, et_sign;
+    private TextView tv_mdftel, user_info_mdftel, tv_phone, tv_gender;
     private ManagementService managementService = null;
+    private UserId userId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initView();
 
+        if (userId == null)
+            userId = UserData.load(this, UserId.class);
+
+        if (managementService == null)
+            managementService = BaseRequest.retrofit.create(ManagementService.class);
+
         UserInfo userInfo = UserData.load(this, UserInfo.class);
-        if (userInfo == null) {
-            final UserId userId = UserData.load(this, UserId.class);
-            if (userId == null) {
-                //do something error
-            }
-            if (managementService == null)
-                managementService = BaseRequest.retrofit.create(ManagementService.class);
-            Map<String, String> map = new HashMap<>();
-            map.put("token", userId.token);
-            managementService.getUserInfo(userId.userId, map)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map(new Func1<UserInfo, UserInfo>() {
-                        @Override
-                        public UserInfo call(UserInfo userInfo) {
-                            UserData.save(UserInfoActivity.this, userInfo);
-                            return userInfo;
-                        }
-                    })
-                    .subscribe(new Subscriber<UserInfo>() {
-                        @Override
-                        public void onCompleted() {
 
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(UserInfo userInfo) {
-                            setUI(userInfo);
-                        }
-                    });
-
-        } else
-            setUI(userInfo);
+        getUserInfo();
     }
 
     private void setUI(UserInfo userInfo) {
         et_nickname.setText(userInfo.nickname);
-        et_tel.setText(userInfo.telephone);
-        et_time.setText(userInfo.signupTime.toString());
-        //et_nickname, et_name, et_tel, et_sch, et_time, et_addr, et_sign
-        //tv_name.setText(userInfo.nickname);
-        //tv_description.setText(userInfo.description == null ? getString(R.string.my_default_description) : userInfo.description);
+        tv_phone.setText(userInfo.telephone);
+        et_time.setText(userInfo.entranceTime);
+        et_name.setText(userInfo.realName);
+        et_sch.setText(userInfo.universityName);
+        et_addr.setText(userInfo.dormitory);
+        if (userInfo.gender == 1)
+            tv_gender.setText(getString(R.string.user_info_male));
+        else
+            tv_gender.setText(getString(R.string.user_info_female));
+        et_sign.setText(userInfo.description);
+    }
+
+    private void getUserInfo() {
+        managementService.getUserInfo(userId.userId, userId.token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<UserInfo, UserInfo>() {
+                    @Override
+                    public UserInfo call(UserInfo userInfo) {
+                        UserData.save(UserInfoActivity.this, userInfo);
+                        return userInfo;
+                    }
+                })
+                .subscribe(new Subscriber<UserInfo>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("error", e.toString());
+                        BaseRequest.ErrorResponse(UserInfoActivity.this, e);
+                    }
+
+                    @Override
+                    public void onNext(UserInfo userInfo) {
+                        setUI(userInfo);
+                    }
+                });
+
     }
 
     @Override
@@ -105,48 +115,43 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.userinfo_save) {
-            nickname = et_nickname.getText().toString();
-            JSONObject JSON = new JSONObject();
+            JSONObject json = new JSONObject();
             try {
-                JSON.put("nickname", nickname);
+                json.put("nickname", et_nickname.getText().toString());
+                json.put("realName", et_name.getText().toString());
+                json.put("universityName", et_sch.getText().toString());
+                json.put("dormitory", et_addr.getText().toString());
+                json.put("description", et_sign.getText().toString());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            UserInfo userInfo = UserData.load(this, UserInfo.class);
-            //if (userInfo == null) {
-                final UserId userId = UserData.load(this, UserId.class);
-                if (userId == null) {
-                    //do something error
-                }
-                if (managementService == null)
-                    managementService = BaseRequest.retrofit.create(ManagementService.class);
-                Map<String, String> map = new HashMap<>();
-                map.put("modifiedFields", JSON.toString());
+            Log.d("fff", json.toString());
 
-            Log.d("TAG", String.valueOf(userId.userId));
-            Log.d("TAG", userId.token);
-            Log.d("TAG", JSON.toString());
-
-            managementService.updateUserInfo(userId.userId, userId.token, JSON.toString())
+            final LoadingFragment loadingFragment = LoadingFragment.showLoading(getSupportFragmentManager());
+            Subscription s = managementService.updateUserInfo(userId.userId, userId.token, json.toString())
+                        .map(new Func1<UserInfo, UserInfo>() {
+                                @Override
+                                public UserInfo call(UserInfo userInfo) {
+                                    UserData.save(UserInfoActivity.this, userInfo);
+                                    return userInfo;
+                                }
+                            })
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .map(new Func1<UserInfo, UserInfo>() {
-                            @Override
-                            public UserInfo call(UserInfo userInfo) {
-                                UserData.save(UserInfoActivity.this, userInfo);
-                                return userInfo;
-                            }
-                        })
                         .subscribe(new Subscriber<UserInfo>() {
                             @Override
                             public void onCompleted() {
-
+                                loadingFragment.dismiss();
+                                Toast.makeText(UserInfoActivity.this, getString(R.string.user_info_save_success), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                Log.d("ffff", e.toString());
+                                loadingFragment.dismiss();
+                                BaseRequest.ErrorResponse(UserInfoActivity.this, e);
                             }
 
                             @Override
@@ -154,9 +159,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                                 setUI(userInfo);
                             }
                         });
+            loadingFragment.setSubscription(s);
 
-            //} else
-                //setUI(userInfo);
             return true;
         } else
             return super.onOptionsItemSelected(item);
@@ -164,19 +168,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent();
         int id = v.getId();
-        if (id == R.id.user_info_mdftel) {
-            String nickname = et_nickname.getText().toString();
-            String name = et_name.getText().toString();
-            String tel = et_tel.getText().toString();
-            String sch = et_sch.getText().toString();
-            String time = et_time.getText().toString();
-            String addr = et_addr.getText().toString();
-            String sign = et_sign.getText().toString();
-
-        }
         if(id==R.id.user_info_mdftel){
+            Intent intent = new Intent();
             intent.setClass(UserInfoActivity.this, ModifyTelActivity.class);
             startActivity(intent);
         }
@@ -186,14 +180,13 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         user_info_mdftel = (TextView)findViewById(R.id.user_info_mdftel);
         et_nickname = (EditText) findViewById(R.id.user_info_nickname);
         et_name = (EditText) findViewById(R.id.user_info_name);
-        et_tel = (EditText) findViewById(R.id.user_info_tel);
+        tv_phone = (TextView) findViewById(R.id.user_info_tel);
         et_sch = (EditText) findViewById(R.id.user_info_school);
         et_time = (EditText) findViewById(R.id.user_info_time);
         et_addr = (EditText) findViewById(R.id.user_info_myaddr);
         et_sign = (EditText) findViewById(R.id.user_info_sign);
-
+        tv_gender = (TextView) findViewById(R.id.tv_gender);
         tv_mdftel = (TextView) findViewById(R.id.user_info_mdftel);
-
 
         user_info_mdftel.setOnClickListener(this);
     }

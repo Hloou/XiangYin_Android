@@ -3,7 +3,6 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/userinfo_save"
-        android:title=""
-        app:showAsAction="always"
-        android:icon="@mipmap/more_three_dot"/>
+        android:title="@string/user_info_save"
+        app:showAsAction="always"/>
 </menu>

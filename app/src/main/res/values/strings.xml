@@ -6,6 +6,7 @@
     <string name="trash">废纸篓</string>
     <string name="select_retailer">选择商家</string>
     <string name="print_order">服务订单</string>
+    <string name="user_info">个人资料</string>
 
     <!-- welcome_page-->
     <string name="welcome_sign">欢迎广告页</string>
@@ -65,12 +66,15 @@
     <string name="pw_mdf_new">新密码:</string>
     <string name="pw_mdf_cfm">确认密码:</string>
     <string name="pw_mdf_cfm_mdf">确认修改</string>
+    <string name="pw_mdf_password_not_same">密码不一致</string>
+    <string name="pw_mdf_success">修改密码成功</string>
 
     <!-- tel modified page -->
     <string name="mdf_tel_toolbar">更换手机号</string>
     <string name="mdf_tel_old">原手机号：</string>
     <string name="mdf_tel_new">新手机号：</string>
     <string name="mdf_tel_cfm">确认更换</string>
+    <string name="mdf_tel_success">修改成功</string>
 
     <!-- wechat login -->
     <string name="errcode_success">发送成功</string>
@@ -164,6 +168,10 @@
     <string name="user_info_sign">个性签名：</string>
     <string name="user_info_mdftel">更换手机号</string>
     <string name="user_info_sign_edit">这个人很懒什么都没留下</string>
+    <string name="user_info_save">保存</string>
+    <string name="user_info_male">男</string>
+    <string name="user_info_female">女</string>
+    <string name="user_info_save_success">保存成功</string>
 
     <!-- print order -->
     <string name="print_order_real_pay">实付款:</string>

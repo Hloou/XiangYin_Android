@@ -50,9 +50,8 @@ public class UserActivity extends BaseActivity implements View.OnClickListener {
             }
             if (managementService == null)
                 managementService = BaseRequest.retrofit.create(ManagementService.class);
-            Map<String, String> map = new HashMap<>();
-            map.put("token", userId.token);
-            managementService.getUserInfo(userId.userId, map)
+
+            managementService.getUserInfo(userId.userId, userId.token)
                     .map(new Func1<UserInfo, UserInfo>() {
                         @Override
                         public UserInfo call(UserInfo userInfo) {

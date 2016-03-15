@@ -108,7 +108,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onNext(SignInInfo signInInfo) {
                         tv_count.setText("" + signInInfo.consecutiveSignInDays);
-                        tv_income.setText(String.format("%.2f", signInInfo.temporaryBalanceInCent / 100.0));
+                        tv_income.setText(String.format("%.2f", signInInfo.temporaryIncomeInCent / 100.0));
                         for (int i = 0; i < signInInfo.consecutiveSignInDays; i++) {
                             TextView t =textViewList.get(i);
                             t.setBackgroundResource(R.drawable.btn_yellow_circular);

@@ -32,9 +32,9 @@ public interface ManagementService {
     Observable<UserId> loginWeChat(@Query("code") String code);
 
     @GET("users/{id}/private")
-    Observable<UserInfo> getUserInfo(@Path("id") String id, @QueryMap Map<String, String> map);
+    Observable<UserInfo> getUserInfo(@Path("id") String id, @Query("token") String token);
 
-    @POST("users/{id}")
+    @PUT("users/{id}")
     Observable<UserInfo> updateUserInfo(@Path("id") String id, @Query("token") String token, @Query("modifiedFields") String json);
 
     @GET("universities")
@@ -48,4 +48,12 @@ public interface ManagementService {
 
     @POST("users")
     Observable<UserInfo> signup(@Query("telephone")String telephone, @Query("password")String password, @Query("smsCode")String code);
+
+    @PUT("users/{userid}/password")
+    Observable<String> resetPWDviaPWD(@Path("userid")String userid, @Query("token")String token,
+                                      @Query("oldPassword")String oldPassword, @Query("newPassword")String newPassword);
+
+    @PUT("users/{userid}/telephone")
+    Observable<UserInfo> resetPhoneviaSMS(@Path("userid")String userid, @Query("token")String token,
+                                          @Query("smsCode")String smsCode, @Query("newTelephone")String newTelephone);
 }

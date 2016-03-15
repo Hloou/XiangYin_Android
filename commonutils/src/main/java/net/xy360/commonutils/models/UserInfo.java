@@ -15,18 +15,21 @@ public class UserInfo {
     public String nickname;
     public int gender;
     public String description;
+    public String dormitory;
     public String birthday;
     public String hometown;
     public String email;
     public Date signupTime;
     public Date lastLoginTime;
-    public Date realName;
+    public String realName;
     public String idNumber;
     public String IdPicture;
     public int universityId;
+    public String universityName;
     public int schoolId;
+    public String schoolName;
     public String major;
-    public Date entranceTime;
+    public String entranceTime;
     public String studentIdNumber;
     public String StudentIdPicture;
 }

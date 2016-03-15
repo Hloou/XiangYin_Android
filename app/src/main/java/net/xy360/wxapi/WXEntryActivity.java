@@ -106,7 +106,6 @@ public class WXEntryActivity extends BaseActivity implements View.OnClickListene
         }
         if (id == R.id.login_forget) {
             Intent intent = new Intent(WXEntryActivity.this, ForgetPasswordActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         if (id == R.id.login_register) {
